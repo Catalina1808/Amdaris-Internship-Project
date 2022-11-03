@@ -9,6 +9,7 @@ namespace TestGit
     internal class NewFile
     {
         public string Name { get; set; }
+        public string Forename { get; set; }
         public int Id { get; set; }
     }
 }

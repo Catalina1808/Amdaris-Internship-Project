@@ -26,6 +26,16 @@ namespace BookLoversProject
             GenreList = genreList;
         }
 
+        public Book(int id, string title, string description)
+        {
+            Id = id;
+            Title = title;
+            Description = description;
+            AuthorList = new List<Author>();
+            ReviewList = new List<Review>();
+            GenreList = new List<Genre>();
+        }
+
         public void AddReview(Review review)
         {
             ReviewList.Add(review);

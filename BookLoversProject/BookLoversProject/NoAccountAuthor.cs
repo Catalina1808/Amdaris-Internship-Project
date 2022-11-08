@@ -18,5 +18,22 @@ namespace BookLoversProject
             Name = name;
             Followers = followers;
         }
+
+        public NoAccountAuthor(int id, string name)
+        {
+            Id = id;
+            Name = name;
+            Followers = new List<User>();
+        }
+
+        public void AddFollower(User user)
+        {
+            Followers.Add(user);
+        }
+
+        public void DeleteFollower(User user)
+        {
+            Followers.Remove(user);
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace BookLoversProject
         }
 
         //overloading
-        public void AddBook(int id, string title, string description, List<Author> authorList, List<Genre> genreList)
+        public void AddBook(int id, string title, string description, List<IAuthor> authorList, List<Genre> genreList)
         {
             Book book = new Book(id, title, description, authorList, genreList);
             Books.Add(book);

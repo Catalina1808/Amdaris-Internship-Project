@@ -13,14 +13,14 @@ namespace BookLoversProject
             NoAccountAuthor noAccountAuthor = new NoAccountAuthor(1, "noAccount1", new List<User>());
             AccountAuthor accountAuthor = new AccountAuthor(1, "emailAuthor1", "password1", "account1", new List<User>());
             AccountAuthor accountAuthor2 = new AccountAuthor(2, "emailAuthor2", "password2", "account2", new List<User>());
-            List<Author> authors = new List<Author>();
+            List<IAuthor> authors = new List<IAuthor>();
             authors.Add(noAccountAuthor);
             authors.Add(accountAuthor);
             authors.Add(accountAuthor2);
 
             //one IEnumerable example
-            IEnumerable<Author> enumAuthors = from author in authors where (author.GetType() == typeof(AccountAuthor)) select author;
-            foreach (Author author in enumAuthors)
+            IEnumerable<IAuthor> enumAuthors = from author in authors where (author.GetType() == typeof(AccountAuthor)) select author;
+            foreach (IAuthor author in enumAuthors)
             {
                 Console.WriteLine(author.Name);
             }

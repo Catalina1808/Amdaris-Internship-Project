@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookLoversProject
 {
-    internal class NoAccountAuthor : Author
+    internal class NoAccountAuthor : IAuthor
     {
         public int Id { get; set; }
         public string Name { get; set; }

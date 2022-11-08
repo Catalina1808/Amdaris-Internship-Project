@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookLoversProject
 {
-    internal interface Author
+    internal interface IAuthor
     {
         string Name { get; set; }
         List<User> Followers { get; set; }

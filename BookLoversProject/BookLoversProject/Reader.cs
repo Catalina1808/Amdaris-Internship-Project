@@ -10,6 +10,7 @@ namespace BookLoversProject
     {
         private string firstName;
         private string lastName;
+
         public string Name { 
             get {
                 return firstName + " " + lastName;
@@ -24,7 +25,9 @@ namespace BookLoversProject
             }
         }
         public string ImagePath { get; set; }
+
         public List<Shelf> BookShelves { get;}
+
         public List<Reader> Friends { get; set; }
 
         public Reader(int id, string email, string password, string firstName, string lastName, string imagePath)

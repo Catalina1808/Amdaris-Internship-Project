@@ -12,11 +12,11 @@ namespace BookLoversProject
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public List<Author> AuthorList { get; set; }
+        public List<IAuthor> AuthorList { get; set; }
         public List<Review> ReviewList { get; }
         public List<Genre> GenreList { get; set; }
 
-        public Book(int id, string title, string description, List<Author> authorList, List<Genre> genreList)
+        public Book(int id, string title, string description, List<IAuthor> authorList, List<Genre> genreList)
         {
             Id = id;
             Title = title;
@@ -31,7 +31,7 @@ namespace BookLoversProject
             Id = id;
             Title = title;
             Description = description;
-            AuthorList = new List<Author>();
+            AuthorList = new List<IAuthor>();
             ReviewList = new List<Review>();
             GenreList = new List<Genre>();
         }

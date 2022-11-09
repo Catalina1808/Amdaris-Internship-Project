@@ -35,6 +35,9 @@ namespace BookLoversProject
             book3.Title = "title3";
             book4.Title = "title4";
 
+
+#if DEBUG
+
             try
             {
                 book1.AddReview(null);
@@ -47,6 +50,8 @@ namespace BookLoversProject
             {
                 Console.WriteLine("Exception occured!");
             }
+
+#endif
 
 
             Console.WriteLine();

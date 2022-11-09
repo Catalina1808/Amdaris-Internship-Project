@@ -23,6 +23,10 @@ namespace BookLoversProject
 
         public void AddBook(Book book)
         {
+            if(book == null)
+            {
+                throw new BookNotFoundException("Exception occured, book not defined!");
+            }
             Books.Add(book);
         }
 
@@ -35,6 +39,10 @@ namespace BookLoversProject
 
         public void DeleteBook(Book book)
         {
+            if (book == null)
+            {
+                throw new BookNotFoundException("Exception occured, book not defined!");
+            }
             Books.Remove(book);
         }
 

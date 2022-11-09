@@ -38,11 +38,19 @@ namespace BookLoversProject
 
         public void AddReview(Review review)
         {
+            if (review == null)
+            {
+                throw new ReviewNotFoundException("Exception occured, review not defined!");
+            }
             ReviewList.Add(review);
         }
 
         public void DeleteReview(Review review)
         {
+            if (review == null)
+            {
+                throw new ReviewNotFoundException("Exception occured, review not defined!");
+            }
             ReviewList.Remove(review);
         }
 

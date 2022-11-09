@@ -35,17 +35,46 @@ namespace BookLoversProject
             book3.Title = "title3";
             book4.Title = "title4";
 
-            Shelf shelf = new Shelf(1, "shelf1");
-            shelf.AddBook(book1);
-            shelf.AddBook(book2);
-            shelf.AddBook(book3);
-            shelf.AddBook(book4);
+            try
+            {
+                book1.AddReview(null);
+            }
+            catch (ReviewNotFoundException reviewException)
+            {
+                Console.WriteLine(reviewException.Message);
+            }
+            catch
+            {
+                Console.WriteLine("Exception occured!");
+            }
+
 
             Console.WriteLine();
+            Shelf shelf = new Shelf(1, "shelf1");
+         
 
-            foreach (Book book in shelf)  //because Shelf class implements IEnumerable interface
+            try
             {
-                Console.WriteLine(book.Title);
+                shelf.AddBook(book1);
+                shelf.AddBook(book2);
+                shelf.AddBook(book3);
+                shelf.AddBook(null);
+                shelf.AddBook(book4);
+            }
+            catch (BookNotFoundException bookException)
+            {
+                Console.WriteLine(bookException.Message);
+            }
+            catch
+            {
+                Console.WriteLine("Exception occured!");
+            }
+            finally
+            {
+                foreach (Book book in shelf)  //because Shelf class implements IEnumerable interface
+                {
+                    Console.WriteLine(book.Title);
+                }
             }
 
         }

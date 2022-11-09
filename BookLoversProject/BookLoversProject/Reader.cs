@@ -48,11 +48,19 @@ namespace BookLoversProject
 
         public void AddShelf(Shelf shelf)
         {
+            if (shelf == null)
+            {
+                throw new ShelfNotFoundException("Exception occured, shelf not defined!");
+            }
             BookShelves.Add(shelf);
         }
 
         public void DeleteShelf(Shelf shelf)
         {
+            if (shelf == null)
+            {
+                throw new ShelfNotFoundException("Exception occured, shelf not defined!");
+            }
             BookShelves.Remove(shelf);
         }
 

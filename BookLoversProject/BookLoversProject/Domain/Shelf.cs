@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookLoversProject
+namespace BookLoversProject.Domain
 {
     //implementation of IEnumerable
-    internal class Shelf: IEnumerable
+    internal class Shelf : IEnumerable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,13 +19,26 @@ namespace BookLoversProject
             Id = id;
             Name = name;
             Books = new List<Book>();
-        }   
+        }
+
+        public Book GetBook(int bookId)
+        {
+            foreach (Book book in Books)
+            {
+                if (book.Id == bookId)
+                {
+                    return book;
+                }
+            }
+
+            throw new Exceptions.BookNotFoundException("Exception occured, book not found!");
+        }
 
         public void AddBook(Book book)
         {
-            if(book == null)
+            if (book == null)
             {
-                throw new BookNotFoundException("Exception occured, book not defined!");
+                throw new ArgumentNullException("Exception occured, book not defined!");
             }
             Books.Add(book);
         }
@@ -41,7 +54,7 @@ namespace BookLoversProject
         {
             if (book == null)
             {
-                throw new BookNotFoundException("Exception occured, book not defined!");
+                throw new ArgumentNullException("Exception occured, book not defined!");
             }
             Books.Remove(book);
         }

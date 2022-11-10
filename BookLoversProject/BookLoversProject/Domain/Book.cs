@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookLoversProject
+namespace BookLoversProject.Domain
 {
     //implementation of ICloneable
-    internal class Book: ICloneable
+    internal class Book : ICloneable
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -36,11 +36,24 @@ namespace BookLoversProject
             GenreList = new List<Genre>();
         }
 
+        public Review GetReview(int reviewId)
+        {
+            foreach(Review review in ReviewList)
+            {
+                if (review.Id == reviewId)
+                {
+                    return review;
+                }
+            }
+
+            throw new Exceptions.ReviewNotFoundException("Exception occured, review not found!");
+        }
+
         public void AddReview(Review review)
         {
             if (review == null)
             {
-                throw new ReviewNotFoundException("Exception occured, review not defined!");
+                throw new ArgumentNullException("Exception occured, review not defined!");
             }
             ReviewList.Add(review);
         }
@@ -49,7 +62,7 @@ namespace BookLoversProject
         {
             if (review == null)
             {
-                throw new ReviewNotFoundException("Exception occured, review not defined!");
+                throw new ArgumentNullException("Exception occured, review not defined!");
             }
             ReviewList.Remove(review);
         }

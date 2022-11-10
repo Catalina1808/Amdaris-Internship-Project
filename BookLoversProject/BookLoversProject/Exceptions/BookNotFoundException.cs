@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookLoversProject
+namespace BookLoversProject.Exceptions
 {
     internal class BookNotFoundException : Exception
     {

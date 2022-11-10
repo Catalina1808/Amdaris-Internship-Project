@@ -4,24 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookLoversProject
+namespace BookLoversProject.Domain
 {
-    internal class NoAccountAuthor : IAuthor
+    internal class AccountAuthor : User, IAuthor
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public List<User> Followers { get; set; }
 
-        public NoAccountAuthor(int id, string name, List<User> followers)
+        public AccountAuthor(int id, string email, string password, string name, List<User> followers) : base(id, email, password)
         {
-            Id = id;    
             Name = name;
             Followers = followers;
         }
 
-        public NoAccountAuthor(int id, string name)
+        public AccountAuthor(int id, string email, string password, string name) : base(id, email, password)
         {
-            Id = id;
             Name = name;
             Followers = new List<User>();
         }
@@ -35,5 +32,6 @@ namespace BookLoversProject
         {
             Followers.Remove(user);
         }
+
     }
 }

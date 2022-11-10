@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookLoversProject
+namespace BookLoversProject.Domain
 {
     public class User
     {
         public int Id { get; set; }
         public string Email { get; set; }
-        public string Password { private get;  set; }
+        public string Password { private get; set; }
 
         public User(int id, string email, string password)
         {

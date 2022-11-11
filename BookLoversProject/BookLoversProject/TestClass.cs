@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookLoversProject.Application;
 using BookLoversProject.Domain;
 using BookLoversProject.Exceptions;
 
@@ -57,7 +58,12 @@ namespace BookLoversProject
 
 
             Console.WriteLine();
-            Shelf shelf = new Shelf(1, "shelf1");
+            // Shelf shelf = new Shelf(1, "shelf1");
+            var shelf = new Shelf
+            {
+                Id = 1,
+                Name = "shelf1"
+            };
          
 
             try
@@ -84,6 +90,11 @@ namespace BookLoversProject
                 }
             }
 
+
+
+
+            var bookRepo = new BookRepository();
+            // bookRepo.AddBook(book1);
         }
     }
 }

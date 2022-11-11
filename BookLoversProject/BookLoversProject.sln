@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLoversProject", "BookLoversProject\BookLoversProject.csproj", "{86D1C094-8D03-476D-9514-6BC0238EC6E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject", "BookLoversProject\BookLoversProject.csproj", "{86D1C094-8D03-476D-9514-6BC0238EC6E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLoversProject.Domain", "BookLoversProject.Domain\BookLoversProject.Domain.csproj", "{6498A367-618F-4341-AED3-612571630E26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLoversProject.Application", "BookLoversProject.Application\BookLoversProject.Application.csproj", "{4243052F-081A-461F-928A-E154903B2D58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{86D1C094-8D03-476D-9514-6BC0238EC6E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86D1C094-8D03-476D-9514-6BC0238EC6E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86D1C094-8D03-476D-9514-6BC0238EC6E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6498A367-618F-4341-AED3-612571630E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6498A367-618F-4341-AED3-612571630E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6498A367-618F-4341-AED3-612571630E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6498A367-618F-4341-AED3-612571630E26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4243052F-081A-461F-928A-E154903B2D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4243052F-081A-461F-928A-E154903B2D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4243052F-081A-461F-928A-E154903B2D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4243052F-081A-461F-928A-E154903B2D58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

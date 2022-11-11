@@ -1,6 +1,7 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.Interfaces;
+using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application
+namespace BookLoversProject.Application.Repositories
 {
     public class BookRepository : IBookRepository
     {

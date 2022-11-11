@@ -1,6 +1,6 @@
 ﻿using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application
+namespace BookLoversProject.Application.Interfaces
 {
     public interface IBookRepository
     {

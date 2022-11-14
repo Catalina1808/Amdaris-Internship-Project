@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookLoversProject.Exceptions
+namespace BookLoversProject.Application.Exceptions
 {
     internal class ReviewNotFoundException : Exception
     {

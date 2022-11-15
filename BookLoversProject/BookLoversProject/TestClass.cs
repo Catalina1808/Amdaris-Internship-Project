@@ -1,4 +1,10 @@
 ﻿using BookLoversProject.Domain.Domain;
+using System.IO;
+using System.IO.Compression;
+using System.IO.Pipes;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace BookLoversProject
 {
@@ -26,10 +32,10 @@ namespace BookLoversProject
 
             //one IEnumerable example
             IEnumerable<IAuthor> enumAuthors = from author in authors where (author.GetType() == typeof(AccountAuthor)) select author;
-            foreach (IAuthor author in enumAuthors)
-            {
-                Console.WriteLine(author.Name);
-            }
+            //foreach (IAuthor author in enumAuthors)
+            //{
+            //    Console.WriteLine(author.Name);
+            //}
 
             List<Genre> genres = new List<Genre> {
                 new Genre
@@ -41,6 +47,11 @@ namespace BookLoversProject
                 {
                     Id= 2,
                     Name= "Thriller",
+                },
+                new Genre
+                {
+                    Id= 3,
+                    Name= "Fantasy",
                 }
             };
 
@@ -67,53 +78,19 @@ namespace BookLoversProject
             book3.Title = "title3";
             book4.Title = "title4";
 
-
-            //#if DEBUG
-
-            //            try
-            //            {
-            //                book1.AddReview(null);
-            //            }
-            //            catch (ReviewNotFoundException reviewException)
-            //            {
-            //                Console.WriteLine(reviewException.Message);
-            //            }
-            //            catch
-            //            {
-            //                Console.WriteLine("Exception occured!");
-            //            }
-
-            //#endif
+            List<Book> books = new List<Book> { book1, book2, book3, book4 };
 
 
-            //            Console.WriteLine();
-            //            Shelf shelf = new Shelf(1, "shelf1");
+            //Assignment 8 test
 
+            Assignment8.CompressAndEncryptGenres(genres);
 
-            //            try
-            //            {
-            //                shelf.AddBook(book1);
-            //                shelf.AddBook(book2);
-            //                shelf.AddBook(book3);
-            //                shelf.AddBook(null);
-            //                shelf.AddBook(book4);
-            //            }
-            //            catch (BookNotFoundException bookException)
-            //            {
-            //                Console.WriteLine(bookException.Message);
-            //            }
-            //            catch
-            //            {
-            //                Console.WriteLine("Exception occured!");
-            //            }
-            //            finally
-            //            {
-            //                foreach (Book book in shelf)  //because Shelf class implements IEnumerable interface
-            //                {
-            //                    Console.WriteLine(book.Title);
-            //                }
-            //            }
+            List<Genre> decompressedGenres = Assignment8.DecompressAndDecryptGenres();
 
+            foreach (Genre genre in decompressedGenres)
+            {
+                Console.WriteLine(genre.Id + " " + genre.Name);
+            }
         }
     }
 }

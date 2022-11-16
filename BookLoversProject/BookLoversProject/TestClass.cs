@@ -1,46 +1,25 @@
 ﻿using BookLoversProject.Domain.Domain;
-using System.IO;
-using System.IO.Compression;
-using System.IO.Pipes;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Cryptography;
-using System.Text;
+using BookLoversProject.Infrastructure.Repositories;
 
-namespace BookLoversProject
+namespace BookLoversProject.Presentation
 {
     public class TestClass
     {
         public static void Main()
         {
-            NoAccountAuthor noAccountAuthor = new NoAccountAuthor
-            {
-                Id = 1,
-                Name = "noAccount1",
-                Followers = new List<User>()
-            };
-            AccountAuthor accountAuthor = new AccountAuthor
-            {
-                Id = 1,
-                Email = "emailAuthor1",
-                Password = "password1",
-                Name = "account1",
-                Followers = new List<User>()
-            };
+            NoAccountAuthor noAccountAuthor = new NoAccountAuthor("noAccount1");
+            AccountAuthor accountAuthor = new AccountAuthor("emailAuthor1", "password1", "account1");
             List<IAuthor> authors = new List<IAuthor>();
             authors.Add(noAccountAuthor);
             authors.Add(accountAuthor);
 
+
             //one IEnumerable example
-            IEnumerable<IAuthor> enumAuthors = from author in authors where (author.GetType() == typeof(AccountAuthor)) select author;
-            //foreach (IAuthor author in enumAuthors)
-            //{
-            //    Console.WriteLine(author.Name);
-            //}
+            IEnumerable<IAuthor> enumAuthors = from author in authors where author.GetType() == typeof(AccountAuthor) select author;
 
             List<Genre> genres = new List<Genre> {
                 new Genre
                 {
-                    Id= 1,
                     Name= "Drama",
                 },
                 new Genre
@@ -78,8 +57,19 @@ namespace BookLoversProject
             book3.Title = "title3";
             book4.Title = "title4";
 
-            List<Book> books = new List<Book> { book1, book2, book3, book4 };
+            BookRepository bookRepository = new BookRepository();
+            bookRepository.AddBook(book1);
+            bookRepository.AddBook(book2);
+            bookRepository.AddBook(book3);
+            bookRepository.AddBook(book4);
 
+            var books = bookRepository.GetAllBooks();
+
+            foreach (Book book in books)
+            {
+                Console.WriteLine(book.Title);
+            }
+            Console.WriteLine();
 
             //Assignment 8 test
 

@@ -1,7 +1,7 @@
 ﻿using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.Repositories
+namespace BookLoversProject.Infrastructure.Repositories
 {
     public class BookRepository : IBookRepository
     {
@@ -22,7 +22,7 @@ namespace BookLoversProject.Application.Repositories
         {
             if (!books.Remove(book))
             {
-                throw new Exceptions.BookNotFoundException("Exception occured, book not found!");
+                throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
             }
         }
 
@@ -36,7 +36,7 @@ namespace BookLoversProject.Application.Repositories
             var book = books.FirstOrDefault(x => x.Id == id);
             if (book == null)
             {
-                throw new Exceptions.BookNotFoundException("Exception occured, book not found!");
+                throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
             }
             return book;
         }
@@ -47,7 +47,7 @@ namespace BookLoversProject.Application.Repositories
             var review = book.ReviewList.FirstOrDefault(x => x.Id == reviewId);
             if (review == null)
             {
-                throw new Exceptions.ReviewNotFoundException("Exception occured, review not found!");
+                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
             }
             return review;
         }
@@ -65,7 +65,7 @@ namespace BookLoversProject.Application.Repositories
         {
             if (!book.ReviewList.Remove(review))
             {
-                throw new Exceptions.ReviewNotFoundException("Exception occured, review not found!");
+                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
             }
         }
     }

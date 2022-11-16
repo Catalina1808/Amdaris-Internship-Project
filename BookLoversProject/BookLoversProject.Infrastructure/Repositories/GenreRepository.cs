@@ -1,12 +1,12 @@
 ﻿using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.Repositories
+namespace BookLoversProject.Infrastructure.Repositories
 {
     public class GenreRepository : IGenreRepository
     {
         private List<Genre> genres;
-        
+
         public GenreRepository(List<Genre> genres)
         {
             this.genres = genres;

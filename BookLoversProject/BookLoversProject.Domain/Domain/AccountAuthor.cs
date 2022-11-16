@@ -11,11 +11,10 @@
         //    Followers = followers;
         //}
 
-        //public AccountAuthor(int id, string email, string password, string name) : base(id, email, password)
-        //{
-        //    Name = name;
-        //    Followers = new List<User>();
-        //}
+        public AccountAuthor(string email, string password, string name): base( email, password)
+        {
+            Name = name;
+        }
 
     }
 }

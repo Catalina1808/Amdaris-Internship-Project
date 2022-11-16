@@ -1,11 +1,10 @@
 ﻿using BookLoversProject.Domain.Domain;
-using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace BookLoversProject
+namespace BookLoversProject.Presentation
 {
     public class Assignment8
     {
@@ -67,7 +66,7 @@ namespace BookLoversProject
                         //decompressedGenres = (List<Genre>)binaryFormatter.Deserialize(decompressionStream);
                         BinaryReader binaryReader = new BinaryReader(decompressionStream);
                         int count = binaryReader.ReadInt32();
-                        for(int index = 0; index < count; index++)
+                        for (int index = 0; index < count; index++)
                         {
                             decompressedGenres.Add(new Genre
                             {

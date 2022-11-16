@@ -1,7 +1,7 @@
 ﻿using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.Repositories
+namespace BookLoversProject.Infrastructure.Repositories
 {
     public class ShelfRepository : IShelfRepository
     {
@@ -26,9 +26,9 @@ namespace BookLoversProject.Application.Repositories
 
         public void DeleteBookFromShelf(Book book, Shelf shelf)
         {
-            if(!shelf.Books.Remove(book))
+            if (!shelf.Books.Remove(book))
             {
-                throw new Exceptions.BookNotFoundException("Exception occured, book not found!");
+                throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
             }
         }
 
@@ -36,7 +36,7 @@ namespace BookLoversProject.Application.Repositories
         {
             if (!shelfs.Remove(shelf))
             {
-                throw new Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
+                throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
             }
         }
 
@@ -45,7 +45,7 @@ namespace BookLoversProject.Application.Repositories
             var shelf = shelfs.FirstOrDefault(x => x.Id == id);
             if (shelf == null)
             {
-                throw new Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
+                throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
             }
             return shelf;
         }

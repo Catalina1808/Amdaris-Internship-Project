@@ -2,7 +2,7 @@
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.Repositories
+namespace BookLoversProject.Infrastructure.Repositories
 {
     public class ReaderRepository : IReaderRepository
     {

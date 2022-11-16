@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookLoversProject.Application.Exceptions
 {
-    internal class ReviewNotFoundException : Exception
+    public class ReviewNotFoundException : Exception
     {
         public ReviewNotFoundException()
         {

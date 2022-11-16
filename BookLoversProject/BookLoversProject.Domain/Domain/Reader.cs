@@ -33,15 +33,14 @@
             return "Hello, " + Name + "!";
         }
 
-        //public Reader(int id, string email, string password, string firstName, string lastName, string imagePath)
-        // : base(id, email, password)
-        //{
-        //    this.firstName = firstName;
-        //    this.lastName = lastName;
-        //    ImagePath = imagePath;
-        //    Friends = new List<Reader>();
-        //    BookShelves = new List<Shelf>();
-        //}
+        public Reader(string email, string password, string firstName, string lastName)
+         : base(email, password)
+        {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            Friends = new List<Reader>();
+            BookShelves = new List<Shelf>();
+        }
 
     }
 }

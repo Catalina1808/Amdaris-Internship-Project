@@ -1,7 +1,7 @@
 ﻿using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.Repositories
+namespace BookLoversProject.Infrastructure.Repositories
 {
     public class AccountAuthorRepository : IAccountAuthorRepository
     {
@@ -30,7 +30,7 @@ namespace BookLoversProject.Application.Repositories
 
         public void DeleteFollowerFromAuthor(User follower, AccountAuthor accountAuthor)
         {
-            if(!accountAuthor.Followers.Remove(follower))
+            if (!accountAuthor.Followers.Remove(follower))
             {
                 throw new Exception("Follower not found!");
             }

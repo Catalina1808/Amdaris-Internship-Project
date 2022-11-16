@@ -1,7 +1,7 @@
 ﻿using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.Repositories
+namespace BookLoversProject.Infrastructure.Repositories
 {
     public class ReviewRepository : IReviewRepository
     {
@@ -22,7 +22,7 @@ namespace BookLoversProject.Application.Repositories
         {
             if (!reviews.Remove(review))
             {
-                throw new Exceptions.ReviewNotFoundException("Exception occured, review not found!");
+                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
             }
         }
 
@@ -36,7 +36,7 @@ namespace BookLoversProject.Application.Repositories
             var review = reviews.FirstOrDefault(x => x.Id == id);
             if (review == null)
             {
-                throw new Exceptions.ReviewNotFoundException("Exception occured, review not found!");
+                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
             }
             return review;
         }

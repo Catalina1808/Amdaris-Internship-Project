@@ -5,9 +5,8 @@
     {
         public string Name { get; set; }
 
-        //public Genre(int id, string name)
+        //public Genre(string name)
         //{
-        //    Id = id;
         //    Name = name;
         //}
     }

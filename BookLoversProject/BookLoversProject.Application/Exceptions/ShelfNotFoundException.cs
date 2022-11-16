@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookLoversProject.Application.Exceptions
 {
-    internal class ShelfNotFoundException : Exception
+    public class ShelfNotFoundException : Exception
     {
         public ShelfNotFoundException()
         {

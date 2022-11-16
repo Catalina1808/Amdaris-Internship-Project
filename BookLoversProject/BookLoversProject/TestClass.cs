@@ -83,9 +83,10 @@ namespace BookLoversProject
 
             //Assignment 8 test
 
-            Assignment8.CompressAndEncryptGenres(genres);
+            Assignment8 assignment8 = new Assignment8();
+            assignment8.CompressAndEncryptGenres(genres);
 
-            List<Genre> decompressedGenres = Assignment8.DecompressAndDecryptGenres();
+            List<Genre> decompressedGenres = assignment8.DecompressAndDecryptGenres();
 
             foreach (Genre genre in decompressedGenres)
             {

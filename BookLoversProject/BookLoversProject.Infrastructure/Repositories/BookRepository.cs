@@ -5,11 +5,19 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private List<Book> books;
+        private readonly List<Book> books;
 
         public BookRepository()
         {
-            books = new List<Book>();
+            books = new List<Book>
+            {
+                new Book()
+                {
+                    Id= 1,
+                    Title = "title1",
+                    Description= "description1"
+                }
+            };
         }
 
         public Book AddBook(Book book)

@@ -5,6 +5,7 @@ using BookLoversProject.Domain.Domain;
 using BookLoversProject.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using BookLoversProject.Domain;
 
 namespace BookLoversProject.Presentation
 {
@@ -12,14 +13,16 @@ namespace BookLoversProject.Presentation
     {
         public static async Task Main()
         {
-            NoAccountAuthor noAccountAuthor = new NoAccountAuthor("noAccount1");
-            AccountAuthor accountAuthor = new AccountAuthor("emailAuthor1", "password1", "account1");
+            //using Author Factory
+            IAuthor author1 = AuthorFactory.CreateAuthor(false, "noAccount1", "", "");
+            IAuthor author2 = AuthorFactory.CreateAuthor(true, "account1", "emailAuthor1", "password1");
             List<IAuthor> authors = new List<IAuthor>();
-            authors.Add(noAccountAuthor);
-            authors.Add(accountAuthor);
+            authors.Add(author1);
+            authors.Add(author2);
 
             //one IEnumerable example
             IEnumerable<IAuthor> enumAuthors = from author in authors where author.GetType() == typeof(AccountAuthor) select author;
+            Console.WriteLine(enumAuthors.ElementAt(0).Name);
 
             List<Genre> genres = new List<Genre> {
                 new Genre
@@ -94,19 +97,17 @@ namespace BookLoversProject.Presentation
 
 
 
+            //Singleton test
 
+            CompressAndEncryptSingleton singleton = CompressAndEncryptSingleton.Instance;
+            singleton.CompressAndEncryptGenres(genres);
 
-            //Assignment 8 test
+            List<Genre> decompressedGenres = singleton.DecompressAndDecryptGenres();
 
-            //Assignment8 assignment8 = new Assignment8();
-            //assignment8.CompressAndEncryptGenres(genres);
-
-            //List<Genre> decompressedGenres = assignment8.DecompressAndDecryptGenres();
-
-            //foreach (Genre genre in decompressedGenres)
-            //{
-            //    Console.WriteLine(genre.Id + " " + genre.Name);
-            //}
+            foreach (Genre genre in decompressedGenres)
+            {
+                Console.WriteLine(genre.Id + " " + genre.Name);
+            }
         }
     }
 }

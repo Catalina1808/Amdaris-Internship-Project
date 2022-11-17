@@ -6,17 +6,32 @@ using System.Text;
 
 namespace BookLoversProject.Presentation
 {
-    public class Assignment8
+    public class CompressAndEncryptSingleton
     {
-        string password;
-        UnicodeEncoding UE;
-        RijndaelManaged RMCrypto;
+        private string password;
+        private UnicodeEncoding UE;
+        private RijndaelManaged RMCrypto;
 
-        public Assignment8()
+        private static CompressAndEncryptSingleton instance;
+
+        private CompressAndEncryptSingleton()
         {
             password = "12345678";
             UE = new UnicodeEncoding();
             RMCrypto = new RijndaelManaged();
+        }
+
+        public static CompressAndEncryptSingleton Instance 
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new CompressAndEncryptSingleton();
+                }
+                return instance;
+            }
+            private set { }
         }
 
         public void CompressAndEncryptGenres(List<Genre> genres)

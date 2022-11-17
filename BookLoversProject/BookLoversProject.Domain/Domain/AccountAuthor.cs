@@ -11,7 +11,7 @@
         //    Followers = followers;
         //}
 
-        public AccountAuthor(string email, string password, string name): base( email, password)
+        public AccountAuthor(string name, string email, string password): base( email, password)
         {
             Name = name;
         }

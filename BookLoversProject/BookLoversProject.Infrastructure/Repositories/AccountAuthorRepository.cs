@@ -5,7 +5,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class AccountAuthorRepository : IAccountAuthorRepository
     {
-        private List<AccountAuthor> authors;
+        private readonly ICollection<AccountAuthor> authors;
 
         public AccountAuthorRepository(List<AccountAuthor> authors)
         {
@@ -48,7 +48,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public List<AccountAuthor> GetAllAccountAuthors()
         {
-            return authors;
+            return authors.ToList();
         }
     }
 }

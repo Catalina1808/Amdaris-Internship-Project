@@ -1,17 +1,18 @@
-﻿namespace BookLoversProject.Domain.Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BookLoversProject.Domain.Domain
 {
     public class Book : Entity, ICloneable
     {
-  
         public string Title { get; set; }
 
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         public List<IAuthor> AuthorList { get; set; }
 
-        public List<User> ReviewList { get; }
+        public ICollection<User> ReviewList { get; set; }
 
-        public List<Genre> GenreList { get; set; }
+        public ICollection<Genre> GenreList { get; set; }
 
         public object Clone()
         {

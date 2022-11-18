@@ -6,6 +6,7 @@ using BookLoversProject.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using BookLoversProject.Domain;
+using BookLoversProject.Application;
 
 namespace BookLoversProject.Presentation
 {
@@ -69,7 +70,8 @@ namespace BookLoversProject.Presentation
             //Queries and Commands test
 
             var diContainer = new ServiceCollection()
-                .AddMediatR(typeof(IBookRepository))
+                .AddMediatR(typeof(IAssemblyMarker))
+                .AddAutoMapper(typeof(IAssemblyMarker))
                 .AddScoped<IBookRepository, BookRepository>()
                 .BuildServiceProvider();
 

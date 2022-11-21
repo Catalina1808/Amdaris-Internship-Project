@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using BookLoversProject.Domain;
 using BookLoversProject.Application.Interfaces;
+using BookLoversProject.Presentation.StructuralPatterns.Proxy;
 
 namespace BookLoversProject.Presentation
 {
@@ -69,33 +70,47 @@ namespace BookLoversProject.Presentation
 
             //Queries and Commands test
 
-            var diContainer = new ServiceCollection()
-                .AddMediatR(typeof(IAssemblyMarker))
-                .AddAutoMapper(typeof(IAssemblyMarker))
-                .AddScoped<IBookRepository, BookRepository>()
-                .BuildServiceProvider();
+            //var diContainer = new ServiceCollection()
+            //    .AddMediatR(typeof(IAssemblyMarker))
+            //    .AddAutoMapper(typeof(IAssemblyMarker))
+            //    .AddScoped<IBookRepository, BookRepository>()
+            //    .BuildServiceProvider();
 
-            var mediator = diContainer.GetRequiredService<IMediator>();
+            //var mediator = diContainer.GetRequiredService<IMediator>();
 
-            var bookId = await mediator.Send(new CreateBookCommand
-            {
-                Id = 2,
-                Title = "title2",
-                Description = "description2",
-                AuthorList = authors,
-                GenreList= genres
-            });
+            //var bookId = await mediator.Send(new CreateBookCommand
+            //{
+            //    Id = 2,
+            //    Title = "title2",
+            //    Description = "description2",
+            //    AuthorList = authors,
+            //    GenreList= genres
+            //});
 
-            Console.WriteLine($"Book created with {bookId}");
+            //Console.WriteLine($"Book created with {bookId}");
 
-            var books = await mediator.Send(new GetBooksQuery());
+            //var books = await mediator.Send(new GetBooksQuery());
 
-            foreach(var book in books)
-            {
-                Console.WriteLine($"{book.Id} - {book.Title} - {book.Description}");
-            }
+            //foreach(var book in books)
+            //{
+            //    Console.WriteLine($"{book.Id} - {book.Title} - {book.Description}");
+            //}
 
+            //Console.WriteLine();
+
+            var bookOperationsHelper = new BooksProviderProxy();
+            await bookOperationsHelper.AddBookAsync(new Admin("email", "password"),
+                new Book
+                {
+                    Id = 2,
+                    Title = "title2",
+                    Description = "description2",
+                    AuthorList = authors,
+                    GenreList = genres
+                });
+            await bookOperationsHelper.ListBooksAsync();
             Console.WriteLine();
+            await bookOperationsHelper.ListBookByIdAsync(book1.Id);
 
 
 

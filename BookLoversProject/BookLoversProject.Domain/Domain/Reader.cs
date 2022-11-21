@@ -23,9 +23,9 @@
         }
         public string ImagePath { get; set; }
 
-        public List<Shelf> BookShelves { get; }
+        public ICollection<Shelf> BookShelves { get; }
 
-        public List<Reader> Friends { get; set; }
+        public ICollection<Reader> Friends { get; set; }
 
         //override
         public override string GreetingMessage()

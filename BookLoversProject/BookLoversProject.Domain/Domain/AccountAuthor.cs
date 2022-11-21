@@ -3,7 +3,7 @@
     public class AccountAuthor : User, IAuthor
     {
         public string Name { get; set; }
-        public List<User> Followers { get; set; }
+        public ICollection<User> Followers { get; set; }
 
         //public AccountAuthor(int id, string email, string password, string name, List<User> followers) : base(id, email, password)
         //{

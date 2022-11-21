@@ -3,6 +3,6 @@
     public interface IAuthor
     {
         string Name { get; set; }
-        List<User> Followers { get; set; }
+        ICollection<User> Followers { get; set; }
     }
 }

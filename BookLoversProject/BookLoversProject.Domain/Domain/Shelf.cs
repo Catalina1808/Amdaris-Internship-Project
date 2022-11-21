@@ -5,7 +5,7 @@ namespace BookLoversProject.Domain.Domain
     public class Shelf : Entity, IEnumerable
     {
         public string Name { get; set; }
-        public List<Book> Books { get; }
+        public ICollection<Book> Books { get; }
 
         public Shelf(string name)
         {

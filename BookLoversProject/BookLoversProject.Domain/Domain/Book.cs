@@ -7,11 +7,11 @@
 
         public string Description { get; set; }
 
-        public List<IAuthor> AuthorList { get; set; }
+        public ICollection<IAuthor> AuthorList { get; set; }
 
-        public List<User> ReviewList { get; }
+        public ICollection<User> ReviewList { get; }
 
-        public List<Genre> GenreList { get; set; }
+        public ICollection<Genre> GenreList { get; set; }
 
         public object Clone()
         {

@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BookLoversProject.Domain;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Presentation.StructuralPatterns.Proxy;
+using BookLoversProject.Presentation.StructuralPatterns.Decorator;
 
 namespace BookLoversProject.Presentation
 {
@@ -21,10 +22,6 @@ namespace BookLoversProject.Presentation
             List<IAuthor> authors = new List<IAuthor>();
             authors.Add(author1);
             authors.Add(author2);
-
-            //one IEnumerable example
-            IEnumerable<IAuthor> enumAuthors = from author in authors where author.GetType() == typeof(AccountAuthor) select author;
-            Console.WriteLine(enumAuthors.ElementAt(0).Name);
 
             List<Genre> genres = new List<Genre> {
                 new Genre
@@ -55,16 +52,14 @@ namespace BookLoversProject.Presentation
             {
                 Id = 2,
                 Title = "title2",
-                Description = "description",
+                Description = "description2",
                 AuthorList = authors,
                 GenreList = genres
             };
 
             Book book3 = (Book)book1.Clone(); //because Book class implements ICloneable interface
-            Book book4 = book2;
 
             book3.Title = "title3";
-            book4.Title = "title4";
 
 
 
@@ -98,21 +93,36 @@ namespace BookLoversProject.Presentation
 
             //Console.WriteLine();
 
-            var bookOperationsHelper = new BooksProviderProxy();
-            await bookOperationsHelper.AddBookAsync(new Admin("email", "password"),
-                new Book
-                {
-                    Id = 2,
-                    Title = "title2",
-                    Description = "description2",
-                    AuthorList = authors,
-                    GenreList = genres
-                });
-            await bookOperationsHelper.ListBooksAsync();
+            Admin admin = new Admin("email", "password");
+
+            //Proxy
+            var bookOperationsProxy = new BooksProviderProxy();
+            bookOperationsProxy.Initialize();
+            await bookOperationsProxy.AddBookAsync(admin, book2);
+            await bookOperationsProxy.ListBooksAsync();
             Console.WriteLine();
-            await bookOperationsHelper.ListBookByIdAsync(book1.Id);
 
+            await bookOperationsProxy.ListBookByIdAsync(book1.Id);
+            Console.WriteLine();
 
+            //Facade
+            var bookOperationsFacade = new BookOperationsFacade();
+            bookOperationsFacade.AddBook(admin, book2);
+            Console.WriteLine();
+
+            //Decorator
+            IBook book = new SimpleBook();
+            book = new FantasyBookDecorator(book);
+            book = new MysteryBookDecorator(book);
+
+            IBook anotherBook = new SimpleBook();
+            anotherBook = new RomanceBookDecorator(anotherBook);
+            anotherBook = new MysteryBookDecorator(anotherBook);
+
+            Console.WriteLine("Book1 decorated: " + book.GetDescription());
+            Console.WriteLine("Book2 decorated: " + anotherBook.GetDescription());
+
+            Console.WriteLine();
 
             //Singleton test
 

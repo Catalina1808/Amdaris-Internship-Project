@@ -15,15 +15,25 @@ namespace BookLoversProject.Presentation.Structural_Patterns.Proxy
         private ServiceProvider diContainer;
         private IMediator mediator;
 
-        public BooksProvider()
+        public void Initialize()
         {
             diContainer = new ServiceCollection()
-                 .AddMediatR(typeof(IAssemblyMarker))
-                 .AddAutoMapper(typeof(IAssemblyMarker))
-                 .AddScoped<IBookRepository, BookRepository>()
-                 .BuildServiceProvider();
+               .AddMediatR(typeof(IAssemblyMarker))
+               .AddAutoMapper(typeof(IAssemblyMarker))
+               .AddScoped<IBookRepository, BookRepository>()
+               .BuildServiceProvider();
 
             mediator = diContainer.GetRequiredService<IMediator>();
+        }
+
+        public bool IsBookValid(Book book)
+        {
+            if(book.Title != null && book.AuthorList.Count() > 0 && book.GenreList.Count() > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public async Task AddBookAsync(User user, Book book)
@@ -58,5 +68,6 @@ namespace BookLoversProject.Presentation.Structural_Patterns.Proxy
                 Console.WriteLine($"{book.Id} - {book.Title} - {book.Description}");
             }
         }
+
     }
 }

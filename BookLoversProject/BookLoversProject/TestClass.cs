@@ -9,6 +9,7 @@ using BookLoversProject.Domain;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Presentation.StructuralPatterns.Proxy;
 using BookLoversProject.Presentation.StructuralPatterns.Decorator;
+using BookLoversProject.Application.Queries.GetBookByIdQuery;
 
 namespace BookLoversProject.Presentation
 {
@@ -62,38 +63,21 @@ namespace BookLoversProject.Presentation
             book3.Title = "title3";
 
 
-
             //Queries and Commands test
 
-            //var diContainer = new ServiceCollection()
-            //    .AddMediatR(typeof(IAssemblyMarker))
-            //    .AddAutoMapper(typeof(IAssemblyMarker))
-            //    .AddScoped<IBookRepository, BookRepository>()
-            //    .BuildServiceProvider();
+            var diContainer = new ServiceCollection()
+                .AddMediatR(typeof(IAssemblyMarker))
+                .AddAutoMapper(typeof(IAssemblyMarker))
+                .AddScoped<IBookRepository, BookRepository>()
+                .BuildServiceProvider();
 
-            //var mediator = diContainer.GetRequiredService<IMediator>();
+            var mediator = diContainer.GetRequiredService<IMediator>();
 
-            //var bookId = await mediator.Send(new CreateBookCommand
-            //{
-            //    Id = 2,
-            //    Title = "title2",
-            //    Description = "description2",
-            //    AuthorList = authors,
-            //    GenreList= genres
-            //});
+            var bookById = await mediator.Send(new GetBookByIdQuery { Id = 1});       
 
-            //Console.WriteLine($"Book created with {bookId}");
-
-            //var books = await mediator.Send(new GetBooksQuery());
-
-            //foreach(var book in books)
-            //{
-            //    Console.WriteLine($"{book.Id} - {book.Title} - {book.Description}");
-            //}
-
-            //Console.WriteLine();
 
             Admin admin = new Admin("email", "password");
+
 
             //Proxy
             var bookOperationsProxy = new BooksProviderProxy();

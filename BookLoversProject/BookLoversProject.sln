@@ -9,10 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Domain", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Application", "BookLoversProject.Application\BookLoversProject.Application.csproj", "{6029029B-91B9-437F-8095-27F6A287FC36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLoversProject.Infrastructure", "BookLoversProject.Infrastructure\BookLoversProject.Infrastructure.csproj", "{CBBDFBB0-587E-461B-8021-E7868DAFFC41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Infrastructure", "BookLoversProject.Infrastructure\BookLoversProject.Infrastructure.csproj", "{CBBDFBB0-587E-461B-8021-E7868DAFFC41}"
 	ProjectSection(ProjectDependencies) = postProject
 		{257D86A2-D111-4D2C-8765-75F29705A283} = {257D86A2-D111-4D2C-8765-75F29705A283}
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Infrastructure.NUnitTest", "BookLoversProject.Infrastructure.NUnitTest\BookLoversProject.Infrastructure.NUnitTest.csproj", "{93FC35CE-4AEF-4C5C-A243-2C1ED066F4A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLoversProject.Application.XUnitTest", "BookLoversProject.Application.XUnitTest\BookLoversProject.Application.XUnitTest.csproj", "{78A8FCA7-3332-4ADD-8C2F-1281217B1C53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +40,14 @@ Global
 		{CBBDFBB0-587E-461B-8021-E7868DAFFC41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBBDFBB0-587E-461B-8021-E7868DAFFC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBBDFBB0-587E-461B-8021-E7868DAFFC41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93FC35CE-4AEF-4C5C-A243-2C1ED066F4A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93FC35CE-4AEF-4C5C-A243-2C1ED066F4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93FC35CE-4AEF-4C5C-A243-2C1ED066F4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93FC35CE-4AEF-4C5C-A243-2C1ED066F4A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78A8FCA7-3332-4ADD-8C2F-1281217B1C53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78A8FCA7-3332-4ADD-8C2F-1281217B1C53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78A8FCA7-3332-4ADD-8C2F-1281217B1C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78A8FCA7-3332-4ADD-8C2F-1281217B1C53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

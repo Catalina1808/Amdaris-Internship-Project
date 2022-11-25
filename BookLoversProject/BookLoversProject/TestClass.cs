@@ -1,6 +1,4 @@
 ﻿using BookLoversProject.Application;
-using BookLoversProject.Application.Queries.GetBooksQuery;
-using BookLoversProject.Application.Commands.CreateBookCommand;
 using BookLoversProject.Domain.Domain;
 using BookLoversProject.Infrastructure.Repositories;
 using MediatR;
@@ -17,12 +15,12 @@ namespace BookLoversProject.Presentation
     {
         public static async Task Main()
         {
-            //using Author Factory
-            IAuthor author1 = AuthorFactory.CreateAuthor(false, "noAccount1", "", "");
-            IAuthor author2 = AuthorFactory.CreateAuthor(true, "account1", "emailAuthor1", "password1");
-            List<IAuthor> authors = new List<IAuthor>();
-            authors.Add(author1);
-            authors.Add(author2);
+            //using User Factory
+            IUser user1 = UserFactory.CreateUser(true, "author", "email", "password");
+            IUser user2 = UserFactory.CreateUser(false, "user", "email", "password");
+
+
+            List<Author> authors = new List<Author>();
 
             List<Genre> genres = new List<Genre> {
                 new Genre
@@ -76,7 +74,7 @@ namespace BookLoversProject.Presentation
             var bookById = await mediator.Send(new GetBookByIdQuery { Id = 1});       
 
 
-            Admin admin = new Admin("email", "password");
+            Admin admin = new Admin { Email = "email", Password = "password" };
 
 
             //Proxy

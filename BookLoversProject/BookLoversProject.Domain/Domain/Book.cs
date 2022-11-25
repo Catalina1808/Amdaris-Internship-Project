@@ -7,9 +7,9 @@
 
         public string Description { get; set; }
 
-        public ICollection<IAuthor> AuthorList { get; set; }
+        public ICollection<Author> AuthorList { get; set; }
 
-        public ICollection<User> ReviewList { get; }
+        public ICollection<Review> ReviewList { get; }
 
         public ICollection<Genre> GenreList { get; set; }
 

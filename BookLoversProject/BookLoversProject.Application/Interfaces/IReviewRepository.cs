@@ -4,12 +4,12 @@ namespace BookLoversProject.Application.Interfaces
 {
     public interface IReviewRepository
     {
-        User AddReview(User review);
+        Review AddReview(Review review);
 
-        User GetReviewById(int id);
+        Review GetReviewById(int id);
 
-        List<User> GetAllReviews();
+        List<Review> GetAllReviews();
 
-        void DeleteReview(User review);
+        void DeleteReview(Review review);
     }
 }

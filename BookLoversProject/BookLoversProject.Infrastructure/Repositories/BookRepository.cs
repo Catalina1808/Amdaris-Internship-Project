@@ -49,7 +49,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             return book;
         }
 
-        public User GetReviewFromBook(int reviewId, int bookId)
+        public Review GetReviewFromBook(int reviewId, int bookId)
         {
             var book = GetBookById(bookId);
             var review = book.ReviewList.FirstOrDefault(x => x.Id == reviewId);
@@ -60,7 +60,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             return review;
         }
 
-        public void AddReviewToBook(User review, Book book)
+        public void AddReviewToBook(Review review, Book book)
         {
             if (review == null)
             {
@@ -69,7 +69,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             book.ReviewList.Add(review);
         }
 
-        public void DeleteReviewFromBook(User review, Book book)
+        public void DeleteReviewFromBook(Review review, Book book)
         {
             if (!book.ReviewList.Remove(review))
             {

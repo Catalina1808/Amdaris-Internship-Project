@@ -12,7 +12,7 @@ namespace BookLoversProject.Presentation.StructuralPatterns.Proxy
             _booksProvider= new BooksProvider();
         }
 
-        public Task AddBookAsync(User user, Book book)
+        public Task AddBookAsync(IUser user, Book book)
         {
             if (user.GetType() == typeof(Admin))
             {

@@ -12,10 +12,10 @@ namespace BookLoversProject.Application.Interfaces
 
         void DeleteBook(Book book);
 
-        User GetReviewFromBook(int reviewId, int bookId);
+        Review GetReviewFromBook(int reviewId, int bookId);
 
-        void AddReviewToBook(User review, Book book);
+        void AddReviewToBook(Review review, Book book);
 
-        void DeleteReviewFromBook(User review, Book book);
+        void DeleteReviewFromBook(Review review, Book book);
     }
 }

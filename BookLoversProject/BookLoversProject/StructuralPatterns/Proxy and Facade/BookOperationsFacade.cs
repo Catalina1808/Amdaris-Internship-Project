@@ -4,7 +4,7 @@ namespace BookLoversProject.Presentation.StructuralPatterns.Proxy
 {
     public class BookOperationsFacade
     {
-        public void AddBook(User user, Book book)
+        public void AddBook(IUser user, Book book)
         {
             var bookProxy = new BooksProviderProxy();
             bookProxy.Initialize();

@@ -5,20 +5,20 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class ReviewRepository : IReviewRepository
     {
-        private List<User> reviews;
+        private List<Review> reviews;
 
-        public ReviewRepository(List<User> reviews)
+        public ReviewRepository(List<Review> reviews)
         {
             this.reviews = reviews;
         }
 
-        public User AddReview(User review)
+        public Review AddReview(Review review)
         {
             reviews.Add(review);
             return review;
         }
 
-        public void DeleteReview(User review)
+        public void DeleteReview(Review review)
         {
             if (!reviews.Remove(review))
             {
@@ -26,12 +26,12 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public List<User> GetAllReviews()
+        public List<Review> GetAllReviews()
         {
             return reviews;
         }
 
-        public User GetReviewById(int id)
+        public Review GetReviewById(int id)
         {
             var review = reviews.FirstOrDefault(x => x.Id == id);
             if (review == null)

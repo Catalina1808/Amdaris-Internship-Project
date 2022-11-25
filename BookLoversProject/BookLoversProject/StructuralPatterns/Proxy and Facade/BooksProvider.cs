@@ -36,7 +36,7 @@ namespace BookLoversProject.Presentation.Structural_Patterns.Proxy
             return false;
         }
 
-        public async Task AddBookAsync(User user, Book book)
+        public async Task AddBookAsync(IUser user, Book book)
         {
                 var bookId = await mediator.Send(new CreateBookCommand
                 {

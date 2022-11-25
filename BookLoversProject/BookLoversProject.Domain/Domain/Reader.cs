@@ -1,6 +1,6 @@
 ﻿namespace BookLoversProject.Domain.Domain
 {
-    public class Reader : User
+    public class Reader : Entity, IUser
     {
         private string firstName;
         private string lastName;
@@ -27,20 +27,8 @@
 
         public ICollection<Reader> Friends { get; set; }
 
-        //override
-        public override string GreetingMessage()
-        {
-            return "Hello, " + Name + "!";
-        }
-
-        public Reader(string email, string password, string firstName, string lastName)
-         : base(email, password)
-        {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            Friends = new List<Reader>();
-            BookShelves = new List<Shelf>();
-        }
+        public string Email { get; set; }
+        public string Password { get; set; }
 
     }
 }

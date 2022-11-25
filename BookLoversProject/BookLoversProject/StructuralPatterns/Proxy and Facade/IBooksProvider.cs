@@ -6,7 +6,7 @@ namespace BookLoversProject.Presentation.Structural_Patterns.Proxy
     {
         public void Initialize();
         public bool IsBookValid(Book book);
-        public Task AddBookAsync(IUser user, Book book);
+        public Task AddBookAsync(AbstractUser user, Book book);
         public Task ListBookByIdAsync(int id);
         public Task ListBooksAsync();
     }

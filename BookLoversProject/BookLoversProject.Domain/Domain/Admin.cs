@@ -1,8 +1,6 @@
 ﻿namespace BookLoversProject.Domain.Domain
 {
-    public class Admin : Entity, IUser
+    public class Admin : AbstractUser
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

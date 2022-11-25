@@ -1,23 +1,23 @@
 ﻿namespace BookLoversProject.Domain.Domain
 {
-    public class Reader : Entity, IUser
+    public class Reader : AbstractUser
     {
-        private string firstName;
-        private string lastName;
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public string Name
         {
             get
             {
-                return firstName + " " + lastName;
+                return $"{FirstName} {LastName}";
             }
             set
             {
                 int indexOfSpace = value.IndexOf(" ");
                 if (indexOfSpace > 0)
                 {
-                    firstName = value.Substring(0, indexOfSpace);
-                    lastName = value.Substring(indexOfSpace + 1);
+                    FirstName = value.Substring(0, indexOfSpace);
+                    LastName = value.Substring(indexOfSpace + 1);
                 }
             }
         }
@@ -27,8 +27,6 @@
 
         public ICollection<Reader> Friends { get; set; }
 
-        public string Email { get; set; }
-        public string Password { get; set; }
-
+        public ICollection<Author> Authors { get; set; }
     }
 }

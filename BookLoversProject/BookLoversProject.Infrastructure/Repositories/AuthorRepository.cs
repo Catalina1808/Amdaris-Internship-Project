@@ -18,9 +18,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             return author;
         }
 
-        public void AddFollowerToAuthor(IUser follower, Author author)
+        public void AddFollowerToAuthor(AbstractUser follower, Author author)
         {
-            author.Followers.Add(follower);
+            //author.Followers.Add(follower);
         }
 
         public void DeleteAuthor(Author author)
@@ -28,12 +28,12 @@ namespace BookLoversProject.Infrastructure.Repositories
             authors.Remove(author);
         }
 
-        public void DeleteFollowerFromAuthor(IUser follower, Author author)
+        public void DeleteFollowerFromAuthor(AbstractUser follower, Author author)
         {
-            if (!author.Followers.Remove(follower))
-            {
-                throw new Exception("Follower not found!");
-            }
+            //if (!author.Followers.Remove(follower))
+            //{
+            //    throw new Exception("Follower not found!");
+            //}
         }
 
         public Author GetAuthorById(int id)

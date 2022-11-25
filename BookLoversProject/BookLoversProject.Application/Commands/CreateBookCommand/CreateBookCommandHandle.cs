@@ -20,8 +20,8 @@ namespace BookLoversProject.Application.Commands.CreateBookCommand
                 Id = request.Id,
                 Title = request.Title,
                 Description = request.Description,
-                AuthorList = request.AuthorList,
-                GenreList= request.GenreList
+                Authors = request.AuthorList,
+                Genres= request.GenreList
             };
             bookRepository.AddBook(book);
             return Task.FromResult(book.Id);

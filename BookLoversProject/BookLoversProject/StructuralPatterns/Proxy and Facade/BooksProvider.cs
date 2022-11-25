@@ -28,7 +28,7 @@ namespace BookLoversProject.Presentation.Structural_Patterns.Proxy
 
         public bool IsBookValid(Book book)
         {
-            if(book.Title != null && book.AuthorList.Count() > 0 && book.GenreList.Count() > 0)
+            if(book.Title != null && book.Authors.Count() > 0 && book.Genres.Count() > 0)
             {
                 return true;
             }
@@ -36,15 +36,15 @@ namespace BookLoversProject.Presentation.Structural_Patterns.Proxy
             return false;
         }
 
-        public async Task AddBookAsync(IUser user, Book book)
+        public async Task AddBookAsync(AbstractUser user, Book book)
         {
                 var bookId = await mediator.Send(new CreateBookCommand
                 {
                     Id = book.Id,
                     Title = book.Title,
                     Description = book.Description,
-                    AuthorList = book.AuthorList,
-                    GenreList = book.GenreList
+                    AuthorList = book.Authors,
+                    GenreList = book.Genres
                 });
 
                 Console.WriteLine($"Book created with {bookId}");

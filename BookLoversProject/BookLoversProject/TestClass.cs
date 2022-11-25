@@ -16,11 +16,11 @@ namespace BookLoversProject.Presentation
         public static async Task Main()
         {
             //using User Factory
-            IUser user1 = UserFactory.CreateUser(true,"emailAdmin", "password");
-            IUser user2 = UserFactory.CreateUser(false, "emailUser", "password");
+            AbstractUser user1 = UserFactory.CreateUser(true,"emailAdmin", "password");
+            AbstractUser user2 = UserFactory.CreateUser(false, "emailUser", "password");
 
 
-            List<Author> authors = new List<Author>();
+            List<BookAuthor> authors = new List<BookAuthor>();
 
             List<Genre> genres = new List<Genre> {
                 new Genre
@@ -44,16 +44,16 @@ namespace BookLoversProject.Presentation
                 Id = 1,
                 Title = "title1",
                 Description = "description",
-                AuthorList = authors,
-                GenreList = genres
+                Authors = authors,
+                Genres = new List<GenreBook>()
             };
             Book book2 = new Book
             {
                 Id = 2,
                 Title = "title2",
                 Description = "description2",
-                AuthorList = authors,
-                GenreList = genres
+                Authors = authors,
+                Genres = new List<GenreBook>()
             };
 
             Book book3 = (Book)book1.Clone(); //because Book class implements ICloneable interface

@@ -7,11 +7,13 @@
 
         public string Description { get; set; }
 
-        public ICollection<Author> AuthorList { get; set; }
+        public ICollection<BookAuthor> Authors { get; set; }
 
-        public ICollection<Review> ReviewList { get; }
+        public ICollection<Review> Reviews { get; }
 
-        public ICollection<Genre> GenreList { get; set; }
+        public ICollection<GenreBook> Genres { get; set; }
+
+        public ICollection<ShelfBook> Shelves { get; set; }
 
         public object Clone()
         {
@@ -20,8 +22,8 @@
                 Id = Id,
                 Title = Title,
                 Description = Description,
-                AuthorList = AuthorList,
-                GenreList = GenreList
+                Authors = Authors,
+                Genres = Genres
             };
             return clone;
         }

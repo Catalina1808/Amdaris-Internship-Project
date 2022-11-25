@@ -1,6 +1,6 @@
 ﻿namespace BookLoversProject.Domain.Domain
 {
-    public class Reader : Entity, IUser
+    public class Reader : AbstractUser
     {
         private string firstName;
         private string lastName;
@@ -27,8 +27,7 @@
 
         public ICollection<Reader> Friends { get; set; }
 
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public ICollection<ReaderAuthor> Authors { get; set; }
 
     }
 }

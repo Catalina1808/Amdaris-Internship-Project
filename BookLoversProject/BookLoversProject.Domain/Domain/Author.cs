@@ -1,8 +1,13 @@
 ﻿namespace BookLoversProject.Domain.Domain
 {
-    public class Author : Reader
+    public class Author : Entity
     {
+        public string Name { get; set; }
+
         public string Description { get; set; }
-        public ICollection<IUser> Followers { get; set; }
+
+        public ICollection<BookAuthor> Books { get; set; }
+
+        public ICollection<ReaderAuthor> Followers { get; set; }
     }
 }

@@ -5,12 +5,12 @@ namespace BookLoversProject.Domain.Domain
     public class Shelf : Entity, IEnumerable
     {
         public string Name { get; set; }
-        public ICollection<Book> Books { get; }
+        public ICollection<ShelfBook> Books { get; set; }
 
         public Shelf(string name)
         {
             Name = name;
-            Books = new List<Book>();
+            Books = new List<ShelfBook>();
         }
 
         public IEnumerator GetEnumerator()

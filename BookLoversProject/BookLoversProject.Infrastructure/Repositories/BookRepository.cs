@@ -52,7 +52,7 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Review GetReviewFromBook(int reviewId, int bookId)
         {
             var book = GetBookById(bookId);
-            var review = book.ReviewList.FirstOrDefault(x => x.Id == reviewId);
+            var review = book.Reviews.FirstOrDefault(x => x.Id == reviewId);
             if (review == null)
             {
                 throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
@@ -66,12 +66,12 @@ namespace BookLoversProject.Infrastructure.Repositories
             {
                 throw new ArgumentNullException("Exception occured, review not defined!");
             }
-            book.ReviewList.Add(review);
+            book.Reviews.Add(review);
         }
 
         public void DeleteReviewFromBook(Review review, Book book)
         {
-            if (!book.ReviewList.Remove(review))
+            if (!book.Reviews.Remove(review))
             {
                 throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
             }

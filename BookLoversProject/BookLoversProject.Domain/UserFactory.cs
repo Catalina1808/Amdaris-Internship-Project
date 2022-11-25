@@ -5,7 +5,7 @@ namespace BookLoversProject.Domain
     public class UserFactory
     {
 
-        public static IUser CreateUser(bool isAdmin, string email, string password)
+        public static AbstractUser CreateUser(bool isAdmin, string email, string password)
         {
             if (isAdmin)
             {

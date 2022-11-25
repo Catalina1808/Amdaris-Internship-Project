@@ -16,8 +16,8 @@ namespace BookLoversProject.Presentation
         public static async Task Main()
         {
             //using User Factory
-            IUser user1 = UserFactory.CreateUser(true, "author", "email", "password");
-            IUser user2 = UserFactory.CreateUser(false, "user", "email", "password");
+            IUser user1 = UserFactory.CreateUser(true,"emailAdmin", "password");
+            IUser user2 = UserFactory.CreateUser(false, "emailUser", "password");
 
 
             List<Author> authors = new List<Author>();

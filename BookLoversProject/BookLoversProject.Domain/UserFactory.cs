@@ -5,13 +5,12 @@ namespace BookLoversProject.Domain
     public class UserFactory
     {
 
-        public static IUser CreateUser(bool isAuthor, string name, string email, string password)
+        public static IUser CreateUser(bool isAdmin, string email, string password)
         {
-            if (isAuthor)
+            if (isAdmin)
             {
-                return new Author
+                return new Admin
                 {
-                    Name = name,
                     Email = email,
                     Password = password
                 };
@@ -20,7 +19,6 @@ namespace BookLoversProject.Domain
             {
                 return new Reader
                 {
-                    Name = name,
                     Email = email,
                     Password = password
                 };

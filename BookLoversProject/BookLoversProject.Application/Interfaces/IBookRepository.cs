@@ -14,6 +14,10 @@ namespace BookLoversProject.Application.Interfaces
 
         Review GetReviewFromBook(int reviewId, int bookId);
 
+        void AddAuthorToBook(Book book, Author author);
+
+        void DeleteAuthorFromBook(Book book, Author author);
+
         void AddReviewToBook(Review review, Book book);
 
         void DeleteReviewFromBook(Review review, Book book);

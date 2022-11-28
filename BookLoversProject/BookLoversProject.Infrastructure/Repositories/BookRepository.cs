@@ -20,6 +20,29 @@ namespace BookLoversProject.Infrastructure.Repositories
             };
         }
 
+        public void AddAuthorToBook(Book book, Author author)
+        {
+            var bookAuthor = new BookAuthor();
+            bookAuthor.Author = author;
+            bookAuthor.Book = book;
+            bookAuthor.AuthorId = author.Id;
+            bookAuthor.BookId = book.Id;
+
+            author.Books.Add(bookAuthor);
+            book.Authors.Add(bookAuthor);
+        }
+
+        public void DeleteAuthorFromBook(Book book, Author author)
+        {
+            var bookAuthor = book.Authors.FirstOrDefault(item => item.Author == author);
+
+            if (!book.Authors.Remove(bookAuthor))
+            {
+                throw new Exception("Author not found!");
+            }
+        }
+
+
         public Book AddBook(Book book)
         {
             books.Add(book);

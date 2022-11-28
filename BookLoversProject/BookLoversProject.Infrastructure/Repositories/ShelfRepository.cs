@@ -15,6 +15,15 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Book AddBookToShelf(Book book, Shelf shelf)
         {
             //shelf.Books.Add(book);
+            var shelfBook = new ShelfBook();
+            shelfBook.Shelf = shelf;
+            shelfBook.Book = book;
+            shelfBook.BookId = book.Id;
+            shelfBook.ShelfId = shelf.Id;
+
+            shelf.Books.Add(shelfBook);
+            book.Shelves.Add(shelfBook);
+
             return book;
         }
 
@@ -26,10 +35,12 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void DeleteBookFromShelf(Book book, Shelf shelf)
         {
-            //if (!shelf.Books.Remove(book))
-            //{
-            //    throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
-            //}
+            var shelfBook = shelf.Books.FirstOrDefault(item => item.Book == book);
+
+            if (!shelf.Books.Remove(shelfBook))
+            {
+                throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
+            }
         }
 
         public void DeleteShelf(Shelf shelf)

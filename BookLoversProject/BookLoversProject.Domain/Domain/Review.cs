@@ -3,13 +3,11 @@
     public class Review: Entity
     {
         public string Comment { get; set; }
-        public AbstractUser User { get; set; }
         public DateTime Date { get; set; }
 
-        public Review(string comment, AbstractUser user, DateTime date)
+        public Review(string comment,  DateTime date)
         {
             Comment = comment;
-            User = user;
             Date = date;
         }
     }

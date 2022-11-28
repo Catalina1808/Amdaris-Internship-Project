@@ -7,6 +7,8 @@
 
         public string Description { get; set; }
 
+        public double Rating { get; set; }
+
         public ICollection<BookAuthor> Authors { get; set; }
 
         public ICollection<Review> Reviews { get; }

@@ -16,6 +16,7 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Reader AddReader(Reader reader)
         {
             readers.Add(reader);
+            reader.Id = readers.Count;
             return reader;
         }
 

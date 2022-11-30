@@ -4,26 +4,25 @@ using MediatR;
 
 namespace BookLoversProject.Application.Commands.CreateBookCommand
 {
-    internal class CreateBookCommandHandle : IRequestHandler<CreateBookCommand, int>
+    internal class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
     {
-        private readonly IBookRepository bookRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public CreateBookCommandHandle(IBookRepository bookRepository)
+        public CreateBookCommandHandler(IBookRepository bookRepository)
         {
-            this.bookRepository = bookRepository;
+            _bookRepository = bookRepository;
         }
 
         public Task<int> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
             var book = new Book
             {
-                Id = request.Id,
                 Title = request.Title,
                 Description = request.Description,
                 Authors = request.AuthorList,
                 Genres= request.GenreList
             };
-            bookRepository.AddBook(book);
+            _bookRepository.AddBook(book);
             return Task.FromResult(book.Id);
         }
     }

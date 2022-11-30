@@ -18,4 +18,11 @@
     <ProjectReference Include="..\BookLoversProject.Domain\BookLoversProject.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\CreateGenreCommand\" />
+    <Folder Include="Commands\CreateReaderCommand\" />
+    <Folder Include="Commands\CreateShelfCommand\" />
+    <Folder Include="Commands\CreateReviewCommand\" />
+  </ItemGroup>
+
 </Project>

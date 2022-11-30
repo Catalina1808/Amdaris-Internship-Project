@@ -21,5 +21,9 @@ namespace BookLoversProject.Application.Interfaces
         void AddReviewToBook(Review review, Book book);
 
         void DeleteReviewFromBook(Review review, Book book);
+
+        void AddGenreToBook(Genre genre, Book book);
+
+        void DeleteGenreFromBook(Genre genre, Book book);
     }
 }

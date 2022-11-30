@@ -15,6 +15,7 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Admin AddAdmin(Admin admin)
         {
             admins.Add(admin);
+            admin.Id = admins.Count;
             return admin;
         }
 

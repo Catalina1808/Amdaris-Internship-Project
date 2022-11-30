@@ -5,11 +5,11 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class ShelfRepository : IShelfRepository
     {
-        private List<Shelf> shelfs;
+        private List<Shelf> shelves;
 
         public ShelfRepository(List<Shelf> shelfs)
         {
-            this.shelfs = shelfs;
+            this.shelves = shelfs;
         }
 
         public Book AddBookToShelf(Book book, Shelf shelf)
@@ -29,7 +29,8 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public Shelf AddShelf(Shelf shelf)
         {
-            shelfs.Add(shelf);
+            shelves.Add(shelf);
+            shelf.Id = shelves.Count;
             return shelf;
         }
 
@@ -45,7 +46,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void DeleteShelf(Shelf shelf)
         {
-            if (!shelfs.Remove(shelf))
+            if (!shelves.Remove(shelf))
             {
                 throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
             }
@@ -53,7 +54,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public Shelf GetShelfById(int id)
         {
-            var shelf = shelfs.FirstOrDefault(x => x.Id == id);
+            var shelf = shelves.FirstOrDefault(x => x.Id == id);
             if (shelf == null)
             {
                 throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");

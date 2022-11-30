@@ -15,6 +15,7 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Review AddReview(Review review)
         {
             reviews.Add(review);
+            review.Id = reviews.Count;
             return review;
         }
 

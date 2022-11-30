@@ -20,13 +20,40 @@ namespace BookLoversProject.Infrastructure.Repositories
             };
         }
 
+
+        public void AddGenreToBook(Genre genre, Book book)
+        {
+            var genreBook = new GenreBook
+            {
+                GenreId = genre.Id,
+                Genre = genre,
+                Book = book,
+                BookId = book.Id
+            };
+
+            genre.Books.Add(genreBook);
+            book.Genres.Add(genreBook);
+        }
+
+        public void DeleteGenreFromBook(Genre genre, Book book)
+        {
+            var genreBook = book.Genres.FirstOrDefault(item => item.Genre == genre);
+
+            if (!book.Genres.Remove(genreBook))
+            {
+                throw new Exception("Genre not found!");
+            }
+        }
+
         public void AddAuthorToBook(Book book, Author author)
         {
-            var bookAuthor = new BookAuthor();
-            bookAuthor.Author = author;
-            bookAuthor.Book = book;
-            bookAuthor.AuthorId = author.Id;
-            bookAuthor.BookId = book.Id;
+            var bookAuthor = new BookAuthor
+            {
+                AuthorId = author.Id,
+                Author = author,
+                BookId = book.Id,
+                Book = book
+            };
 
             author.Books.Add(bookAuthor);
             book.Authors.Add(bookAuthor);
@@ -46,6 +73,7 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Book AddBook(Book book)
         {
             books.Add(book);
+            book.Id = books.Count;
             return book;
         }
 

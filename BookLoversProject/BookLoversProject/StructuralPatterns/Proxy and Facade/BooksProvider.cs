@@ -40,7 +40,6 @@ namespace BookLoversProject.Presentation.Structural_Patterns.Proxy
         {
                 var bookId = await mediator.Send(new CreateBookCommand
                 {
-                    Id = book.Id,
                     Title = book.Title,
                     Description = book.Description,
                     AuthorList = book.Authors,

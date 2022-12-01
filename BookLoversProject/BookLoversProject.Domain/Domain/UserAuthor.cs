@@ -1,10 +1,10 @@
 ﻿namespace BookLoversProject.Domain.Domain
 {
-    public class ReaderAuthor
+    public class UserAuthor
     {
-        public int ReaderId { get; set; }
+        public int UserId { get; set; }
 
-        public Reader Reader { get; set; }
+        public User User { get; set; }
 
         public int AuthorId { get; set; }
 

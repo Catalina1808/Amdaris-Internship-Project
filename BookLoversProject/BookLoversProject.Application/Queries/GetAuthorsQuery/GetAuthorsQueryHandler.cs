@@ -19,6 +19,7 @@ namespace BookLoversProject.Application.Queries.GetAuthorsQuery
         {
             var result = _authorRepository.GetAllAuthors()
                 .Select(x => _mapper.Map<AuthorDTO>(x));
+
             return Task.FromResult(result);
         }
     }

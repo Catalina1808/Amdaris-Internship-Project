@@ -19,16 +19,16 @@ namespace BookLoversProject.Infrastructure.Repositories
             return author;
         }
 
-        public void AddFollowerToAuthor(Reader follower, Author author)
+        public void AddFollowerToAuthor(User follower, Author author)
         {
-            var readerAutor = new ReaderAuthor();
-            readerAutor.Author = author;
-            readerAutor.Reader = follower;
-            readerAutor.AuthorId = author.Id;
-            readerAutor.ReaderId = follower.Id;
+            var userAutor = new UserAuthor();
+            userAutor.Author = author;
+            userAutor.User = follower;
+            userAutor.AuthorId = author.Id;
+            userAutor.UserId = follower.Id;
 
-            author.Followers.Add(readerAutor);
-            follower.Authors.Add(readerAutor);
+            author.Followers.Add(userAutor);
+            follower.Authors.Add(userAutor);
         }
 
         public void DeleteAuthor(Author author)
@@ -36,11 +36,11 @@ namespace BookLoversProject.Infrastructure.Repositories
             authors.Remove(author);
         }
 
-        public void DeleteFollowerFromAuthor(Reader follower, Author author)
+        public void DeleteFollowerFromAuthor(User follower, Author author)
         {
-            var readerAuthor = author.Followers.FirstOrDefault(item => item.Reader == follower);
+            var userAuthor = author.Followers.FirstOrDefault(item => item.User == follower);
 
-            if (!author.Followers.Remove(readerAuthor))
+            if (!author.Followers.Remove(userAuthor))
             {
                 throw new Exception("Follower not found!");
             }

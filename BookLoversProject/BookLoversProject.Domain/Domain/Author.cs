@@ -8,6 +8,6 @@
 
         public ICollection<BookAuthor> Books { get; set; }
 
-        public ICollection<ReaderAuthor> Followers { get; set; }
+        public ICollection<UserAuthor> Followers { get; set; }
     }
 }

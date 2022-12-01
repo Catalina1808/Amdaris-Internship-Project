@@ -17,7 +17,7 @@ namespace BookLoversProject.Domain
             }
             else
             {
-                return new Reader
+                return new User
                 {
                     Email = email,
                     Password = password

@@ -1,6 +1,6 @@
 ﻿namespace BookLoversProject.Domain.Domain
 {
-    public class Reader : AbstractUser
+    public class User : AbstractUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -26,9 +26,9 @@
 
         public ICollection<Shelf> BookShelves { get; }
 
-        public ICollection<Reader> Friends { get; set; }
+        public ICollection<User> Friends { get; set; }
 
-        public ICollection<ReaderAuthor> Authors { get; set; }
+        public ICollection<UserAuthor> Authors { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
 

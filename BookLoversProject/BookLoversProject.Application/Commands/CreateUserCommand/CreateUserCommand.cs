@@ -2,7 +2,7 @@
 
 namespace BookLoversProject.Application.Commands.CreateReaderCommand
 {
-    public class CreateReaderCommand : IRequest<int>
+    public class CreateUserCommand : IRequest<int>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

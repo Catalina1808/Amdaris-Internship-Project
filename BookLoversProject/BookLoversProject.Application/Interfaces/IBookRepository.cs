@@ -8,11 +8,11 @@ namespace BookLoversProject.Application.Interfaces
 
         Book GetBookById(int id);
 
-        List<Book> GetAllBooks();
+        ICollection<Book> GetAllBooks();
 
         void DeleteBook(Book book);
 
-        Review GetReviewFromBook(int reviewId, int bookId);
+        ICollection<Review> GetReviewsByBookId(int bookId);
 
         void AddAuthorToBook(Book book, Author author);
 

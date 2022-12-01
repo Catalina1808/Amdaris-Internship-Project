@@ -4,18 +4,18 @@ using MediatR;
 
 namespace BookLoversProject.Application.Commands.CreateReaderCommand
 {
-    internal class CreateReaderCommandHander : IRequestHandler<CreateReaderCommand, int>
+    internal class CreateUserCommandHander : IRequestHandler<CreateUserCommand, int>
     {
-        private readonly IReaderRepository _readerRepository;
+        private readonly IUserRepository _readerRepository;
 
-        public CreateReaderCommandHander(IReaderRepository readerRepository)
+        public CreateUserCommandHander(IUserRepository readerRepository)
         {
             _readerRepository = readerRepository;   
         }
 
-        public Task<int> Handle(CreateReaderCommand request, CancellationToken cancellationToken)
+        public Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var reader = new Reader
+            var reader = new User
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,

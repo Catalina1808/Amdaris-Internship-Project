@@ -5,11 +5,11 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private readonly List<Book> books;
+        private readonly List<Book> _books;
 
         public BookRepository()
         {
-            books = new List<Book>
+            _books = new List<Book>
             {
                 new Book()
                 {
@@ -72,27 +72,27 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public Book AddBook(Book book)
         {
-            books.Add(book);
-            book.Id = books.Count;
+            _books.Add(book);
+            book.Id = _books.Count;
             return book;
         }
 
         public void DeleteBook(Book book)
         {
-            if (!books.Remove(book))
+            if (!_books.Remove(book))
             {
                 throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
             }
         }
 
-        public List<Book> GetAllBooks()
+        public ICollection<Book> GetAllBooks()
         {
-            return books;
+            return _books;
         }
 
         public Book GetBookById(int id)
         {
-            var book = books.FirstOrDefault(x => x.Id == id);
+            var book = _books.FirstOrDefault(x => x.Id == id);
             if (book == null)
             {
                 throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
@@ -100,15 +100,15 @@ namespace BookLoversProject.Infrastructure.Repositories
             return book;
         }
 
-        public Review GetReviewFromBook(int reviewId, int bookId)
+        public ICollection<Review> GetReviewsByBookId(int bookId)
         {
             var book = GetBookById(bookId);
-            var review = book.Reviews.FirstOrDefault(x => x.Id == reviewId);
-            if (review == null)
+            var reviews = book.Reviews;
+            if (reviews == null)
             {
-                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
+                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, reviews not found!");
             }
-            return review;
+            return reviews;
         }
 
         public void AddReviewToBook(Review review, Book book)

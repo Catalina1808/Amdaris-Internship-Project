@@ -13,6 +13,5 @@ namespace BookLoversProject.Application.Interfaces
         Book AddBookToShelf(Book book, Shelf shelf);
 
         void DeleteBookFromShelf(Book book, Shelf shelf);
-
     }
 }

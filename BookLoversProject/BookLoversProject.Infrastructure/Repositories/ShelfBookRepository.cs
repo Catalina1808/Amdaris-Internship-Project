@@ -13,6 +13,11 @@ namespace BookLoversProject.Infrastructure.Repositories
             _shelfBooks = shelfBooks;
         }
 
+        public ShelfBookRepository()
+        {
+            _shelfBooks= new List<ShelfBook>();
+        }
+
         public ShelfBook AddShelfBook(ShelfBook shelfBook)
         {
             _shelfBooks.Add(shelfBook);

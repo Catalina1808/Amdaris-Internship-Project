@@ -13,6 +13,11 @@ namespace BookLoversProject.Infrastructure.Repositories
             _genreBooks = genreBooks;
         }
 
+        public GenreBookRepository()
+        {
+            _genreBooks= new List<GenreBook>();
+        }
+
         public GenreBook AddGenreBook(GenreBook genreBook)
         {
             _genreBooks.Add(genreBook);

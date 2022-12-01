@@ -1,54 +1,82 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using BookLoversProject.Application.Exceptions;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 
 namespace BookLoversProject.Infrastructure.Repositories
 {
     public class AuthorRepository : IAuthorRepository
     {
-        private List<Author> authors;
+        private List<Author> _authors;
 
         public AuthorRepository(List<Author> authors)
         {
-            this.authors = authors;
+            _authors = authors;
+        }
+
+        public AuthorRepository()
+        {
+            _authors= new List<Author>();
         }
 
         public Author AddAuthor(Author author)
         {
-            authors.Add(author);
-            author.Id = authors.Count;
+            _authors.Add(author);
+            author.Id = _authors.Count;
             return author;
         }
 
-        public void AddFollowerToAuthor(User follower, Author author)
+        public void AddBookToAuthor(int authorId, BookAuthor book)
         {
-            var userAutor = new UserAuthor();
-            userAutor.Author = author;
-            userAutor.User = follower;
-            userAutor.AuthorId = author.Id;
-            userAutor.UserId = follower.Id;
+            var author = _authors.FirstOrDefault(x => x.Id == authorId);
+            if (author != null)
+            {
+                author.Books.Add(book);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
 
-            author.Followers.Add(userAutor);
-            follower.Authors.Add(userAutor);
+        public void DeleteBookFromAuthor(int authorId, BookAuthor book)
+        {
+            var author = _authors.FirstOrDefault(x => x.Id == authorId);
+            if (author == null || !author.Books.Remove(book))
+            {
+                throw new Exception("Book could not be deleted!");
+            }
+        }
+
+        public void AddFollowerToAuthor(UserAuthor follower, int authorId)
+        {
+            var author = _authors.FirstOrDefault(x => x.Id == authorId);
+            if (author != null)
+            {
+                author.Followers.Add(follower);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
 
         public void DeleteAuthor(Author author)
         {
-            authors.Remove(author);
+            _authors.Remove(author);
         }
 
-        public void DeleteFollowerFromAuthor(User follower, Author author)
+        public void DeleteFollowerFromAuthor(UserAuthor follower, int authorId)
         {
-            var userAuthor = author.Followers.FirstOrDefault(item => item.User == follower);
-
-            if (!author.Followers.Remove(userAuthor))
+            var author = _authors.FirstOrDefault(x => x.Id == authorId);
+            if (author == null || !author.Followers.Remove(follower))
             {
-                throw new Exception("Follower not found!");
+                throw new Exception("Follower could not be deleted!");
             }
         }
 
         public Author GetAuthorById(int id)
         {
-            var author = authors.FirstOrDefault(x => x.Id == id);
+            var author = _authors.FirstOrDefault(x => x.Id == id);
             if (author == null)
             {
                 throw new Exception("Exception occured, author not found!");
@@ -58,7 +86,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public List<Author> GetAllAuthors()
         {
-            return authors;
+            return _authors;
         }
     }
 }

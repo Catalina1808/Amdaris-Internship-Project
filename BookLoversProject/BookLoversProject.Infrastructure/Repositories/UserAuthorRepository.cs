@@ -12,6 +12,11 @@ namespace BookLoversProject.Infrastructure.Repositories
             _userAuthors = userAuthors;
         }
 
+        public UserAuthorRepository()
+        {
+            _userAuthors = new List<UserAuthor>();
+        }
+
         public UserAuthor AddUserAuthor(UserAuthor userAuthor)
         {
             _userAuthors.Add(userAuthor);

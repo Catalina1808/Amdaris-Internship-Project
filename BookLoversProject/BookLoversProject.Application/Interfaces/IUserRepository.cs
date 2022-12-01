@@ -12,8 +12,8 @@ namespace BookLoversProject.Application.Interfaces
 
         void DeleteUser(User user);
 
-        void AddShelfToUser(Shelf shelf, User user);
+        void AddShelfToUser(Shelf shelf, int userId);
 
-        void DeleteShelfFromUser(Shelf shelf, User user);
+        void DeleteShelfFromUser(Shelf shelf, int userId);
     }
 }

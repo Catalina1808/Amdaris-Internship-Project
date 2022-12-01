@@ -18,7 +18,9 @@ namespace BookLoversProject.Application.Commands.CreateAuthorCommand
             var author = new Author
             {
                 Name = request.Name,
-                Description = request.Description
+                Description = request.Description,
+                Books = request.Books,
+                Followers = request.Followers
             };
             _authorRepository.AddAuthor(author);
             return Task.FromResult(author.Id);

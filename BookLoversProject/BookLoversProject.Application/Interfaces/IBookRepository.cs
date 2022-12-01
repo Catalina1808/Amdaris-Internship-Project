@@ -14,16 +14,20 @@ namespace BookLoversProject.Application.Interfaces
 
         ICollection<Review> GetReviewsByBookId(int bookId);
 
-        void AddAuthorToBook(Book book, Author author);
+        void AddAuthorToBook(int bookId, BookAuthor author);
 
-        void DeleteAuthorFromBook(Book book, Author author);
+        void DeleteAuthorFromBook(int bookId, BookAuthor author);
 
-        void AddReviewToBook(Review review, Book book);
+        void AddReviewToBook(Review review, int bookId);
 
-        void DeleteReviewFromBook(Review review, Book book);
+        void DeleteReviewFromBook(Review review, int bookId);
 
-        void AddGenreToBook(Genre genre, Book book);
+        void AddGenreToBook(GenreBook genre, int bookId);
 
-        void DeleteGenreFromBook(Genre genre, Book book);
+        void DeleteGenreFromBook(GenreBook genre, int bookId);
+
+        void AddShelfToBook(ShelfBook shelf, int bookId);
+
+        void DeleteShelfFromBook(ShelfBook shelf, int bookId);
     }
 }

@@ -12,8 +12,12 @@ namespace BookLoversProject.Application.Interfaces
 
         void DeleteAuthor(Author author);
 
-        void AddFollowerToAuthor(User follower, Author author);
+        void AddFollowerToAuthor(UserAuthor follower, int authorId);
 
-        void DeleteFollowerFromAuthor(User follower, Author author);
+        void DeleteFollowerFromAuthor(UserAuthor follower, int authorId);
+
+        void AddBookToAuthor(int authorId, BookAuthor book);
+
+        void DeleteBookFromAuthor(int authorId, BookAuthor book);
     }
 }

@@ -1,4 +1,5 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using BookLoversProject.Application.Exceptions;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 
 namespace BookLoversProject.Infrastructure.Repositories
@@ -10,6 +11,11 @@ namespace BookLoversProject.Infrastructure.Repositories
         public GenreRepository(List<Genre> genres)
         {
             this.genres = genres;
+        }
+
+        public GenreRepository()
+        {
+           genres = new List<Genre>();
         }
 
         public Genre AddGenre(Genre genre)
@@ -40,6 +46,28 @@ namespace BookLoversProject.Infrastructure.Repositories
                 throw new Exception("Exception occured, genre not found!");
             }
             return genre;
+        }
+
+        public void AddBookToGenre(GenreBook genreBook, int genreId)
+        {
+            var genre = genres.FirstOrDefault(x => x.Id == genreId);
+            if (genre != null && genreBook != null)
+            {
+                genre.Books.Add(genreBook);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        public void DeleteBookFromGenre(GenreBook genreBook, int genreId)
+        {
+            var genre = genres.FirstOrDefault(x => x.Id == genreId);
+            if(genre == null || !genre.Books.Remove(genreBook))
+            {
+                throw new ArgumentNullException();
+            }
         }
     }
 }

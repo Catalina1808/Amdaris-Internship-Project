@@ -8,6 +8,10 @@ using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Presentation.StructuralPatterns.Proxy;
 using BookLoversProject.Presentation.StructuralPatterns.Decorator;
 using BookLoversProject.Application.Queries.GetBookByIdQuery;
+using BookLoversProject.Application.Commands.CreateAuthorCommand;
+using BookLoversProject.Application.Commands.CreateBookCommand;
+using BookLoversProject.Application.Commands.CreateBookAuthorCommand;
+using BookLoversProject.Application.Queries.GetBooksQuery;
 
 namespace BookLoversProject.Presentation
 {
@@ -41,7 +45,6 @@ namespace BookLoversProject.Presentation
 
             Book book1 = new Book
             {
-                Id = 1,
                 Title = "title1",
                 Description = "description",
                 Authors = authors,
@@ -49,7 +52,6 @@ namespace BookLoversProject.Presentation
             };
             Book book2 = new Book
             {
-                Id = 2,
                 Title = "title2",
                 Description = "description2",
                 Authors = authors,
@@ -63,19 +65,35 @@ namespace BookLoversProject.Presentation
 
             //Queries and Commands test
 
-            var diContainer = new ServiceCollection()
-                .AddMediatR(typeof(IAssemblyMarker))
-                .AddAutoMapper(typeof(IAssemblyMarker))
-                .AddScoped<IBookRepository, BookRepository>()
-                .BuildServiceProvider();
+            //var diContainer = new ServiceCollection()
+            //    .AddMediatR(typeof(IAssemblyMarker))
+            //    .AddAutoMapper(typeof(IAssemblyMarker))
+            //    .AddScoped<IBookRepository, BookRepository>()
+            //    .AddScoped<IAuthorRepository, AuthorRepository>()
+            //    .AddScoped<IBookAuthorRepository, BookAuthorRepository>()
+            //    .BuildServiceProvider();
 
-            var mediator = diContainer.GetRequiredService<IMediator>();
+            //var mediator = diContainer.GetRequiredService<IMediator>();
 
-            var bookById = await mediator.Send(new GetBookByIdQuery { Id = 1});       
+            //var author = new Author { Name = "author", Description = "description", Books = new List<BookAuthor>(), Followers = new List<UserAuthor>() };
+            //var authorId = await mediator.Send(new CreateAuthorCommand { Name = author.Name, Description = author.Description, Books = author.Books, Followers = author.Followers });
+            //var bookId = await mediator.Send(new CreateBookCommand { Title = book1.Title, Description = book1.Description, AuthorList = book1.Authors });
+            //var bookAuthor = await mediator.Send(new CreateBookAuthorCommand { AuthorId = authorId, Author = author, BookId = bookId, Book = book1 });
+
+            //Console.WriteLine("created author with id=" + authorId + " and book with id=" + bookId + " and bookAuthor");
+
+            //var books = await mediator.Send(new GetBooksQuery());
+            //foreach (var b in books)
+            //{
+            //    Console.WriteLine("Book with id:" + b.Id);
+            //    foreach (var authorb in b.Authors)
+            //    {
+            //        Console.WriteLine(authorb.AuthorId + " " + authorb.Author.Name);
+            //    }
+            //}
 
 
             Admin admin = new Admin { Email = "email", Password = "password" };
-
 
             //Proxy
             var bookOperationsProxy = new BooksProviderProxy();
@@ -84,7 +102,7 @@ namespace BookLoversProject.Presentation
             await bookOperationsProxy.ListBooksAsync();
             Console.WriteLine();
 
-            await bookOperationsProxy.ListBookByIdAsync(book1.Id);
+            await bookOperationsProxy.ListBookByIdAsync(1);
             Console.WriteLine();
 
             //Facade

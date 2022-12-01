@@ -11,5 +11,9 @@ namespace BookLoversProject.Application.Interfaces
         List<Genre> GetAllGenres();
 
         void DeleteGenre(Genre genre);
+
+        void AddBookToGenre(GenreBook genreBook, int genreId);
+
+        void DeleteBookFromGenre(GenreBook genreBook, int genreId);
     }
 }

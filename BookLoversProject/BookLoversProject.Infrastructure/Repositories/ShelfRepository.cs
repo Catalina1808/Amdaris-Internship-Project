@@ -5,48 +5,44 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class ShelfRepository : IShelfRepository
     {
-        private List<Shelf> shelves;
+        private List<Shelf> _shelves;
 
         public ShelfRepository(List<Shelf> shelfs)
         {
-            this.shelves = shelfs;
+            this._shelves = shelfs;
         }
 
-        public Book AddBookToShelf(Book book, Shelf shelf)
+        public ShelfBook AddBookToShelf(ShelfBook book, int shelfId)
         {
-            //shelf.Books.Add(book);
-            var shelfBook = new ShelfBook();
-            shelfBook.Shelf = shelf;
-            shelfBook.Book = book;
-            shelfBook.BookId = book.Id;
-            shelfBook.ShelfId = shelf.Id;
-
-            shelf.Books.Add(shelfBook);
-            book.Shelves.Add(shelfBook);
-
-            return book;
+            var shelf = _shelves.FirstOrDefault(x => x.Id == shelfId);
+            if (shelf != null && book != null)
+            {
+                shelf.Books.Add(book);
+                return book;
+            } 
+            throw new ArgumentNullException();
         }
 
         public Shelf AddShelf(Shelf shelf)
         {
-            shelves.Add(shelf);
-            shelf.Id = shelves.Count;
+            _shelves.Add(shelf);
+            shelf.Id = _shelves.Count;
             return shelf;
         }
 
-        public void DeleteBookFromShelf(Book book, Shelf shelf)
+        public void DeleteBookFromShelf(ShelfBook book, int shelfId)
         {
-            var shelfBook = shelf.Books.FirstOrDefault(item => item.Book == book);
+            var shelf = _shelves.FirstOrDefault(x => x.Id == shelfId);
 
-            if (!shelf.Books.Remove(shelfBook))
+            if (shelf == null || !shelf.Books.Remove(book))
             {
-                throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
+                throw new ArgumentNullException();
             }
         }
 
         public void DeleteShelf(Shelf shelf)
         {
-            if (!shelves.Remove(shelf))
+            if (!_shelves.Remove(shelf))
             {
                 throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
             }
@@ -54,7 +50,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public Shelf GetShelfById(int id)
         {
-            var shelf = shelves.FirstOrDefault(x => x.Id == id);
+            var shelf = _shelves.FirstOrDefault(x => x.Id == id);
             if (shelf == null)
             {
                 throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");

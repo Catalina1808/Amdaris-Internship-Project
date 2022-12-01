@@ -1,4 +1,5 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using BookLoversProject.Application.Exceptions;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 
 namespace BookLoversProject.Infrastructure.Repositories
@@ -21,54 +22,50 @@ namespace BookLoversProject.Infrastructure.Repositories
         }
 
 
-        public void AddGenreToBook(Genre genre, Book book)
+        public void AddGenreToBook(GenreBook genre, int bookId)
         {
-            var genreBook = new GenreBook
+            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            if(book != null)
             {
-                GenreId = genre.Id,
-                Genre = genre,
-                Book = book,
-                BookId = book.Id
-            };
+                book.Genres.Add(genre);
+            }
+            else
+            {
+                throw new BookNotFoundException();
+            }
 
-            genre.Books.Add(genreBook);
-            book.Genres.Add(genreBook);
         }
 
-        public void DeleteGenreFromBook(Genre genre, Book book)
+        public void DeleteGenreFromBook(GenreBook genre, int bookId)
         {
-            var genreBook = book.Genres.FirstOrDefault(item => item.Genre == genre);
-
-            if (!book.Genres.Remove(genreBook))
+            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            if (book == null || !book.Genres.Remove(genre))
             {
-                throw new Exception("Genre not found!");
+                throw new Exception("Genre could not be deleted!");
             }
         }
 
-        public void AddAuthorToBook(Book book, Author author)
+        public void AddAuthorToBook(int bookId, BookAuthor author)
         {
-            var bookAuthor = new BookAuthor
+            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            if(book != null )
             {
-                AuthorId = author.Id,
-                Author = author,
-                BookId = book.Id,
-                Book = book
-            };
-
-            author.Books.Add(bookAuthor);
-            book.Authors.Add(bookAuthor);
-        }
-
-        public void DeleteAuthorFromBook(Book book, Author author)
-        {
-            var bookAuthor = book.Authors.FirstOrDefault(item => item.Author == author);
-
-            if (!book.Authors.Remove(bookAuthor))
+                book.Authors.Add(author);
+            }
+            else
             {
-                throw new Exception("Author not found!");
+                throw new BookNotFoundException();
             }
         }
 
+        public void DeleteAuthorFromBook(int bookId, BookAuthor author)
+        {
+            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            if (book == null || !book.Authors.Remove(author))
+            {
+                throw new Exception("Genre could not be deleted!");
+            }
+        }
 
         public Book AddBook(Book book)
         {
@@ -81,7 +78,7 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             if (!_books.Remove(book))
             {
-                throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
+                throw new BookNotFoundException("Exception occured, book not found!");
             }
         }
 
@@ -95,36 +92,60 @@ namespace BookLoversProject.Infrastructure.Repositories
             var book = _books.FirstOrDefault(x => x.Id == id);
             if (book == null)
             {
-                throw new Application.Exceptions.BookNotFoundException("Exception occured, book not found!");
+                throw new BookNotFoundException("Exception occured, book not found!");
             }
             return book;
         }
 
         public ICollection<Review> GetReviewsByBookId(int bookId)
         {
-            var book = GetBookById(bookId);
-            var reviews = book.Reviews;
-            if (reviews == null)
+            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            if (book == null || book.Reviews == null)
             {
-                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, reviews not found!");
+                throw new ReviewNotFoundException("Exception occured, reviews not found!");
             }
-            return reviews;
+
+            return book.Reviews;
         }
 
-        public void AddReviewToBook(Review review, Book book)
+        public void AddReviewToBook(Review review, int bookId)
         {
-            if (review == null)
+            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            if (review == null || book == null)
             {
-                throw new ArgumentNullException("Exception occured, review not defined!");
+                throw new ArgumentNullException("Exception occured, review or book not defined!");
             }
             book.Reviews.Add(review);
         }
 
-        public void DeleteReviewFromBook(Review review, Book book)
+        public void DeleteReviewFromBook(Review review, int bookId)
         {
-            if (!book.Reviews.Remove(review))
+            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            if (book == null || !book.Reviews.Remove(review))
             {
-                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
+                throw new ReviewNotFoundException("Exception occured, review not found!");
+            }
+        }
+
+        public void AddShelfToBook(ShelfBook shelf, int bookId)
+        {
+            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            if (book != null)
+            {
+                book.Shelves.Add(shelf);
+            }
+            else
+            {
+                throw new BookNotFoundException();
+            }
+        }
+
+        public void DeleteShelfFromBook(ShelfBook shelf, int bookId)
+        {
+            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            if (book == null || !book.Shelves.Remove(shelf))
+            {
+                throw new Exception("Genre could not be deleted!");
             }
         }
     }

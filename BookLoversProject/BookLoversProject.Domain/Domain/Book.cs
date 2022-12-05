@@ -1,8 +1,11 @@
-﻿namespace BookLoversProject.Domain.Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BookLoversProject.Domain.Domain
 {
     public class Book : Entity, ICloneable
     {
-  
+        [MaxLength(200)]
+        [Required]
         public string Title { get; set; }
 
         public string Description { get; set; }

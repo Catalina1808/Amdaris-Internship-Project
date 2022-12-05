@@ -26,8 +26,6 @@
 
         public ICollection<Shelf> BookShelves { get; }
 
-        public ICollection<User> Friends { get; set; }
-
         public ICollection<UserAuthor> Authors { get; set; }
 
         public ICollection<Review> Reviews { get; set; }

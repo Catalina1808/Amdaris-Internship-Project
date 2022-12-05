@@ -6,41 +6,38 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class GenreRepository : IGenreRepository
     {
-        private List<Genre> genres;
+        private readonly ApplicationContext _context;
 
-        public GenreRepository(List<Genre> genres)
+        public GenreRepository(ApplicationContext context)
         {
-            this.genres = genres;
-        }
-
-        public GenreRepository()
-        {
-           genres = new List<Genre>();
+            _context = context;
         }
 
         public Genre AddGenre(Genre genre)
         {
-            genres.Add(genre);
-            genre.Id = genres.Count;
+            _context.Genres.Add(genre);
+            genre.Id = _context.Genres.Count();
             return genre;
         }
 
-        public void DeleteGenre(Genre genre)
+        public void DeleteGenre(int id)
         {
-            if (!genres.Remove(genre))
+            var genre = _context.Genres.FirstOrDefault(x => x.Id == id);
+            if(genre == null)
             {
-                throw new Exception("Exception occured, genre not found!");
+                throw new ArgumentNullException("There is no genre with the given ID.");
             }
+            _context.Genres.Remove(genre);
         }
 
         public List<Genre> GetAllGenres()
         {
-            return genres;
+            return _context.Genres.ToList();
         }
 
         public Genre GetGenreById(int id)
         {
-            var genre = genres.FirstOrDefault(x => x.Id == id);
+            var genre = _context.Genres.FirstOrDefault(x => x.Id == id);
             if (genre == null)
             {
                 throw new Exception("Exception occured, genre not found!");
@@ -50,7 +47,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void AddBookToGenre(GenreBook genreBook, int genreId)
         {
-            var genre = genres.FirstOrDefault(x => x.Id == genreId);
+            var genre = _context.Genres.FirstOrDefault(x => x.Id == genreId);
             if (genre != null && genreBook != null)
             {
                 genre.Books.Add(genreBook);
@@ -63,7 +60,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void DeleteBookFromGenre(GenreBook genreBook, int genreId)
         {
-            var genre = genres.FirstOrDefault(x => x.Id == genreId);
+            var genre = _context.Genres.FirstOrDefault(x => x.Id == genreId);
             if(genre == null || !genre.Books.Remove(genreBook))
             {
                 throw new ArgumentNullException();

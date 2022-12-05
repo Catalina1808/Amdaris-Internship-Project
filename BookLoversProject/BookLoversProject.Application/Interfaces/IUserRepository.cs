@@ -8,9 +8,9 @@ namespace BookLoversProject.Application.Interfaces
 
         User GetUserById(int id);
 
-        List<User> GetAllUsers();
+        ICollection<User> GetAllUsers();
 
-        void DeleteUser(User user);
+        void DeleteUser(int id);
 
         void AddShelfToUser(Shelf shelf, int userId);
 

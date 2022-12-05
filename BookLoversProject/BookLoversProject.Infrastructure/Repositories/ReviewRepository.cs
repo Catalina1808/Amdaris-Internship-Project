@@ -5,36 +5,38 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class ReviewRepository : IReviewRepository
     {
-        private List<Review> reviews;
+        private readonly ApplicationContext _context;
 
-        public ReviewRepository(List<Review> reviews)
+        public ReviewRepository(ApplicationContext context)
         {
-            this.reviews = reviews;
+            _context = context;
         }
 
         public Review AddReview(Review review)
         {
-            reviews.Add(review);
-            review.Id = reviews.Count;
+            _context.Reviews.Add(review);
+            review.Id = _context.Reviews.Count();
             return review;
         }
 
-        public void DeleteReview(Review review)
+        public void DeleteReview(int id)
         {
-            if (!reviews.Remove(review))
+            var review = _context.Reviews.FirstOrDefault(r => r.Id == id);
+            if (review == null)
             {
                 throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
             }
+            _context.Reviews.Remove(review);
         }
 
-        public List<Review> GetAllReviews()
+        public ICollection<Review> GetAllReviews()
         {
-            return reviews;
+            return _context.Reviews.ToList();
         }
 
         public Review GetReviewById(int id)
         {
-            var review = reviews.FirstOrDefault(x => x.Id == id);
+            var review = _context.Reviews.FirstOrDefault(x => x.Id == id);
             if (review == null)
             {
                 throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");

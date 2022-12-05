@@ -5,28 +5,33 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class AdminRepository : IAdminRepository
     {
-        private List<Admin> admins;
+        private readonly ApplicationContext _context;
 
-        public AdminRepository(List<Admin> admins)
+        public AdminRepository(ApplicationContext context)
         {
-            this.admins = admins;
+            _context = context;
         }
 
         public Admin AddAdmin(Admin admin)
         {
-            admins.Add(admin);
-            admin.Id = admins.Count;
+            _context.Admins.Add(admin);
+            admin.Id = _context.Admins.Count();
             return admin;
         }
 
-        public void DeleteAdmin(Admin admin)
+        public void DeleteAdmin(int id)
         {
-            admins.Remove(admin);
+            var admin = _context.Admins.FirstOrDefault(x => x.Id == id);
+            if(admin == null)
+            {
+                throw new ArgumentNullException("There is no admin with the given ID.");
+            }
+            _context.Admins.Remove(admin);
         }
 
         public Admin GetAdminById(int id)
         {
-            var admin = admins.FirstOrDefault(x => x.Id == id);
+            var admin = _context.Admins.FirstOrDefault(x => x.Id == id);
             if (admin == null)
             {
                 throw new Exception("Exception occured, admin not found!");
@@ -34,9 +39,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             return admin;
         }
 
-        public List<Admin> GetAllAdmins()
+        public ICollection<Admin> GetAllAdmins()
         {
-            return admins;
+            return _context.Admins.ToList();
         }
     }
 }

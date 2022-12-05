@@ -10,7 +10,7 @@ namespace BookLoversProject.Application.Interfaces
 
         List<Genre> GetAllGenres();
 
-        void DeleteGenre(Genre genre);
+        void DeleteGenre(int id);
 
         void AddBookToGenre(GenreBook genreBook, int genreId);
 

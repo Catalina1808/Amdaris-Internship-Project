@@ -8,8 +8,8 @@ namespace BookLoversProject.Application.Interfaces
 
         Admin GetAdminById(int id);
 
-        List<Admin> GetAllAdmins();
+        ICollection<Admin> GetAllAdmins();
 
-        void DeleteAdmin(Admin admin);
+        void DeleteAdmin(int id);
     }
 }

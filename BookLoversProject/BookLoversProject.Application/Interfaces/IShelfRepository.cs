@@ -8,7 +8,7 @@ namespace BookLoversProject.Application.Interfaces
 
         Shelf GetShelfById(int id);
 
-        void DeleteShelf(Shelf shelf);
+        void DeleteShelf(int id);
 
         ShelfBook AddBookToShelf(ShelfBook book, int shelfId);
 

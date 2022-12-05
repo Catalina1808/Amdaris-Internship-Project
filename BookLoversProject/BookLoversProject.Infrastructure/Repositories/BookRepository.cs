@@ -6,25 +6,16 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private readonly List<Book> _books;
+        private readonly ApplicationContext _context;
 
-        public BookRepository()
+        public BookRepository(ApplicationContext context)
         {
-            _books = new List<Book>
-            {
-                new Book()
-                {
-                    Id= 1,
-                    Title = "title1",
-                    Description= "description1"
-                }
-            };
+            _context = context;
         }
-
 
         public void AddGenreToBook(GenreBook genre, int bookId)
         {
-            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
             if(book != null)
             {
                 book.Genres.Add(genre);
@@ -38,7 +29,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void DeleteGenreFromBook(GenreBook genre, int bookId)
         {
-            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
             if (book == null || !book.Genres.Remove(genre))
             {
                 throw new Exception("Genre could not be deleted!");
@@ -47,7 +38,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void AddAuthorToBook(int bookId, BookAuthor author)
         {
-            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
             if(book != null )
             {
                 book.Authors.Add(author);
@@ -60,7 +51,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void DeleteAuthorFromBook(int bookId, BookAuthor author)
         {
-            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
             if (book == null || !book.Authors.Remove(author))
             {
                 throw new Exception("Genre could not be deleted!");
@@ -69,27 +60,29 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public Book AddBook(Book book)
         {
-            _books.Add(book);
-            book.Id = _books.Count;
+            _context.Books.Add(book);
+            book.Id = _context.Books.Count();
             return book;
         }
 
-        public void DeleteBook(Book book)
+        public void DeleteBook(int id)
         {
-            if (!_books.Remove(book))
+            var book = _context.Books.FirstOrDefault(x => x.Id == id);
+            if(book == null)
             {
-                throw new BookNotFoundException("Exception occured, book not found!");
+                throw new BookNotFoundException();
             }
+            _context.Books.Remove(book);
         }
 
         public ICollection<Book> GetAllBooks()
         {
-            return _books;
+            return _context.Books.ToList();
         }
 
         public Book GetBookById(int id)
         {
-            var book = _books.FirstOrDefault(x => x.Id == id);
+            var book = _context.Books.FirstOrDefault(x => x.Id == id);
             if (book == null)
             {
                 throw new BookNotFoundException("Exception occured, book not found!");
@@ -99,10 +92,10 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public ICollection<Review> GetReviewsByBookId(int bookId)
         {
-            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
             if (book == null || book.Reviews == null)
             {
-                throw new ReviewNotFoundException("Exception occured, reviews not found!");
+                throw new ReviewNotFoundException("Exception occured, _context not found!");
             }
 
             return book.Reviews;
@@ -110,7 +103,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void AddReviewToBook(Review review, int bookId)
         {
-            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
             if (review == null || book == null)
             {
                 throw new ArgumentNullException("Exception occured, review or book not defined!");
@@ -120,7 +113,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void DeleteReviewFromBook(Review review, int bookId)
         {
-            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
             if (book == null || !book.Reviews.Remove(review))
             {
                 throw new ReviewNotFoundException("Exception occured, review not found!");
@@ -129,7 +122,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void AddShelfToBook(ShelfBook shelf, int bookId)
         {
-            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
             if (book != null)
             {
                 book.Shelves.Add(shelf);
@@ -142,7 +135,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public void DeleteShelfFromBook(ShelfBook shelf, int bookId)
         {
-            var book = _books.FirstOrDefault(x => x.Id == bookId);
+            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
             if (book == null || !book.Shelves.Remove(shelf))
             {
                 throw new Exception("Genre could not be deleted!");

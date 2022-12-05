@@ -6,23 +6,23 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private List<User> _users;
+        private readonly ApplicationContext _context;
 
-        public UserRepository(List<User> users)
+        public UserRepository(ApplicationContext context)
         {
-            this._users = users;
+            _context = context;
         }
 
         public User AddReader(User user)
         {
-            _users.Add(user);
-            user.Id = _users.Count;
+            _context.Add(user);
+            user.Id = _context.Users.Count();
             return user;
         }
 
         public void AddShelfToUser(Shelf shelf, int userId)
         {
-            var user = _users.FirstOrDefault(x => x.Id == userId);
+            var user = _context.Users.FirstOrDefault(x => x.Id == userId);
             if (user != null)
             {
                 user.BookShelves.Add(shelf);
@@ -33,31 +33,33 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public void DeleteUser(User user)
+        public void DeleteUser(int id)
         {
-            if (!_users.Remove(user))
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
             {
                 throw new Exception("Exception occured, user not found!");
             }
+            _context.Users.Remove(user);
         }
 
         public void DeleteShelfFromUser(Shelf shelf, int userId)
         {
-            var user = _users.FirstOrDefault(x => x.Id == userId);
+            var user = _context.Users.FirstOrDefault(x => x.Id == userId);
             if (user == null || !user.BookShelves.Remove(shelf))
             {
                 throw new ShelfNotFoundException("Exception occured, shelf not found!");
             }
         }
 
-        public List<User> GetAllUsers()
+        public ICollection<User> GetAllUsers()
         {
-            return _users;
+            return _context.Users.ToList();
         }
 
         public User GetUserById(int id)
         {
-            var user = _users.FirstOrDefault(x => x.Id == id);
+            var user = _context.Users.FirstOrDefault(x => x.Id == id);
             if (user == null)
             {
                 throw new Exception("Exception occured, user not found!");

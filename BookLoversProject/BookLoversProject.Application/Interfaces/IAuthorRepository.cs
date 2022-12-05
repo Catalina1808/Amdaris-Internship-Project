@@ -10,7 +10,7 @@ namespace BookLoversProject.Application.Interfaces
 
         List<Author> GetAllAuthors();
 
-        void DeleteAuthor(Author author);
+        void DeleteAuthor(int id);
 
         void AddFollowerToAuthor(UserAuthor follower, int authorId);
 

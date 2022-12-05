@@ -1,7 +1,10 @@
-﻿namespace BookLoversProject.Domain.Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BookLoversProject.Domain.Domain
 {
     public class Author : Entity
     {
+        [MaxLength(100)]
         public string Name { get; set; }
 
         public string Description { get; set; }

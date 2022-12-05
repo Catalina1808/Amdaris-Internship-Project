@@ -10,7 +10,7 @@ namespace BookLoversProject.Application.Interfaces
 
         ICollection<Book> GetAllBooks();
 
-        void DeleteBook(Book book);
+        void DeleteBook(int id);
 
         ICollection<Review> GetReviewsByBookId(int bookId);
 

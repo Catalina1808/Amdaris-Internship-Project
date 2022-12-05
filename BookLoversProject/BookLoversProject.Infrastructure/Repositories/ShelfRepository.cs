@@ -5,16 +5,16 @@ namespace BookLoversProject.Infrastructure.Repositories
 {
     public class ShelfRepository : IShelfRepository
     {
-        private List<Shelf> _shelves;
+        private readonly ApplicationContext _context;
 
-        public ShelfRepository(List<Shelf> shelfs)
+        public ShelfRepository(ApplicationContext context)
         {
-            this._shelves = shelfs;
+            _context = context;
         }
 
         public ShelfBook AddBookToShelf(ShelfBook book, int shelfId)
         {
-            var shelf = _shelves.FirstOrDefault(x => x.Id == shelfId);
+            var shelf = _context.Shelves.FirstOrDefault(s => s.Id == shelfId);
             if (shelf != null && book != null)
             {
                 shelf.Books.Add(book);
@@ -25,14 +25,14 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public Shelf AddShelf(Shelf shelf)
         {
-            _shelves.Add(shelf);
-            shelf.Id = _shelves.Count;
+            _context.Shelves.Add(shelf);
+            shelf.Id = _context.Shelves.Count();
             return shelf;
         }
 
         public void DeleteBookFromShelf(ShelfBook book, int shelfId)
         {
-            var shelf = _shelves.FirstOrDefault(x => x.Id == shelfId);
+            var shelf = _context.Shelves.FirstOrDefault(s => s.Id == shelfId);
 
             if (shelf == null || !shelf.Books.Remove(book))
             {
@@ -40,17 +40,19 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public void DeleteShelf(Shelf shelf)
+        public void DeleteShelf(int id)
         {
-            if (!_shelves.Remove(shelf))
+            var shelf = _context.Shelves.FirstOrDefault(s => s.Id == id);
+            if (shelf == null)
             {
                 throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
             }
+            _context.Shelves.Remove(shelf);
         }
 
         public Shelf GetShelfById(int id)
         {
-            var shelf = _shelves.FirstOrDefault(x => x.Id == id);
+            var shelf = _context.Shelves.FirstOrDefault(s => s.Id == id);
             if (shelf == null)
             {
                 throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");

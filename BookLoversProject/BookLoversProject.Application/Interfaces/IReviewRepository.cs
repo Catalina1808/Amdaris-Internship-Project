@@ -8,8 +8,8 @@ namespace BookLoversProject.Application.Interfaces
 
         Review GetReviewById(int id);
 
-        List<Review> GetAllReviews();
+        ICollection<Review> GetAllReviews();
 
-        void DeleteReview(Review review);
+        void DeleteReview(int id);
     }
 }

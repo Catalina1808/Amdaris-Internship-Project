@@ -6,19 +6,20 @@ namespace BookLoversProject.Application.Queries.GetBooksQuery
 {
     public class GetBooksQueryHandler : IRequestHandler<GetBooksQuery, IEnumerable<BookDTO>>
     {
-        private readonly IBookRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetBooksQueryHandler(IBookRepository repository, IMapper mapper)
+        public GetBooksQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public Task<IEnumerable<BookDTO>> Handle(GetBooksQuery request, CancellationToken cancellationToken)
+
+        public async Task<IEnumerable<BookDTO>> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
-            var result = _repository.GetAllBooks()
-                .Select(x => _mapper.Map<BookDTO>(x));
-            return Task.FromResult(result);
+            var result = await _unitOfWork.BookRepository.GetAllBooksAsync();
+
+            return result.Select(x => _mapper.Map<BookDTO>(x));
         }
     }
 }

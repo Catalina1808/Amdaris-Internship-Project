@@ -1,6 +1,7 @@
 ﻿using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLoversProject.Infrastructure.Repositories
 {
@@ -13,15 +14,15 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public Genre AddGenre(Genre genre)
+        public async Task<Genre> AddGenre(Genre genre)
         {
-            _context.Genres.Add(genre);
+            await _context.Genres.AddAsync(genre);
             return genre;
         }
 
-        public void DeleteGenre(int id)
+        public async Task DeleteGenre(int id)
         {
-            var genre = _context.Genres.FirstOrDefault(x => x.Id == id);
+            var genre = await _context.Genres.SingleOrDefaultAsync(x => x.Id == id);
             if(genre == null)
             {
                 throw new ArgumentNullException("There is no genre with the given ID.");
@@ -29,14 +30,14 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Genres.Remove(genre);
         }
 
-        public List<Genre> GetAllGenres()
+        public async Task<ICollection<Genre>> GetAllGenres()
         {
-            return _context.Genres.ToList();
+            return await _context.Genres.ToListAsync();
         }
 
-        public Genre GetGenreById(int id)
+        public async Task<Genre> GetGenreById(int id)
         {
-            var genre = _context.Genres.FirstOrDefault(x => x.Id == id);
+            var genre = await _context.Genres.SingleOrDefaultAsync(x => x.Id == id);
             if (genre == null)
             {
                 throw new Exception("Exception occured, genre not found!");
@@ -44,9 +45,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             return genre;
         }
 
-        public void AddBookToGenre(GenreBook genreBook, int genreId)
+        public async Task AddBookToGenre(GenreBook genreBook, int genreId)
         {
-            var genre = _context.Genres.FirstOrDefault(x => x.Id == genreId);
+            var genre = await _context.Genres.SingleOrDefaultAsync(x => x.Id == genreId);
             if (genre != null && genreBook != null)
             {
                 genre.Books.Add(genreBook);
@@ -57,9 +58,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public void DeleteBookFromGenre(GenreBook genreBook, int genreId)
+        public async Task DeleteBookFromGenre(GenreBook genreBook, int genreId)
         {
-            var genre = _context.Genres.FirstOrDefault(x => x.Id == genreId);
+            var genre = await _context.Genres.SingleOrDefaultAsync(x => x.Id == genreId);
             if(genre == null || !genre.Books.Remove(genreBook))
             {
                 throw new ArgumentNullException();

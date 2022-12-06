@@ -1,6 +1,7 @@
 ﻿using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLoversProject.Infrastructure.Repositories
 {
@@ -13,15 +14,15 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public User AddReader(User user)
+        public async Task<User> AddReader(User user)
         {
-            _context.Add(user);  
+            await _context.Users.AddAsync(user);  
             return user;
         }
 
-        public void AddShelfToUser(Shelf shelf, int userId)
+        public async Task AddShelfToUser(Shelf shelf, int userId)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Id == userId);
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
             if (user != null)
             {
                 user.BookShelves.Add(shelf);
@@ -32,9 +33,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public void DeleteUser(int id)
+        public async Task DeleteUser(int id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
             if (user == null)
             {
                 throw new Exception("Exception occured, user not found!");
@@ -42,23 +43,23 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Users.Remove(user);
         }
 
-        public void DeleteShelfFromUser(Shelf shelf, int userId)
+        public async Task DeleteShelfFromUser(Shelf shelf, int userId)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Id == userId);
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
             if (user == null || !user.BookShelves.Remove(shelf))
             {
                 throw new ShelfNotFoundException("Exception occured, shelf not found!");
             }
         }
 
-        public ICollection<User> GetAllUsers()
+        public async Task<ICollection<User>> GetAllUsers()
         {
-            return _context.Users.ToList();
+            return await _context.Users.ToListAsync();
         }
 
-        public User GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Id == id);
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
                 throw new Exception("Exception occured, user not found!");

@@ -6,22 +6,25 @@ namespace BookLoversProject.Application.Commands.CreateAdminCommand
 {
     internal class CreateAdminCommandHandler : IRequestHandler<CreateAdminCommand, int>
     {
-        private readonly IAdminRepository _adminRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateAdminCommandHandler(IAdminRepository adminRepository)
+        public CreateAdminCommandHandler(IUnitOfWork unitOfWork)
         {
-            _adminRepository = adminRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<int> Handle(CreateAdminCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateAdminCommand request, CancellationToken cancellationToken)
         {
             var admin = new Admin
             {
                 Email = request.Email,
                 Password = request.Password
             };
-            _adminRepository.AddAdmin(admin);
-            return Task.FromResult(admin.Id);
+
+            await _unitOfWork.AdminRepository.AddAdmin(admin);
+            await _unitOfWork.Save();
+
+            return admin.Id;
         }
     }
 }

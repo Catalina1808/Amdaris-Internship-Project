@@ -6,21 +6,20 @@ namespace BookLoversProject.Application.Queries.GetAuthorsQuery
 {
     public class GetAuthorsQueryHandler : IRequestHandler<GetAuthorsQuery, IEnumerable<AuthorDTO>>
     {
-        private IAuthorRepository _authorRepository;
+        private IUnitOfWork _unitOfWork;
         private IMapper _mapper;
 
-        public GetAuthorsQueryHandler(IAuthorRepository authorRepository, IMapper mapper)
+        public GetAuthorsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _authorRepository = authorRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<AuthorDTO>> Handle(GetAuthorsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<AuthorDTO>> Handle(GetAuthorsQuery request, CancellationToken cancellationToken)
         {
-            var result = _authorRepository.GetAllAuthors()
-                .Select(x => _mapper.Map<AuthorDTO>(x));
+            var result = await _unitOfWork.AuthorRepository.GetAllAuthors();
 
-            return Task.FromResult(result);
+            return result.Select(x => _mapper.Map<AuthorDTO>(x));
         }
     }
 }

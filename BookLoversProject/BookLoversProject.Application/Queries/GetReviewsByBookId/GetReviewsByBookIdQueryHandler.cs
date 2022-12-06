@@ -6,21 +6,21 @@ namespace BookLoversProject.Application.Queries.GetReviewsByBookId
 {
     public class GetReviewsByBookIdQueryHandler : IRequestHandler<GetReviewsByBookIdQuery, IEnumerable<ReviewDTO>>
     {
-        public readonly IBookRepository _bookRepository;
+        public readonly IUnitOfWork _unitOfWork;
         public readonly IMapper _mapper;
 
-        public GetReviewsByBookIdQueryHandler(IBookRepository bookRepository, IMapper mapper)
+        public GetReviewsByBookIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _bookRepository = bookRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<ReviewDTO>> Handle(GetReviewsByBookIdQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ReviewDTO>> Handle(GetReviewsByBookIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _bookRepository.GetReviewsByBookId(request.BookId)
+            var result = _unitOfWork.BookRepository.GetReviewsByBookIdAsync(request.BookId).Result
                 .Select(x => _mapper.Map<ReviewDTO>(x));
 
-            return Task.FromResult(result);
+            return result;
         }
     }
 }

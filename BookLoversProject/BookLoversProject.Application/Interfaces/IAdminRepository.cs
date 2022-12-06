@@ -4,12 +4,12 @@ namespace BookLoversProject.Application.Interfaces
 {
     public interface IAdminRepository
     {
-        Admin AddAdmin(Admin admin);
+        Task<Admin> AddAdmin(Admin admin);
 
-        Admin GetAdminById(int id);
+        Task<Admin> GetAdminByIdAsync(int id);
 
-        ICollection<Admin> GetAllAdmins();
+        Task<ICollection<Admin>> GetAllAdminsAsync();
 
-        void DeleteAdmin(int id);
+        Task DeleteAdminAsync(int id);
     }
 }

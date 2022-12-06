@@ -1,5 +1,6 @@
 ﻿using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLoversProject.Infrastructure.Repositories
 {
@@ -12,15 +13,15 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public Admin AddAdmin(Admin admin)
+        public async Task<Admin> AddAdmin(Admin admin)
         {
-            _context.Admins.Add(admin);
+            await _context.Admins.AddAsync(admin);
             return admin;
         }
 
-        public void DeleteAdmin(int id)
+        public async Task DeleteAdminAsync(int id)
         {
-            var admin = _context.Admins.FirstOrDefault(x => x.Id == id);
+            var admin = await _context.Admins.SingleOrDefaultAsync(x => x.Id == id);
             if(admin == null)
             {
                 throw new ArgumentNullException("There is no admin with the given ID.");
@@ -28,9 +29,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Admins.Remove(admin);
         }
 
-        public Admin GetAdminById(int id)
+        public async Task<Admin> GetAdminByIdAsync(int id)
         {
-            var admin = _context.Admins.FirstOrDefault(x => x.Id == id);
+            var admin = await _context.Admins.SingleOrDefaultAsync(x => x.Id == id);
             if (admin == null)
             {
                 throw new Exception("Exception occured, admin not found!");
@@ -38,9 +39,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             return admin;
         }
 
-        public ICollection<Admin> GetAllAdmins()
+        public async Task<ICollection<Admin>> GetAllAdminsAsync()
         {
-            return _context.Admins.ToList();
+            return await _context.Admins.ToListAsync();
         }
     }
 }

@@ -1,23 +1,24 @@
 ﻿using BookLoversProject.Domain.Domain;
+using System.Threading.Tasks;
 
 namespace BookLoversProject.Application.Interfaces
 {
     public interface IAuthorRepository
     {
-        Author AddAuthor(Author author);
+        Task<Author> AddAuthorAsync(Author author);
 
-        Author GetAuthorById(int id);
+        Task<Author> GetAuthorByIdAsync(int id);
 
-        List<Author> GetAllAuthors();
+        Task<ICollection<Author>> GetAllAuthors();
 
-        void DeleteAuthor(int id);
+        Task DeleteAuthor(int id);
 
-        void AddFollowerToAuthor(UserAuthor follower, int authorId);
+        Task AddFollowerToAuthor(UserAuthor follower, int authorId);
 
-        void DeleteFollowerFromAuthor(UserAuthor follower, int authorId);
+        Task DeleteFollowerFromAuthor(UserAuthor follower, int authorId);
 
-        void AddBookToAuthor(int authorId, BookAuthor book);
+        Task AddBookToAuthorAsync(int authorId, BookAuthor book);
 
-        void DeleteBookFromAuthor(int authorId, BookAuthor book);
+        Task DeleteBookFromAuthor(int authorId, BookAuthor book);
     }
 }

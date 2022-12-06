@@ -4,30 +4,30 @@ namespace BookLoversProject.Application.Interfaces
 {
     public interface IBookRepository
     {
-        Book AddBook(Book book);
+        Task<Book> AddBook(Book book);
 
-        Book GetBookById(int id);
+        Task<Book> GetBookById(int id);
 
-        ICollection<Book> GetAllBooks();
+        Task<ICollection<Book>> GetAllBooksAsync();
 
-        void DeleteBook(int id);
+        Task DeleteBook(int id);
 
-        ICollection<Review> GetReviewsByBookId(int bookId);
+        Task<ICollection<Review>> GetReviewsByBookIdAsync(int bookId);
 
-        void AddAuthorToBook(int bookId, BookAuthor author);
+        Task AddAuthorToBookAsync(int bookId, BookAuthor author);
 
-        void DeleteAuthorFromBook(int bookId, BookAuthor author);
+        Task DeleteAuthorFromBook(int bookId, BookAuthor author);
 
-        void AddReviewToBook(Review review, int bookId);
+        Task AddReviewToBookAsync(Review review, int bookId);
 
-        void DeleteReviewFromBook(Review review, int bookId);
+        Task DeleteReviewFromBook(Review review, int bookId);
 
-        void AddGenreToBook(GenreBook genre, int bookId);
+        Task AddGenreToBookAsync(GenreBook genre, int bookId);
 
-        void DeleteGenreFromBook(GenreBook genre, int bookId);
+        Task DeleteGenreFromBook(GenreBook genre, int bookId);
 
-        void AddShelfToBook(ShelfBook shelf, int bookId);
+        Task AddShelfToBook(ShelfBook shelf, int bookId);
 
-        void DeleteShelfFromBook(ShelfBook shelf, int bookId);
+        Task DeleteShelfFromBook(ShelfBook shelf, int bookId);
     }
 }

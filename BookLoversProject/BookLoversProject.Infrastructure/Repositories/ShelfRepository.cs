@@ -1,5 +1,6 @@
 ﻿using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLoversProject.Infrastructure.Repositories
 {
@@ -12,9 +13,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public ShelfBook AddBookToShelf(ShelfBook book, int shelfId)
+        public async Task<ShelfBook> AddBookToShelf(ShelfBook book, int shelfId)
         {
-            var shelf = _context.Shelves.FirstOrDefault(s => s.Id == shelfId);
+            var shelf = await _context.Shelves.SingleOrDefaultAsync(s => s.Id == shelfId);
             if (shelf != null && book != null)
             {
                 shelf.Books.Add(book);
@@ -23,15 +24,15 @@ namespace BookLoversProject.Infrastructure.Repositories
             throw new ArgumentNullException();
         }
 
-        public Shelf AddShelf(Shelf shelf)
+        public async Task<Shelf> AddShelf(Shelf shelf)
         {
-            _context.Shelves.Add(shelf);
+            await _context.Shelves.AddAsync(shelf);
             return shelf;
         }
 
-        public void DeleteBookFromShelf(ShelfBook book, int shelfId)
+        public async Task DeleteBookFromShelf(ShelfBook book, int shelfId)
         {
-            var shelf = _context.Shelves.FirstOrDefault(s => s.Id == shelfId);
+            var shelf = await _context.Shelves.SingleOrDefaultAsync(s => s.Id == shelfId);
 
             if (shelf == null || !shelf.Books.Remove(book))
             {
@@ -39,9 +40,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public void DeleteShelf(int id)
+        public async Task DeleteShelf(int id)
         {
-            var shelf = _context.Shelves.FirstOrDefault(s => s.Id == id);
+            var shelf = await _context.Shelves.SingleOrDefaultAsync(s => s.Id == id);
             if (shelf == null)
             {
                 throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
@@ -49,9 +50,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Shelves.Remove(shelf);
         }
 
-        public Shelf GetShelfById(int id)
+        public async Task<Shelf> GetShelfById(int id)
         {
-            var shelf = _context.Shelves.FirstOrDefault(s => s.Id == id);
+            var shelf = await _context.Shelves.SingleOrDefaultAsync(s => s.Id == id);
             if (shelf == null)
             {
                 throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");

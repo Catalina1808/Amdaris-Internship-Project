@@ -7,19 +7,19 @@ namespace BookLoversProject.Application.Queries.GetAuthorByIdQuery
 {
     public class GetAuthorByIdQueryHandler : IRequestHandler<GetAuthorByIdQuery, AuthorDTO>
     {
-        private readonly IAuthorRepository _authorRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetAuthorByIdQueryHandler(IAuthorRepository authorRepository, IMapper mapper)
+        public GetAuthorByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _authorRepository = authorRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public Task<AuthorDTO> Handle(GetAuthorByIdQuery request, CancellationToken cancellationToken)
+        public async Task<AuthorDTO> Handle(GetAuthorByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<AuthorDTO>(_authorRepository.GetAuthorById(request.Id));
-            return Task.FromResult(result);
+            var result = _mapper.Map<AuthorDTO>(_unitOfWork.AuthorRepository.GetAuthorByIdAsync(request.Id));
+            return result;
         }
     }
 }

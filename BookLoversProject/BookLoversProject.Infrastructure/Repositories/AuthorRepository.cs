@@ -1,6 +1,7 @@
 ﻿using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLoversProject.Infrastructure.Repositories
 {
@@ -13,15 +14,15 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public Author AddAuthor(Author author)
+        public async Task<Author> AddAuthorAsync(Author author)
         {
-            _context.Authors.Add(author);
+            await _context.Authors.AddAsync(author);
             return author;
         }
 
-        public void AddBookToAuthor(int authorId, BookAuthor book)
+        public async Task AddBookToAuthorAsync(int authorId, BookAuthor book)
         {
-            var author = _context.Authors.FirstOrDefault(x => x.Id == authorId);
+            var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == authorId);
             if (author != null)
             {
                 author.Books.Add(book);
@@ -32,18 +33,18 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public void DeleteBookFromAuthor(int authorId, BookAuthor book)
+        public async Task DeleteBookFromAuthor(int authorId, BookAuthor book)
         {
-            var author = _context.Authors.FirstOrDefault(x => x.Id == authorId);
+            var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == authorId);
             if (author == null || !author.Books.Remove(book))
             {
                 throw new Exception("Book could not be deleted!");
             }
         }
 
-        public void AddFollowerToAuthor(UserAuthor follower, int authorId)
+        public async Task AddFollowerToAuthor(UserAuthor follower, int authorId)
         {
-            var author = _context.Authors.FirstOrDefault(x => x.Id == authorId);
+            var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == authorId);
             if (author != null)
             {
                 author.Followers.Add(follower);
@@ -54,9 +55,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public void DeleteAuthor(int id)
+        public async Task DeleteAuthor(int id)
         {
-            var author = _context.Authors.FirstOrDefault(x => x.Id == id);
+            var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == id);
             if(author == null)
             {
                 throw new ArgumentNullException("There is no author with the given ID.");
@@ -64,18 +65,18 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Authors.Remove(author);
         }
 
-        public void DeleteFollowerFromAuthor(UserAuthor follower, int authorId)
+        public async Task DeleteFollowerFromAuthor(UserAuthor follower, int authorId)
         {
-            var author = _context.Authors.FirstOrDefault(x => x.Id == authorId);
+            var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == authorId);
             if (author == null || !author.Followers.Remove(follower))
             {
                 throw new Exception("Follower could not be deleted!");
             }
         }
 
-        public Author GetAuthorById(int id)
+        public async Task<Author> GetAuthorByIdAsync(int id)
         {
-            var author = _context.Authors.FirstOrDefault(x => x.Id == id);
+            var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == id);
             if (author == null)
             {
                 throw new Exception("Exception occured, author not found!");
@@ -83,9 +84,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             return author;
         }
 
-        public List<Author> GetAllAuthors()
+        public async Task<ICollection<Author>> GetAllAuthors()
         {
-            return _context.Authors.ToList();
+            return await _context.Authors.ToListAsync();
         }
     }
 }

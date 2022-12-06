@@ -6,14 +6,14 @@ namespace BookLoversProject.Application.Commands.CreateBookCommand
 {
     internal class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
     {
-        private readonly IBookRepository _bookRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateBookCommandHandler(IBookRepository bookRepository)
+        public CreateBookCommandHandler(IUnitOfWork unitOfWork)
         {
-            _bookRepository = bookRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<int> Handle(CreateBookCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
             var book = new Book
             {
@@ -22,8 +22,11 @@ namespace BookLoversProject.Application.Commands.CreateBookCommand
                 Authors = request.AuthorList,
                 Genres= request.GenreList
             };
-            _bookRepository.AddBook(book);
-            return Task.FromResult(book.Id);
+
+            await _unitOfWork.BookRepository.AddBook(book);
+            await _unitOfWork.Save();
+
+            return book.Id;
         }
     }
 }

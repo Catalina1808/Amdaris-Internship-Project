@@ -6,21 +6,24 @@ namespace BookLoversProject.Application.Commands.CreateGenreCommand
 {
     internal class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, int>
     {
-        private readonly IGenreRepository _genreRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateGenreCommandHandler(IGenreRepository genreRepository)
+        public CreateGenreCommandHandler(IUnitOfWork unitOfWork)
         {
-            _genreRepository = genreRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
         {
             var genre = new Genre
             {
                 Name = request.Name
             };
-            _genreRepository.AddGenre(genre);
-            return Task.FromResult(genre.Id);
+
+            await _unitOfWork.GenreRepository.AddGenre(genre);
+            await _unitOfWork.Save();
+
+            return genre.Id;
         }
     }
 }

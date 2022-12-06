@@ -1,5 +1,6 @@
 ﻿using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLoversProject.Infrastructure.Repositories
 {
@@ -12,15 +13,15 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public Review AddReview(Review review)
+        public async Task<Review> AddReview(Review review)
         {
-            _context.Reviews.Add(review);
+            await _context.Reviews.AddAsync(review);
             return review;
         }
 
-        public void DeleteReview(int id)
+        public async Task DeleteReview(int id)
         {
-            var review = _context.Reviews.FirstOrDefault(r => r.Id == id);
+            var review = await _context.Reviews.SingleOrDefaultAsync(r => r.Id == id);
             if (review == null)
             {
                 throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
@@ -28,14 +29,14 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Reviews.Remove(review);
         }
 
-        public ICollection<Review> GetAllReviews()
+        public async Task<ICollection<Review>> GetAllReviews()
         {
-            return _context.Reviews.ToList();
+            return await _context.Reviews.ToListAsync();
         }
 
-        public Review GetReviewById(int id)
+        public async Task<Review> GetReviewById(int id)
         {
-            var review = _context.Reviews.FirstOrDefault(x => x.Id == id);
+            var review = await _context.Reviews.SingleOrDefaultAsync(x => x.Id == id);
             if (review == null)
             {
                 throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");

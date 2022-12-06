@@ -7,20 +7,20 @@ namespace BookLoversProject.Application.Queries.GetGenreByIdQuery
 {
     public class GetGenreByIdQueryHandler : IRequestHandler<GetGenreByIdQuery, GenreDTO>
     {
-        private readonly IGenreRepository _genreRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetGenreByIdQueryHandler(IGenreRepository genreRepository, IMapper mapper)
+        public GetGenreByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _genreRepository = genreRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public Task<GenreDTO> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
+        public async Task<GenreDTO> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<GenreDTO>(_genreRepository.GetGenreById(request.Id));
+            var result = _mapper.Map<GenreDTO>(await _unitOfWork.GenreRepository.GetGenreById(request.Id));
 
-            return Task.FromResult(result);
+            return result;
         }
     }
 }

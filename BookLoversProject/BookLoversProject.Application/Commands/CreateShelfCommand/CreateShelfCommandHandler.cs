@@ -6,21 +6,24 @@ namespace BookLoversProject.Application.Commands.CreateShelfCommand
 {
     internal class CreateShelfCommandHandler : IRequestHandler<CreateShelfCommand, int>
     {
-        private readonly IShelfRepository _shelfRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateShelfCommandHandler(IShelfRepository shelfRepository)
+        public CreateShelfCommandHandler(IUnitOfWork unitOfWork)
         {
-            _shelfRepository = shelfRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<int> Handle(CreateShelfCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateShelfCommand request, CancellationToken cancellationToken)
         {
             var shelf = new Shelf
             {
                 Name = request.Name
             };
-            _shelfRepository.AddShelf(shelf);
-            return Task.FromResult(shelf.Id);
+
+            await _unitOfWork.ShelfRepository.AddShelf(shelf);
+            await _unitOfWork.Save();
+
+            return shelf.Id;
         }
     }
 }

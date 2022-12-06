@@ -6,22 +6,25 @@ namespace BookLoversProject.Application.Commands.CreateReviewCommand
 {
     public class CreateReviewCommandHander : IRequestHandler<CreateReviewCommand, int>
     {
-        private readonly IReviewRepository _reviewRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateReviewCommandHander(IReviewRepository reviewRepository)
+        public CreateReviewCommandHander (IUnitOfWork unitOfWork)
         {
-            _reviewRepository = reviewRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<int> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
         {
             var review = new Review
             {
                 Comment = request.Comment,
                 Date = request.Date
             };
-            _reviewRepository.AddReview(review);
-            return Task.FromResult(review.Id);
+
+            await _unitOfWork.ReviewRepository.AddReview(review);
+            await _unitOfWork.Save();
+
+            return review.Id;
         }
     }
 }

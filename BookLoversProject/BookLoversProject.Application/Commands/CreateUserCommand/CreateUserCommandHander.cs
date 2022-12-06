@@ -6,14 +6,14 @@ namespace BookLoversProject.Application.Commands.CreateReaderCommand
 {
     internal class CreateUserCommandHander : IRequestHandler<CreateUserCommand, int>
     {
-        private readonly IUserRepository _readerRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateUserCommandHander(IUserRepository readerRepository)
+        public CreateUserCommandHander(IUnitOfWork unitOfWork)
         {
-            _readerRepository = readerRepository;   
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var reader = new User
             {
@@ -21,8 +21,11 @@ namespace BookLoversProject.Application.Commands.CreateReaderCommand
                 LastName = request.LastName,
                 ImagePath = request.ImagePath
             };
-            _readerRepository.AddReader(reader);
-            return Task.FromResult(reader.Id);
+
+            await _unitOfWork.UserRepository.AddReader(reader);
+            await _unitOfWork.Save();
+
+            return reader.Id;
         }
     }
 }

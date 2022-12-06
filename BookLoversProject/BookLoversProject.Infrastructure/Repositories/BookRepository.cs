@@ -1,6 +1,7 @@
 ﻿using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLoversProject.Infrastructure.Repositories
 {
@@ -13,9 +14,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public void AddGenreToBook(GenreBook genre, int bookId)
+        public async Task AddGenreToBookAsync(GenreBook genre, int bookId)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if(book != null)
             {
                 book.Genres.Add(genre);
@@ -27,18 +28,18 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         }
 
-        public void DeleteGenreFromBook(GenreBook genre, int bookId)
+        public async Task DeleteGenreFromBook(GenreBook genre, int bookId)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book == null || !book.Genres.Remove(genre))
             {
                 throw new Exception("Genre could not be deleted!");
             }
         }
 
-        public void AddAuthorToBook(int bookId, BookAuthor author)
+        public async Task AddAuthorToBookAsync(int bookId, BookAuthor author)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if(book != null )
             {
                 book.Authors.Add(author);
@@ -49,24 +50,24 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public void DeleteAuthorFromBook(int bookId, BookAuthor author)
+        public async Task DeleteAuthorFromBook(int bookId, BookAuthor author)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book == null || !book.Authors.Remove(author))
             {
                 throw new Exception("Genre could not be deleted!");
             }
         }
 
-        public Book AddBook(Book book)
+        public async Task<Book> AddBook(Book book)
         {
-            _context.Books.Add(book);
+            await _context.Books.AddAsync(book);
             return book;
         }
 
-        public void DeleteBook(int id)
+        public async Task DeleteBook(int id)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == id);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == id);
             if(book == null)
             {
                 throw new BookNotFoundException();
@@ -74,14 +75,14 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Books.Remove(book);
         }
 
-        public ICollection<Book> GetAllBooks()
+        public async Task<ICollection<Book>> GetAllBooksAsync()
         {
-            return _context.Books.ToList();
+            return await _context.Books.ToListAsync();
         }
 
-        public Book GetBookById(int id)
+        public async Task<Book> GetBookById(int id)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == id);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == id);
             if (book == null)
             {
                 throw new BookNotFoundException("Exception occured, book not found!");
@@ -89,9 +90,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             return book;
         }
 
-        public ICollection<Review> GetReviewsByBookId(int bookId)
+        public async Task<ICollection<Review>> GetReviewsByBookIdAsync(int bookId)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book == null || book.Reviews == null)
             {
                 throw new ReviewNotFoundException("Exception occured, _context not found!");
@@ -100,9 +101,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             return book.Reviews;
         }
 
-        public void AddReviewToBook(Review review, int bookId)
+        public async Task AddReviewToBookAsync(Review review, int bookId)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (review == null || book == null)
             {
                 throw new ArgumentNullException("Exception occured, review or book not defined!");
@@ -110,18 +111,18 @@ namespace BookLoversProject.Infrastructure.Repositories
             book.Reviews.Add(review);
         }
 
-        public void DeleteReviewFromBook(Review review, int bookId)
+        public async Task DeleteReviewFromBook(Review review, int bookId)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book == null || !book.Reviews.Remove(review))
             {
                 throw new ReviewNotFoundException("Exception occured, review not found!");
             }
         }
 
-        public void AddShelfToBook(ShelfBook shelf, int bookId)
+        public async Task AddShelfToBook(ShelfBook shelf, int bookId)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book != null)
             {
                 book.Shelves.Add(shelf);
@@ -132,9 +133,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public void DeleteShelfFromBook(ShelfBook shelf, int bookId)
+        public async Task DeleteShelfFromBook(ShelfBook shelf, int bookId)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Id == bookId);
+            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book == null || !book.Shelves.Remove(shelf))
             {
                 throw new Exception("Genre could not be deleted!");

@@ -26,7 +26,6 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Shelf AddShelf(Shelf shelf)
         {
             _context.Shelves.Add(shelf);
-            shelf.Id = _context.Shelves.Count();
             return shelf;
         }
 

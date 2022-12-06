@@ -15,8 +15,7 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public User AddReader(User user)
         {
-            _context.Add(user);
-            user.Id = _context.Users.Count();
+            _context.Add(user);  
             return user;
         }
 

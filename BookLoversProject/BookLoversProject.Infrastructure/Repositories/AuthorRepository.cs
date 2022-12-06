@@ -16,7 +16,6 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Author AddAuthor(Author author)
         {
             _context.Authors.Add(author);
-            author.Id = _context.Authors.Count();
             return author;
         }
 

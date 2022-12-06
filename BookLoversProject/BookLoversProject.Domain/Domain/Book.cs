@@ -14,7 +14,7 @@ namespace BookLoversProject.Domain.Domain
 
         public ICollection<BookAuthor> Authors { get; set; }
 
-        public ICollection<Review> Reviews { get; }
+        public ICollection<Review> Reviews { get; set; }
 
         public ICollection<GenreBook> Genres { get; set; }
 

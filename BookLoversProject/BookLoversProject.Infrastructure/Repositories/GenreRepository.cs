@@ -16,7 +16,6 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Genre AddGenre(Genre genre)
         {
             _context.Genres.Add(genre);
-            genre.Id = _context.Genres.Count();
             return genre;
         }
 

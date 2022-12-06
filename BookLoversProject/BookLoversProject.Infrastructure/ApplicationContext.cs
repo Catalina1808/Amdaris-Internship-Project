@@ -20,6 +20,10 @@ namespace BookLoversProject.Infrastructure
 
         public DbSet<User> Users { get; set; }
 
+        public ApplicationContext(DbContextOptions options) : base(options) { }
+
+        public ApplicationContext() { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS01;Database=BookLovers;Integrated Security=True;TrustServerCertificate=True;");

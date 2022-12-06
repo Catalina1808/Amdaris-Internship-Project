@@ -61,7 +61,6 @@ namespace BookLoversProject.Infrastructure.Repositories
         public Book AddBook(Book book)
         {
             _context.Books.Add(book);
-            book.Id = _context.Books.Count();
             return book;
         }
 

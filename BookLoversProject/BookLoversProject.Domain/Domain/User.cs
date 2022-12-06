@@ -1,4 +1,6 @@
-﻿namespace BookLoversProject.Domain.Domain
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace BookLoversProject.Domain.Domain
 {
     public class User : AbstractUser
     {
@@ -22,6 +24,7 @@
             }
         }
 
+        [AllowNull]
         public string ImagePath { get; set; }
 
         public ICollection<Shelf> BookShelves { get; }

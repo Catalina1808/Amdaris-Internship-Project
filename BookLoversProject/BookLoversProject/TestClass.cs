@@ -12,6 +12,8 @@ using BookLoversProject.Application.Commands.CreateAuthorCommand;
 using BookLoversProject.Application.Commands.CreateBookCommand;
 using BookLoversProject.Application.Commands.CreateBookAuthorCommand;
 using BookLoversProject.Application.Queries.GetBooksQuery;
+using BookLoversProject.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLoversProject.Presentation
 {
@@ -66,6 +68,8 @@ namespace BookLoversProject.Presentation
             //Queries and Commands test
 
             //var diContainer = new ServiceCollection()
+            //    .AddDbContext<ApplicationContext>(options =>
+            //    options.UseSqlServer("Data Source=.\\SQLEXPRESS01;Database=BookLovers;Integrated Security=True;TrustServerCertificate=True;"))
             //    .AddMediatR(typeof(IAssemblyMarker))
             //    .AddAutoMapper(typeof(IAssemblyMarker))
             //    .AddScoped<IBookRepository, BookRepository>()
@@ -78,7 +82,7 @@ namespace BookLoversProject.Presentation
             //var author = new Author { Name = "author", Description = "description", Books = new List<BookAuthor>(), Followers = new List<UserAuthor>() };
             //var authorId = await mediator.Send(new CreateAuthorCommand { Name = author.Name, Description = author.Description, Books = author.Books, Followers = author.Followers });
             //var bookId = await mediator.Send(new CreateBookCommand { Title = book1.Title, Description = book1.Description, AuthorList = book1.Authors });
-            //var bookAuthor = await mediator.Send(new CreateBookAuthorCommand { AuthorId = authorId, Author = author, BookId = bookId, Book = book1 });
+            ////var bookAuthor = await mediator.Send(new CreateBookAuthorCommand { AuthorId = authorId, Author = author, BookId = bookId, Book = book1 });
 
             //Console.WriteLine("created author with id=" + authorId + " and book with id=" + bookId + " and bookAuthor");
 

@@ -6,8 +6,12 @@ using BookLoversProject.Infrastructure;
 using BookLoversProject.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
-var appContext = new ApplicationContext();
+var optionsBuilder = new DbContextOptionsBuilder();
+optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS01;Database=BookLovers;Integrated Security=True;TrustServerCertificate=True;");
+
+var appContext = new ApplicationContext(optionsBuilder.Options);
 
 Author author1 = new Author
 {

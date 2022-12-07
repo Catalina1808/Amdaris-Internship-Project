@@ -3,8 +3,10 @@ using BookLoversProject.Domain.Domain;
 using BookLoversProject.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-var appContext = new ApplicationContext();
+var optionsBuilder = new DbContextOptionsBuilder();
+optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS01;Database=BookLovers;Integrated Security=True;TrustServerCertificate=True;");
 
+var appContext = new ApplicationContext(optionsBuilder.Options);
 
 var book1 = await appContext.Books
     .Select(book1 => new BookDTO

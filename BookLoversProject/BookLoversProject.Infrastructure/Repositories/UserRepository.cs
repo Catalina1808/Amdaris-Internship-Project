@@ -14,13 +14,13 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<User> AddReader(User user)
+        public async Task<User> AddReaderAsync(User user)
         {
             await _context.Users.AddAsync(user);  
             return user;
         }
 
-        public async Task AddShelfToUser(Shelf shelf, int userId)
+        public async Task AddShelfToUserAsync(Shelf shelf, int userId)
         {
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
             if (user != null)
@@ -33,7 +33,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public async Task DeleteUser(int id)
+        public async Task DeleteUserAsync(int id)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
             if (user == null)
@@ -43,7 +43,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Users.Remove(user);
         }
 
-        public async Task DeleteShelfFromUser(Shelf shelf, int userId)
+        public async Task DeleteShelfFromUserAsync(Shelf shelf, int userId)
         {
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
             if (user == null || !user.BookShelves.Remove(shelf))
@@ -52,12 +52,12 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public async Task<ICollection<User>> GetAllUsers()
+        public async Task<ICollection<User>> GetAllUsersAsync()
         {
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<User> GetUserByIdAsync(int id)
         {
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
             if (user == null)

@@ -27,7 +27,7 @@ namespace BookLoversProject.Application.Commands.CreateBookCommand
             book.Authors = bookAuthorLinks;
             book.Genres = genreBookLinks;
 
-            await _unitOfWork.BookRepository.AddBook(book);
+            await _unitOfWork.BookRepository.AddBookAsync(book);
             await _unitOfWork.Save();
 
             return book.Id;
@@ -60,7 +60,7 @@ namespace BookLoversProject.Application.Commands.CreateBookCommand
             {
                 foreach (int id in genresId)
                 {
-                    if (await _unitOfWork.GenreRepository.GetGenreById(id) != null)
+                    if (await _unitOfWork.GenreRepository.GetGenreByIdAsync(id) != null)
                     {
                         genreBookLinks.Add(new GenreBook()
                         {

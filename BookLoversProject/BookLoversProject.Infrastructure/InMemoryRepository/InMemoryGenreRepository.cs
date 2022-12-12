@@ -18,13 +18,13 @@ namespace BookLoversProject.Infrastructure.InMemoryRepository
             _genres = genres;
         }
 
-        public async Task<Genre> AddGenre(Genre genre)
+        public async Task<Genre> AddGenreAsync(Genre genre)
         {
             _genres.Add(genre);
             return genre;
         }
 
-        public async Task DeleteGenre(int id)
+        public async Task DeleteGenreAsync(int id)
         {
             var genre = _genres.SingleOrDefault(x => x.Id == id);
             if (genre == null)
@@ -34,12 +34,12 @@ namespace BookLoversProject.Infrastructure.InMemoryRepository
             _genres.Remove(genre);
         }
 
-        public async Task<ICollection<Genre>> GetAllGenres()
+        public async Task<ICollection<Genre>> GetAllGenresAsync()
         {
             return _genres.ToList();
         }
 
-        public async Task<Genre> GetGenreById(int id)
+        public async Task<Genre> GetGenreByIdAsync(int id)
         {
             var genre = _genres.SingleOrDefault(x => x.Id == id);
             if (genre == null)
@@ -49,7 +49,7 @@ namespace BookLoversProject.Infrastructure.InMemoryRepository
             return genre;
         }
 
-        public async Task AddBookToGenre(GenreBook genreBook, int genreId)
+        public async Task AddBookToGenreAsync(GenreBook genreBook, int genreId)
         {
             var genre = _genres.SingleOrDefault(x => x.Id == genreId);
             if (genre != null && genreBook != null)

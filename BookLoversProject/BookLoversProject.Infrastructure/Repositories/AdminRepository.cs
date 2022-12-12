@@ -13,7 +13,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Admin> AddAdmin(Admin admin)
+        public async Task<Admin> AddAdminAsync(Admin admin)
         {
             await _context.Admins.AddAsync(admin);
             return admin;

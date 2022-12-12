@@ -31,8 +31,8 @@ namespace BookLoversProject.Infrastructure.NUnitTest
                 Name = "Drama"
             };
 
-            await genreRepository.AddGenre(genre);
-            var result = await genreRepository.GetGenreById(Id);
+            await genreRepository.AddGenreAsync(genre);
+            var result = await genreRepository.GetGenreByIdAsync(Id);
 
             Assert.That(result, Is.EqualTo(genre));
         }
@@ -43,7 +43,7 @@ namespace BookLoversProject.Infrastructure.NUnitTest
         [TestCase("6")]
         public void GetGenreByIdTestException(int Id)
         {
-            Exception ex = Assert.ThrowsAsync<Exception>(() => genreRepository.GetGenreById(Id));
+            Exception ex = Assert.ThrowsAsync<Exception>(() => genreRepository.GetGenreByIdAsync(Id));
             Assert.That(ex.Message, Is.EqualTo("Exception occured, genre not found!"));
         }
 
@@ -57,8 +57,8 @@ namespace BookLoversProject.Infrastructure.NUnitTest
                 Name = "Drama"
             };
 
-            genreRepository.AddGenre(genre);
-            var result = await genreRepository.GetAllGenres();
+            genreRepository.AddGenreAsync(genre);
+            var result = await genreRepository.GetAllGenresAsync();
 
             Assert.IsTrue(result.Contains(genre));
         }

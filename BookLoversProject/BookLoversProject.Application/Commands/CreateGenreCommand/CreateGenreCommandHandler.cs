@@ -20,7 +20,7 @@ namespace BookLoversProject.Application.Commands.CreateGenreCommand
                 Name = request.Name
             };
 
-            await _unitOfWork.GenreRepository.AddGenre(genre);
+            await _unitOfWork.GenreRepository.AddGenreAsync(genre);
             await _unitOfWork.Save();
 
             return genre.Id;

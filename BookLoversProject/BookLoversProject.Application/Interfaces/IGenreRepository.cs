@@ -4,15 +4,15 @@ namespace BookLoversProject.Application.Interfaces
 {
     public interface IGenreRepository
     {
-        Task<Genre> AddGenre(Genre genre);
+        Task<Genre> AddGenreAsync(Genre genre);
 
-        Task<Genre> GetGenreById(int id);
+        Task<Genre> GetGenreByIdAsync(int id);
 
-        Task<ICollection<Genre>> GetAllGenres();
+        Task<ICollection<Genre>> GetAllGenresAsync();
 
-        Task DeleteGenre(int id);
+        Task DeleteGenreAsync(int id);
 
-        Task AddBookToGenre(GenreBook genreBook, int genreId);
+        Task AddBookToGenreAsync(GenreBook genreBook, int genreId);
 
         Task DeleteBookFromGenre(GenreBook genreBook, int genreId);
     }

@@ -4,14 +4,14 @@ namespace BookLoversProject.Application.Interfaces
 {
     public interface IShelfRepository
     {
-        Task<Shelf> AddShelf(Shelf shelf);
+        Task<Shelf> AddShelfAsync(Shelf shelf);
 
-        Task<Shelf> GetShelfById(int id);
+        Task<Shelf> GetShelfByIdAsync(int id);
 
-        Task DeleteShelf(int id);
+        Task DeleteShelfAsync(int id);
 
-        Task<ShelfBook> AddBookToShelf(ShelfBook book, int shelfId);
+        Task<ShelfBook> AddBookToShelfAsync(ShelfBook book, int shelfId);
 
-        Task DeleteBookFromShelf(ShelfBook book, int shelfId);
+        Task DeleteBookFromShelfAsync(ShelfBook book, int shelfId);
     }
 }

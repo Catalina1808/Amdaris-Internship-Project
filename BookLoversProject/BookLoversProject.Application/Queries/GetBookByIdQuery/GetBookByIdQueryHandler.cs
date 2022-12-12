@@ -18,7 +18,7 @@ namespace BookLoversProject.Application.Queries.GetBookByIdQuery
 
         public async Task<BookDTO> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<BookDTO>(await _unitOfWork.BookRepository.GetBookById(request.Id));
+            var result = _mapper.Map<BookDTO>(await _unitOfWork.BookRepository.GetBookByIdAsync(request.Id));
             return result;
         }
     }

@@ -4,12 +4,12 @@ namespace BookLoversProject.Application.Interfaces
 {
     public interface IReviewRepository
     {
-        Task<Review> AddReview(Review review);
+        Task<Review> AddReviewAsync(Review review);
 
-        Task<Review> GetReviewById(int id);
+        Task<Review> GetReviewByIdAsync(int id);
 
-        Task<ICollection<Review>> GetAllReviews();
+        Task<ICollection<Review>> GetAllReviewsAsync();
 
-        Task DeleteReview(int id);
+        Task DeleteReviewAsync(int id);
     }
 }

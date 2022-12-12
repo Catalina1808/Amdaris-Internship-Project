@@ -22,7 +22,7 @@ namespace BookLoversProject.Application.Commands.CreateReaderCommand
                 ImagePath = request.ImagePath
             };
 
-            await _unitOfWork.UserRepository.AddReader(reader);
+            await _unitOfWork.UserRepository.AddReaderAsync(reader);
             await _unitOfWork.Save();
 
             return reader.Id;

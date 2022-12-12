@@ -20,7 +20,7 @@ namespace BookLoversProject.Application.Commands.CreateShelfCommand
                 Name = request.Name
             };
 
-            await _unitOfWork.ShelfRepository.AddShelf(shelf);
+            await _unitOfWork.ShelfRepository.AddShelfAsync(shelf);
             await _unitOfWork.Save();
 
             return shelf.Id;

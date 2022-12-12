@@ -38,7 +38,7 @@ namespace BookLoversProject.Application.Commands.CreateAuthorCommand
             {
                 foreach (int id in booksId)
                 {
-                    if (await _unitOfWork.BookRepository.GetBookById(id) != null)
+                    if (await _unitOfWork.BookRepository.GetBookByIdAsync(id) != null)
                     {
                         bookAuthorLinks.Add(new BookAuthor()
                         {

@@ -21,7 +21,7 @@ namespace BookLoversProject.Application.Commands.CreateAdminCommand
                 Password = request.Password
             };
 
-            await _unitOfWork.AdminRepository.AddAdmin(admin);
+            await _unitOfWork.AdminRepository.AddAdminAsync(admin);
             await _unitOfWork.Save();
 
             return admin.Id;

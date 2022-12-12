@@ -17,7 +17,7 @@ namespace BookLoversProject.Application.Queries.GetAuthorsQuery
 
         public async Task<IEnumerable<AuthorDTO>> Handle(GetAuthorsQuery request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.AuthorRepository.GetAllAuthors();
+            var result = await _unitOfWork.AuthorRepository.GetAllAuthorsAsync();
 
             return result.Select(x => _mapper.Map<AuthorDTO>(x));
         }

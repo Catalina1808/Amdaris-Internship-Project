@@ -13,13 +13,13 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Review> AddReview(Review review)
+        public async Task<Review> AddReviewAsync(Review review)
         {
             await _context.Reviews.AddAsync(review);
             return review;
         }
 
-        public async Task DeleteReview(int id)
+        public async Task DeleteReviewAsync(int id)
         {
             var review = await _context.Reviews.SingleOrDefaultAsync(r => r.Id == id);
             if (review == null)
@@ -29,12 +29,12 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Reviews.Remove(review);
         }
 
-        public async Task<ICollection<Review>> GetAllReviews()
+        public async Task<ICollection<Review>> GetAllReviewsAsync()
         {
             return await _context.Reviews.ToListAsync();
         }
 
-        public async Task<Review> GetReviewById(int id)
+        public async Task<Review> GetReviewByIdAsync(int id)
         {
             var review = await _context.Reviews.SingleOrDefaultAsync(x => x.Id == id);
             if (review == null)

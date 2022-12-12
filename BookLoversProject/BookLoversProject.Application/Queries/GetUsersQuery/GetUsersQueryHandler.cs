@@ -17,7 +17,7 @@ namespace BookLoversProject.Application.Queries.GetUsersQuery
 
         public async Task<IEnumerable<UserDTO>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.UserRepository.GetAllUsers();              
+            var result = await _unitOfWork.UserRepository.GetAllUsersAsync();              
 
             return result.Select(x => _mapper.Map<UserDTO>(x));
         }

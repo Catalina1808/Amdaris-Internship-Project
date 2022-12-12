@@ -13,7 +13,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<ShelfBook> AddBookToShelf(ShelfBook book, int shelfId)
+        public async Task<ShelfBook> AddBookToShelfAsync(ShelfBook book, int shelfId)
         {
             var shelf = await _context.Shelves.SingleOrDefaultAsync(s => s.Id == shelfId);
             if (shelf != null && book != null)
@@ -24,13 +24,13 @@ namespace BookLoversProject.Infrastructure.Repositories
             throw new ArgumentNullException();
         }
 
-        public async Task<Shelf> AddShelf(Shelf shelf)
+        public async Task<Shelf> AddShelfAsync(Shelf shelf)
         {
             await _context.Shelves.AddAsync(shelf);
             return shelf;
         }
 
-        public async Task DeleteBookFromShelf(ShelfBook book, int shelfId)
+        public async Task DeleteBookFromShelfAsync(ShelfBook book, int shelfId)
         {
             var shelf = await _context.Shelves.SingleOrDefaultAsync(s => s.Id == shelfId);
 
@@ -40,7 +40,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public async Task DeleteShelf(int id)
+        public async Task DeleteShelfAsync(int id)
         {
             var shelf = await _context.Shelves.SingleOrDefaultAsync(s => s.Id == id);
             if (shelf == null)
@@ -50,7 +50,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Shelves.Remove(shelf);
         }
 
-        public async Task<Shelf> GetShelfById(int id)
+        public async Task<Shelf> GetShelfByIdAsync(int id)
         {
             var shelf = await _context.Shelves.SingleOrDefaultAsync(s => s.Id == id);
             if (shelf == null)

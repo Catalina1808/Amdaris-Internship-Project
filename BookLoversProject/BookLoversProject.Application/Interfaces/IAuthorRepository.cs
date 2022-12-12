@@ -9,16 +9,16 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<Author> GetAuthorByIdAsync(int id);
 
-        Task<ICollection<Author>> GetAllAuthors();
+        Task<ICollection<Author>> GetAllAuthorsAsync();
 
-        Task DeleteAuthor(int id);
+        Task DeleteAuthorAsync(int id);
 
-        Task AddFollowerToAuthor(UserAuthor follower, int authorId);
+        Task AddFollowerToAuthorAsync(UserAuthor follower, int authorId);
 
-        Task DeleteFollowerFromAuthor(UserAuthor follower, int authorId);
+        Task DeleteFollowerFromAuthorAsync(UserAuthor follower, int authorId);
 
         Task AddBookToAuthorAsync(int authorId, BookAuthor book);
 
-        Task DeleteBookFromAuthor(int authorId, BookAuthor book);
+        Task DeleteBookFromAuthorAsync(int authorId, BookAuthor book);
     }
 }

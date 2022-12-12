@@ -18,7 +18,7 @@ namespace BookLoversProject.Application.Queries.GetGenreByIdQuery
 
         public async Task<GenreDTO> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<GenreDTO>(await _unitOfWork.GenreRepository.GetGenreById(request.Id));
+            var result = _mapper.Map<GenreDTO>(await _unitOfWork.GenreRepository.GetGenreByIdAsync(request.Id));
 
             return result;
         }

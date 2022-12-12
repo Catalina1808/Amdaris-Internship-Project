@@ -33,7 +33,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public async Task DeleteBookFromAuthor(int authorId, BookAuthor book)
+        public async Task DeleteBookFromAuthorAsync(int authorId, BookAuthor book)
         {
             var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == authorId);
             if (author == null || !author.Books.Remove(book))
@@ -42,7 +42,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public async Task AddFollowerToAuthor(UserAuthor follower, int authorId)
+        public async Task AddFollowerToAuthorAsync(UserAuthor follower, int authorId)
         {
             var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == authorId);
             if (author != null)
@@ -55,7 +55,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public async Task DeleteAuthor(int id)
+        public async Task DeleteAuthorAsync(int id)
         {
             var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == id);
             if(author == null)
@@ -65,7 +65,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Authors.Remove(author);
         }
 
-        public async Task DeleteFollowerFromAuthor(UserAuthor follower, int authorId)
+        public async Task DeleteFollowerFromAuthorAsync(UserAuthor follower, int authorId)
         {
             var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == authorId);
             if (author == null || !author.Followers.Remove(follower))
@@ -84,7 +84,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             return author;
         }
 
-        public async Task<ICollection<Author>> GetAllAuthors()
+        public async Task<ICollection<Author>> GetAllAuthorsAsync()
         {
             return await _context.Authors.ToListAsync();
         }

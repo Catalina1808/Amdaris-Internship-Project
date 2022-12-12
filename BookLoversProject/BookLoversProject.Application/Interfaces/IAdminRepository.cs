@@ -4,7 +4,7 @@ namespace BookLoversProject.Application.Interfaces
 {
     public interface IAdminRepository
     {
-        Task<Admin> AddAdmin(Admin admin);
+        Task<Admin> AddAdminAsync(Admin admin);
 
         Task<Admin> GetAdminByIdAsync(int id);
 

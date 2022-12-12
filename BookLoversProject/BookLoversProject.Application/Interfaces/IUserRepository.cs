@@ -4,16 +4,16 @@ namespace BookLoversProject.Application.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User> AddReader(User user);
+        Task<User> AddReaderAsync(User user);
 
-        Task<User> GetUserById(int id);
+        Task<User> GetUserByIdAsync(int id);
 
-        Task<ICollection<User>> GetAllUsers();
+        Task<ICollection<User>> GetAllUsersAsync();
 
-        Task DeleteUser(int id);
+        Task DeleteUserAsync(int id);
 
-        Task AddShelfToUser(Shelf shelf, int userId);
+        Task AddShelfToUserAsync(Shelf shelf, int userId);
 
-        Task DeleteShelfFromUser(Shelf shelf, int userId);
+        Task DeleteShelfFromUserAsync(Shelf shelf, int userId);
     }
 }

@@ -21,7 +21,7 @@ namespace BookLoversProject.Application.Commands.CreateReviewCommand
                 Date = request.Date
             };
 
-            await _unitOfWork.ReviewRepository.AddReview(review);
+            await _unitOfWork.ReviewRepository.AddReviewAsync(review);
             await _unitOfWork.Save();
 
             return review.Id;

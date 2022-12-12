@@ -9,8 +9,6 @@ namespace BookLoversProject.Application.Commands.CreateAuthorCommand
 
         public string Description { get; set; }
 
-        public ICollection<BookAuthor> Books { get; set; }
-
-        public ICollection<UserAuthor> Followers { get; set; }
+        public ICollection<int> BooksId { get; set; }
     }
 }

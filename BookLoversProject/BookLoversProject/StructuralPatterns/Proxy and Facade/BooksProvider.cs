@@ -41,9 +41,7 @@ namespace BookLoversProject.Presentation.Structural_Patterns.Proxy
                 var bookId = await mediator.Send(new CreateBookCommand
                 {
                     Title = book.Title,
-                    Description = book.Description,
-                    AuthorList = book.Authors,
-                    GenreList = book.Genres
+                    Description = book.Description
                 });
 
                 Console.WriteLine($"Book created with {bookId}");

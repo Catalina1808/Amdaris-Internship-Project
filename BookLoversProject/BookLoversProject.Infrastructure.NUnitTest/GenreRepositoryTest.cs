@@ -1,36 +1,40 @@
 using AutoFixture;
 using BookLoversProject.Domain.Domain;
-using BookLoversProject.Infrastructure.Repositories;
+using BookLoversProject.Infrastructure.InMemoryRepository;
 
 namespace BookLoversProject.Infrastructure.NUnitTest
 {
     [TestFixture]
     public class GenreRepositoryTest
     {
-        GenreRepository genreRepository;
+        InMemoryGenreRepository genreRepository;
 
         [SetUp]
         public void SetUp()
         {
             var fixture = new Fixture();
-            genreRepository = fixture.Build<GenreRepository>().Create();
+            fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+              .ForEach(b => fixture.Behaviors.Remove(b));
+            fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+            genreRepository = fixture.Build<InMemoryGenreRepository>().Create();
         }
 
         [Test]
         [TestCase("1")]
         [TestCase("4")]
         [TestCase("6")]
-        public void GetGenreByIdTest(int Id)
+        public async Task GetGenreByIdTestAsync(int Id)
         {
-            Genre genre = new Genre
+            Genre genre = new()
             {
                 Id = Id,
                 Name = "Drama"
             };
 
-            genreRepository.AddGenre(genre);
+            await genreRepository.AddGenre(genre);
+            var result = await genreRepository.GetGenreById(Id);
 
-            Assert.That(genreRepository.GetGenreById(Id), Is.EqualTo(genre));
+            Assert.That(result, Is.EqualTo(genre));
         }
 
         [Test]
@@ -39,23 +43,24 @@ namespace BookLoversProject.Infrastructure.NUnitTest
         [TestCase("6")]
         public void GetGenreByIdTestException(int Id)
         {
-            Exception ex = Assert.Throws<Exception>(() => genreRepository.GetGenreById(Id));
+            Exception ex = Assert.ThrowsAsync<Exception>(() => genreRepository.GetGenreById(Id));
             Assert.That(ex.Message, Is.EqualTo("Exception occured, genre not found!"));
         }
 
 
         [Test]
-        public void AddGenreTest()
+        public async Task AddGenreTestAsync()
         {
-            Genre genre = new Genre
+            Genre genre = new()
             {
                 Id = 1,
                 Name = "Drama"
             };
 
             genreRepository.AddGenre(genre);
+            var result = await genreRepository.GetAllGenres();
 
-            Assert.IsTrue(genreRepository.GetAllGenres().Contains(genre));
+            Assert.IsTrue(result.Contains(genre));
         }
     }
 }

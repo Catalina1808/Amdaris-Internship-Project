@@ -19,14 +19,36 @@ namespace BookLoversProject.Application.Commands.CreateAuthorCommand
             {
                 Name = request.Name,
                 Description = request.Description,
-                Books = request.Books,
-                Followers = request.Followers
             };
+
+            var bookAuthorLinks = await GetBookAuthorLinksAsync(request.BooksId, author);
+
+            author.Books = bookAuthorLinks;
 
             await _unitOfWork.AuthorRepository.AddAuthorAsync(author);
             await _unitOfWork.Save();
 
             return author.Id;
+        }
+
+        private async Task<ICollection<BookAuthor>> GetBookAuthorLinksAsync(ICollection<int> booksId, Author author)
+        {
+            var bookAuthorLinks = new List<BookAuthor>();
+            if (booksId != null)
+            {
+                foreach (int id in booksId)
+                {
+                    if (await _unitOfWork.BookRepository.GetBookById(id) != null)
+                    {
+                        bookAuthorLinks.Add(new BookAuthor()
+                        {
+                            BookId = id,
+                            Author = author
+                        });
+                    }
+                }
+            }
+            return bookAuthorLinks;
         }
     }
 }

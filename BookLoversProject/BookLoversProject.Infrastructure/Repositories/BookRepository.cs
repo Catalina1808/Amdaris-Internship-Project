@@ -95,7 +95,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book == null || book.Reviews == null)
             {
-                throw new ReviewNotFoundException("Exception occured, _context not found!");
+                throw new ReviewNotFoundException("Exception occured, _genres not found!");
             }
 
             return book.Reviews;

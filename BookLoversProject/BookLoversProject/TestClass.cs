@@ -82,56 +82,57 @@ namespace BookLoversProject.Presentation
             //    .BuildServiceProvider();
 
             //var mediator = diContainer.GetRequiredService<IMediator>();
+            //var bookId = await mediator.Send(new CreateBookCommand { 
+            //    Title = "Verity",
+            //    Description = "Lowen Ashleigh is a struggling writer on the brink of financial ruin when she accepts the job offer of a lifetime.",
+            //    AuthorsId = new List<int>{24}
+            //});
 
-            //var author = new Author { Name = "author", Description = "description", Books = new List<BookAuthor>(), Followers = new List<UserAuthor>() };
-            //var authorId = await mediator.Send(new CreateAuthorCommand { Name = author.Name, Description = author.Description, Books = author.Books, Followers = author.Followers });
-            //var bookId = await mediator.Send(new CreateBookCommand { Title = book1.Title, Description = book1.Description, AuthorList = book1.Authors });
-
-            //Console.WriteLine("created author with id=" + authorId + " and book with id=" + bookId);
+            //Console.WriteLine("created book with id = " + bookId);
 
 
-            Admin admin = new Admin { Email = "email", Password = "password" };
+            //Admin admin = new Admin { Email = "email", Password = "password" };
 
-            //Proxy
-            var bookOperationsProxy = new BooksProviderProxy();
-            bookOperationsProxy.Initialize();
-            await bookOperationsProxy.AddBookAsync(admin, book2);
-            await bookOperationsProxy.ListBooksAsync();
-            Console.WriteLine();
+            ////Proxy
+            //var bookOperationsProxy = new BooksProviderProxy();
+            //bookOperationsProxy.Initialize();
+            //await bookOperationsProxy.AddBookAsync(admin, book2);
+            //await bookOperationsProxy.ListBooksAsync();
+            //Console.WriteLine();
 
-            await bookOperationsProxy.ListBookByIdAsync(1);
-            Console.WriteLine();
+            //await bookOperationsProxy.ListBookByIdAsync(1);
+            //Console.WriteLine();
 
-            //Facade
-            var bookOperationsFacade = new BookOperationsFacade();
-            bookOperationsFacade.AddBook(admin, book2);
-            Console.WriteLine();
+            ////Facade
+            //var bookOperationsFacade = new BookOperationsFacade();
+            //bookOperationsFacade.AddBook(admin, book2);
+            //Console.WriteLine();
 
-            //Decorator
-            IBook book = new SimpleBook();
-            book = new FantasyBookDecorator(book);
-            book = new MysteryBookDecorator(book);
+            ////Decorator
+            //IBook book = new SimpleBook();
+            //book = new FantasyBookDecorator(book);
+            //book = new MysteryBookDecorator(book);
 
-            IBook anotherBook = new SimpleBook();
-            anotherBook = new RomanceBookDecorator(anotherBook);
-            anotherBook = new MysteryBookDecorator(anotherBook);
+            //IBook anotherBook = new SimpleBook();
+            //anotherBook = new RomanceBookDecorator(anotherBook);
+            //anotherBook = new MysteryBookDecorator(anotherBook);
 
-            Console.WriteLine("Book1 decorated: " + book.GetDescription());
-            Console.WriteLine("Book2 decorated: " + anotherBook.GetDescription());
+            //Console.WriteLine("Book1 decorated: " + book.GetDescription());
+            //Console.WriteLine("Book2 decorated: " + anotherBook.GetDescription());
 
-            Console.WriteLine();
+            //Console.WriteLine();
 
-            //Singleton test
+            ////Singleton test
 
-            CompressAndEncryptSingleton singleton = CompressAndEncryptSingleton.Instance;
-            singleton.CompressAndEncryptGenres(genres);
+            //CompressAndEncryptSingleton singleton = CompressAndEncryptSingleton.Instance;
+            //singleton.CompressAndEncryptGenres(genres);
 
-            List<Genre> decompressedGenres = singleton.DecompressAndDecryptGenres();
+            //List<Genre> decompressedGenres = singleton.DecompressAndDecryptGenres();
 
-            foreach (Genre genre in decompressedGenres)
-            {
-                Console.WriteLine(genre.Id + " " + genre.Name);
-            }
+            //foreach (Genre genre in decompressedGenres)
+            //{
+            //    Console.WriteLine(genre.Id + " " + genre.Name);
+            //}
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using BookLoversProject.Application.DTO;
 using BookLoversProject.Application.Interfaces;
-using BookLoversProject.Application.Queries.GetAuthorsQuery;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetAuthorByIdQuery
@@ -18,7 +18,7 @@ namespace BookLoversProject.Application.Queries.GetAuthorByIdQuery
 
         public async Task<AuthorDTO> Handle(GetAuthorByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<AuthorDTO>(_unitOfWork.AuthorRepository.GetAuthorByIdAsync(request.Id));
+            var result = _mapper.Map<AuthorDTO>(await _unitOfWork.AuthorRepository.GetAuthorByIdAsync(request.Id));
             return result;
         }
     }

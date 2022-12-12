@@ -1,6 +1,6 @@
 ﻿using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.Queries.GetAuthorsQuery
+namespace BookLoversProject.Application.DTO
 {
     public class AuthorDTO
     {

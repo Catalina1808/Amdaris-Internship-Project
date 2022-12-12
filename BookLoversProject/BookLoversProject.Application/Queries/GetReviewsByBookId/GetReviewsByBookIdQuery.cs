@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using BookLoversProject.Application.DTO;
+using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetReviewsByBookId
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using BookLoversProject.Application.DTO;
 using BookLoversProject.Application.Interfaces;
-using BookLoversProject.Application.Queries.GetUsersQuery;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetUserByIdQuery

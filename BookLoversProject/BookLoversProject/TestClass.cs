@@ -21,7 +21,7 @@ namespace BookLoversProject.Presentation
         public static async Task Main()
         {
             //using User Factory
-            AbstractUser user1 = UserFactory.CreateUser(true,"emailAdmin", "password");
+            AbstractUser user1 = UserFactory.CreateUser(true, "emailAdmin", "password");
             AbstractUser user2 = UserFactory.CreateUser(false, "emailUser", "password");
 
 
@@ -91,48 +91,48 @@ namespace BookLoversProject.Presentation
             //Console.WriteLine("created book with id = " + bookId);
 
 
-            //Admin admin = new Admin { Email = "email", Password = "password" };
+            Admin admin = new Admin { Email = "email", Password = "password" };
 
-            ////Proxy
-            //var bookOperationsProxy = new BooksProviderProxy();
-            //bookOperationsProxy.Initialize();
-            //await bookOperationsProxy.AddBookAsync(admin, book2);
-            //await bookOperationsProxy.ListBooksAsync();
-            //Console.WriteLine();
+            //Proxy
+            var bookOperationsProxy = new BooksProviderProxy();
+            bookOperationsProxy.Initialize();
+            await bookOperationsProxy.AddBookAsync(admin, book2);
+            await bookOperationsProxy.ListBooksAsync();
+            Console.WriteLine();
 
-            //await bookOperationsProxy.ListBookByIdAsync(1);
-            //Console.WriteLine();
+            await bookOperationsProxy.ListBookByIdAsync(1);
+            Console.WriteLine();
 
-            ////Facade
-            //var bookOperationsFacade = new BookOperationsFacade();
-            //bookOperationsFacade.AddBook(admin, book2);
-            //Console.WriteLine();
+            //Facade
+            var bookOperationsFacade = new BookOperationsFacade();
+            bookOperationsFacade.AddBook(admin, book2);
+            Console.WriteLine();
 
-            ////Decorator
-            //IBook book = new SimpleBook();
-            //book = new FantasyBookDecorator(book);
-            //book = new MysteryBookDecorator(book);
+            //Decorator
+            IBook book = new SimpleBook();
+            book = new FantasyBookDecorator(book);
+            book = new MysteryBookDecorator(book);
 
-            //IBook anotherBook = new SimpleBook();
-            //anotherBook = new RomanceBookDecorator(anotherBook);
-            //anotherBook = new MysteryBookDecorator(anotherBook);
+            IBook anotherBook = new SimpleBook();
+            anotherBook = new RomanceBookDecorator(anotherBook);
+            anotherBook = new MysteryBookDecorator(anotherBook);
 
-            //Console.WriteLine("Book1 decorated: " + book.GetDescription());
-            //Console.WriteLine("Book2 decorated: " + anotherBook.GetDescription());
+            Console.WriteLine("Book1 decorated: " + book.GetDescription());
+            Console.WriteLine("Book2 decorated: " + anotherBook.GetDescription());
 
-            //Console.WriteLine();
+            Console.WriteLine();
 
-            ////Singleton test
+            //Singleton test
 
-            //CompressAndEncryptSingleton singleton = CompressAndEncryptSingleton.Instance;
-            //singleton.CompressAndEncryptGenres(genres);
+            CompressAndEncryptSingleton singleton = CompressAndEncryptSingleton.Instance;
+            singleton.CompressAndEncryptGenres(genres);
 
-            //List<Genre> decompressedGenres = singleton.DecompressAndDecryptGenres();
+            List<Genre> decompressedGenres = singleton.DecompressAndDecryptGenres();
 
-            //foreach (Genre genre in decompressedGenres)
-            //{
-            //    Console.WriteLine(genre.Id + " " + genre.Name);
-            //}
+            foreach (Genre genre in decompressedGenres)
+            {
+                Console.WriteLine(genre.Id + " " + genre.Name);
+            }
         }
     }
 }

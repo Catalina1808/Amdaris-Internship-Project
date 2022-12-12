@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.Queries.GetAuthorsQuery;
+using BookLoversProject.Application.DTO;
 using BookLoversProject.Domain.Domain;
 
 namespace BookLoversProject.Application.Profiles
@@ -9,6 +9,7 @@ namespace BookLoversProject.Application.Profiles
         public AuthorProfile()
         {
             CreateMap<Author, AuthorDTO>();
+            CreateMap<AuthorDTO, Author>();
         }
     }
 }

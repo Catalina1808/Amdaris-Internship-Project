@@ -1,6 +1,6 @@
 ﻿using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.Queries.GetGenresQuery
+namespace BookLoversProject.Application.DTO
 {
     public class GenreDTO
     {

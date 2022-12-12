@@ -1,3 +1,4 @@
+using BookLoversProject.Application.DTO;
 using BookLoversProject.Application.Queries.GetBooksQuery;
 using MediatR;
 using Moq;

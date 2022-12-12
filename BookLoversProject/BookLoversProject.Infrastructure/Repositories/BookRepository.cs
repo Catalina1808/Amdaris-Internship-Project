@@ -111,7 +111,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             book.Reviews.Add(review);
         }
 
-        public async Task DeleteReviewFromBookAsync(Review review, int bookId)
+        public async Task DeleteReviewFromBook(Review review, int bookId)
         {
             var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book == null || !book.Reviews.Remove(review))
@@ -120,7 +120,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public async Task AddShelfToBookAsync(ShelfBook shelf, int bookId)
+        public async Task AddShelfToBook(ShelfBook shelf, int bookId)
         {
             var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book != null)
@@ -133,7 +133,7 @@ namespace BookLoversProject.Infrastructure.Repositories
             }
         }
 
-        public async Task DeleteShelfFromBookAsync(ShelfBook shelf, int bookId)
+        public async Task DeleteShelfFromBook(ShelfBook shelf, int bookId)
         {
             var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
             if (book == null || !book.Shelves.Remove(shelf))

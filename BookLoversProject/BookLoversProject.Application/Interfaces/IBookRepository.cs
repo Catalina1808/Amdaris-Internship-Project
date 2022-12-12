@@ -20,14 +20,14 @@ namespace BookLoversProject.Application.Interfaces
 
         Task AddReviewToBookAsync(Review review, int bookId);
 
-        Task DeleteReviewFromBookAsync(Review review, int bookId);
+        Task DeleteReviewFromBook(Review review, int bookId);
 
         Task AddGenreToBookAsync(GenreBook genre, int bookId);
 
         Task DeleteGenreFromBookAsync(GenreBook genre, int bookId);
 
-        Task AddShelfToBookAsync(ShelfBook shelf, int bookId);
+        Task AddShelfToBook(ShelfBook shelf, int bookId);
 
-        Task DeleteShelfFromBookAsync(ShelfBook shelf, int bookId);
+        Task DeleteShelfFromBook(ShelfBook shelf, int bookId);
     }
 }

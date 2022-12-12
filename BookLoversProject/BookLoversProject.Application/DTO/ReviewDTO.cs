@@ -1,4 +1,4 @@
-﻿namespace BookLoversProject.Application.Queries.GetReviewsByBookId
+﻿namespace BookLoversProject.Application.DTO
 {
     public class ReviewDTO
     {

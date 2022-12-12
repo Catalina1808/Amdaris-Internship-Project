@@ -1,4 +1,4 @@
-﻿using BookLoversProject.Application.Queries.GetGenresQuery;
+﻿using BookLoversProject.Application.DTO;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetGenreByIdQuery

@@ -1,3 +1,11 @@
+using BookLoversProject.Api.Middleware;
+using BookLoversProject.Application;
+using BookLoversProject.Application.Interfaces;
+using BookLoversProject.Infrastructure;
+using BookLoversProject.Infrastructure.Repositories;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +15,27 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IShelfRepository, ShelfRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddDbContext<ApplicationContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddMediatR(typeof(IAssemblyMarker));
+builder.Services.AddAutoMapper(typeof(IAssemblyMarker));
+
+builder.Services.Configure<MySettingsExample>(
+    builder.Configuration.GetSection(
+        nameof(MySettingsExample)));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -14,11 +43,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseMyMiddleware();
 
 app.MapControllers();
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.Queries.GetGenresQuery;
+using BookLoversProject.Application.Commands.CreateGenreCommand;
+using BookLoversProject.Application.DTO;
 using BookLoversProject.Domain.Domain;
 
 namespace BookLoversProject.Application.Profiles
@@ -8,7 +9,9 @@ namespace BookLoversProject.Application.Profiles
     {
         public GenreProfile()
         {
+            CreateMap<GenrePutPostDTO, CreateGenreCommand>(); // ?
             CreateMap<Genre, GenreDTO>();
+            CreateMap<GenreDTO, Genre>();
         }
     }
 }

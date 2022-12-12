@@ -1,6 +1,6 @@
 ﻿using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.Queries.GetBooksQuery
+namespace BookLoversProject.Application.DTO
 {
     public class BookDTO
     {
@@ -12,7 +12,7 @@ namespace BookLoversProject.Application.Queries.GetBooksQuery
 
         public ICollection<BookAuthor> Authors { get; set; }
 
-        public ICollection<Review> Reviews { get; }
+        public ICollection<Review> Reviews { get; set; }
 
         public ICollection<GenreBook> Genres { get; set; }
 

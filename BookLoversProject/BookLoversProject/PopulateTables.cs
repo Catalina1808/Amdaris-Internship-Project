@@ -1,4 +1,4 @@
-﻿using BookLoversProject.Application.Commands.CreateAuthorCommand;
+﻿using BookLoversProject.Application.Commands.Create.CreateAuthorCommand;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Application;
 using BookLoversProject.Domain.Domain;

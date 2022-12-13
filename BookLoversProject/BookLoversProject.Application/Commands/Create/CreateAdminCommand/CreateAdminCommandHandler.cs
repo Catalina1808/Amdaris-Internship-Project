@@ -2,9 +2,9 @@
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
-namespace BookLoversProject.Application.Commands.CreateAdminCommand
+namespace BookLoversProject.Application.Commands.Create.CreateAdminCommand
 {
-    internal class CreateAdminCommandHandler : IRequestHandler<CreateAdminCommand, int>
+    internal class CreateAdminCommandHandler : IRequestHandler<CreateAdminCommand, Admin>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,7 +13,7 @@ namespace BookLoversProject.Application.Commands.CreateAdminCommand
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateAdminCommand request, CancellationToken cancellationToken)
+        public async Task<Admin> Handle(CreateAdminCommand request, CancellationToken cancellationToken)
         {
             var admin = new Admin
             {
@@ -24,7 +24,7 @@ namespace BookLoversProject.Application.Commands.CreateAdminCommand
             await _unitOfWork.AdminRepository.AddAdminAsync(admin);
             await _unitOfWork.Save();
 
-            return admin.Id;
+            return admin;
         }
     }
 }

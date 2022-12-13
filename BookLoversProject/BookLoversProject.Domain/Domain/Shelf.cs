@@ -2,15 +2,10 @@
 
 namespace BookLoversProject.Domain.Domain
 {
-    public class Shelf : Entity, IEnumerable
+    public class Shelf : Entity
     {
         public string Name { get; set; }
 
         public ICollection<ShelfBook> Books { get; set; }
-
-        public IEnumerator GetEnumerator()
-        {
-            return ((IEnumerable)Books).GetEnumerator();
-        }
     }
 }

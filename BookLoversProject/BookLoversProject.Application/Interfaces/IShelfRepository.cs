@@ -9,9 +9,5 @@ namespace BookLoversProject.Application.Interfaces
         Task<Shelf> GetShelfByIdAsync(int id);
 
         Task DeleteShelfAsync(int id);
-
-        Task<ShelfBook> AddBookToShelfAsync(ShelfBook book, int shelfId);
-
-        Task DeleteBookFromShelfAsync(ShelfBook book, int shelfId);
     }
 }

@@ -11,9 +11,5 @@ namespace BookLoversProject.Application.Interfaces
         Task<ICollection<Genre>> GetAllGenresAsync();
 
         Task DeleteGenreAsync(int id);
-
-        Task AddBookToGenreAsync(GenreBook genreBook, int genreId);
-
-        Task DeleteBookFromGenre(GenreBook genreBook, int genreId);
     }
 }

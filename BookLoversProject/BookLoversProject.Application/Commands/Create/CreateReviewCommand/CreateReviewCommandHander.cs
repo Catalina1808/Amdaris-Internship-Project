@@ -2,18 +2,18 @@
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
-namespace BookLoversProject.Application.Commands.CreateReviewCommand
+namespace BookLoversProject.Application.Commands.Create.CreateReviewCommand
 {
-    public class CreateReviewCommandHander : IRequestHandler<CreateReviewCommand, int>
+    public class CreateReviewCommandHander : IRequestHandler<CreateReviewCommand, Review>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateReviewCommandHander (IUnitOfWork unitOfWork)
+        public CreateReviewCommandHander(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
+        public async Task<Review> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
         {
             var review = new Review
             {
@@ -24,7 +24,7 @@ namespace BookLoversProject.Application.Commands.CreateReviewCommand
             await _unitOfWork.ReviewRepository.AddReviewAsync(review);
             await _unitOfWork.Save();
 
-            return review.Id;
+            return review;
         }
     }
 }

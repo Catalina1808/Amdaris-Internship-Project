@@ -1,9 +1,9 @@
 ﻿using BookLoversProject.Domain.Domain;
 using MediatR;
 
-namespace BookLoversProject.Application.Commands.CreateBookCommand
+namespace BookLoversProject.Application.Commands.Create.CreateBookCommand
 {
-    public class CreateBookCommand: IRequest<int>
+    public class CreateBookCommand : IRequest<Book>
     {
         public string Title { get; set; }
 

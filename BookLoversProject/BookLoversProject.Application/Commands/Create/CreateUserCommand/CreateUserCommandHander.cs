@@ -2,9 +2,9 @@
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
-namespace BookLoversProject.Application.Commands.CreateReaderCommand
+namespace BookLoversProject.Application.Commands.Create.CreateUserCommand
 {
-    internal class CreateUserCommandHander : IRequestHandler<CreateUserCommand, int>
+    internal class CreateUserCommandHander : IRequestHandler<CreateUserCommand, User>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,19 +13,21 @@ namespace BookLoversProject.Application.Commands.CreateReaderCommand
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var reader = new User
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                ImagePath = request.ImagePath
+                ImagePath = request.ImagePath,
+                Email = request.Email,
+                Password = request.Password
             };
 
             await _unitOfWork.UserRepository.AddReaderAsync(reader);
             await _unitOfWork.Save();
 
-            return reader.Id;
+            return reader;
         }
     }
 }

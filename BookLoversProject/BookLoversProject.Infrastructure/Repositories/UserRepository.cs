@@ -20,19 +20,6 @@ namespace BookLoversProject.Infrastructure.Repositories
             return user;
         }
 
-        public async Task AddShelfToUserAsync(Shelf shelf, int userId)
-        {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
-            if (user != null)
-            {
-                user.BookShelves.Add(shelf);
-            }
-            else
-            {
-                throw new ArgumentNullException();
-            }
-        }
-
         public async Task DeleteUserAsync(int id)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
@@ -43,27 +30,28 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Users.Remove(user);
         }
 
-        public async Task DeleteShelfFromUserAsync(Shelf shelf, int userId)
-        {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
-            if (user == null || !user.BookShelves.Remove(shelf))
-            {
-                throw new ShelfNotFoundException("Exception occured, shelf not found!");
-            }
-        }
-
         public async Task<ICollection<User>> GetAllUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+                .Include(u => u.Authors)
+                .Include(u => u.Reviews)
+                .Include(u => u.Shelves)
+                .ToListAsync();
         }
 
         public async Task<User> GetUserByIdAsync(int id)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
+            var user = await _context.Users
+                .Include(u => u.Authors)
+                .Include(u => u.Reviews)
+                .Include(u => u.Shelves)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
             if (user == null)
             {
                 throw new Exception("Exception occured, user not found!");
             }
+
             return user;
         }
     }

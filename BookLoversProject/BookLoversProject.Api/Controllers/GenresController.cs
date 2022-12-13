@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.Commands.CreateGenreCommand;
+using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
 using BookLoversProject.Application.DTO;
 using BookLoversProject.Application.Queries.GetGenreByIdQuery;
 using BookLoversProject.Application.Queries.GetGenresQuery;
@@ -29,9 +29,9 @@ namespace BookLoversProject.Api.Controllers
 
             var command = _mapper.Map<CreateGenreCommand>(genre);
 
-            int id = await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { genreId = id }, genre);
+            return CreatedAtAction(nameof(GetById), new { genreId = result.Id }, result);
         }
 
         [HttpGet]

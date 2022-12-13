@@ -11,9 +11,5 @@ namespace BookLoversProject.Application.Interfaces
         Task<ICollection<User>> GetAllUsersAsync();
 
         Task DeleteUserAsync(int id);
-
-        Task AddShelfToUserAsync(Shelf shelf, int userId);
-
-        Task DeleteShelfFromUserAsync(Shelf shelf, int userId);
     }
 }

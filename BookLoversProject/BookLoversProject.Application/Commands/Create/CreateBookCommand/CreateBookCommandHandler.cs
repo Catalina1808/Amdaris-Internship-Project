@@ -2,9 +2,9 @@
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
-namespace BookLoversProject.Application.Commands.CreateBookCommand
+namespace BookLoversProject.Application.Commands.Create.CreateBookCommand
 {
-    internal class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
+    internal class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Book>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,12 +13,14 @@ namespace BookLoversProject.Application.Commands.CreateBookCommand
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateBookCommand request, CancellationToken cancellationToken)
+        public async Task<Book> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
             var book = new Book
             {
                 Title = request.Title,
-                Description = request.Description
+                Description = request.Description,
+                //Reviews = new List<Review>(),
+                //Shelves = new List<ShelfBook>()
             };
 
             var bookAuthorLinks = await GetBookAuthorLinksAsync(request.AuthorsId, book);
@@ -27,10 +29,11 @@ namespace BookLoversProject.Application.Commands.CreateBookCommand
             book.Authors = bookAuthorLinks;
             book.Genres = genreBookLinks;
 
+
             await _unitOfWork.BookRepository.AddBookAsync(book);
             await _unitOfWork.Save();
 
-            return book.Id;
+            return book;
         }
 
         private async Task<ICollection<BookAuthor>> GetBookAuthorLinksAsync(ICollection<int> authorsId, Book book)

@@ -308,7 +308,7 @@ namespace BookLoversProject.Infrastructure.Migrations
             modelBuilder.Entity("BookLoversProject.Domain.Domain.Shelf", b =>
                 {
                     b.HasOne("BookLoversProject.Domain.Domain.User", null)
-                        .WithMany("BookShelves")
+                        .WithMany("Shelves")
                         .HasForeignKey("UserId");
                 });
 
@@ -382,7 +382,7 @@ namespace BookLoversProject.Infrastructure.Migrations
                 {
                     b.Navigation("Authors");
 
-                    b.Navigation("BookShelves");
+                    b.Navigation("Shelves");
 
                     b.Navigation("Reviews");
                 });

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.Commands.CreateGenreCommand;
+using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
 using BookLoversProject.Application.DTO;
 using BookLoversProject.Domain.Domain;
 

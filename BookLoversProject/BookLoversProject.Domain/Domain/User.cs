@@ -27,7 +27,7 @@ namespace BookLoversProject.Domain.Domain
         [AllowNull]
         public string ImagePath { get; set; }
 
-        public ICollection<Shelf> BookShelves { get; }
+        public ICollection<Shelf> Shelves { get; set; }
 
         public ICollection<UserAuthor> Authors { get; set; }
 

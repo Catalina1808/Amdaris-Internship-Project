@@ -32,39 +32,23 @@ namespace BookLoversProject.Infrastructure.Repositories
 
         public async Task<ICollection<Genre>> GetAllGenresAsync()
         {
-            return await _context.Genres.ToListAsync();
+            return await _context.Genres
+                .Include(g => g.Books)
+                .ToListAsync();
         }
 
         public async Task<Genre> GetGenreByIdAsync(int id)
         {
-            var genre = await _context.Genres.SingleOrDefaultAsync(x => x.Id == id);
+            var genre = await _context.Genres
+                .Include(g => g.Books)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
             if (genre == null)
             {
                 throw new Exception("Exception occured, genre not found!");
             }
+
             return genre;
-        }
-
-        public async Task AddBookToGenreAsync(GenreBook genreBook, int genreId)
-        {
-            var genre = await _context.Genres.SingleOrDefaultAsync(x => x.Id == genreId);
-            if (genre != null && genreBook != null)
-            {
-                genre.Books.Add(genreBook);
-            }
-            else
-            {
-                throw new ArgumentNullException();
-            }
-        }
-
-        public async Task DeleteBookFromGenre(GenreBook genreBook, int genreId)
-        {
-            var genre = await _context.Genres.SingleOrDefaultAsync(x => x.Id == genreId);
-            if(genre == null || !genre.Books.Remove(genreBook))
-            {
-                throw new ArgumentNullException();
-            }
         }
     }
 }

@@ -13,12 +13,6 @@ namespace BookLoversProject.Application.Interfaces
 
         Task DeleteAuthorAsync(int id);
 
-        Task AddFollowerToAuthorAsync(UserAuthor follower, int authorId);
-
-        Task DeleteFollowerFromAuthorAsync(UserAuthor follower, int authorId);
-
-        Task AddBookToAuthorAsync(int authorId, BookAuthor book);
-
-        Task DeleteBookFromAuthorAsync(int authorId, BookAuthor book);
+        void UpdateAuthor(Author author);
     }
 }

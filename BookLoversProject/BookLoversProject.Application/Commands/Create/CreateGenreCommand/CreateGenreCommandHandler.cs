@@ -2,9 +2,9 @@
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
-namespace BookLoversProject.Application.Commands.CreateGenreCommand
+namespace BookLoversProject.Application.Commands.Create.CreateGenreCommand
 {
-    internal class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, int>
+    internal class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, Genre>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,7 +13,7 @@ namespace BookLoversProject.Application.Commands.CreateGenreCommand
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
+        public async Task<Genre> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
         {
             var genre = new Genre
             {
@@ -23,7 +23,7 @@ namespace BookLoversProject.Application.Commands.CreateGenreCommand
             await _unitOfWork.GenreRepository.AddGenreAsync(genre);
             await _unitOfWork.Save();
 
-            return genre.Id;
+            return genre;
         }
     }
 }

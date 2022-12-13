@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Presentation", "BookLoversProject\BookLoversProject.Presentation.csproj", "{86D1C094-8D03-476D-9514-6BC0238EC6E6}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Domain", "BookLoversProject.Domain\BookLoversProject.Domain.csproj", "{257D86A2-D111-4D2C-8765-75F29705A283}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Application", "BookLoversProject.Application\BookLoversProject.Application.csproj", "{6029029B-91B9-437F-8095-27F6A287FC36}"
@@ -18,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Application.XUnitTest", "BookLoversProject.Application.XUnitTest\BookLoversProject.Application.XUnitTest.csproj", "{78A8FCA7-3332-4ADD-8C2F-1281217B1C53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLoversProject.Api", "BookLoversProject.Api\BookLoversProject.Api.csproj", "{3EC4CD80-7C79-4291-885C-B23E7301DF73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLoversProject.Presentation", "BookLoversProject.Api\BookLoversProject.Presentation.csproj", "{3EC4CD80-7C79-4291-885C-B23E7301DF73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{86D1C094-8D03-476D-9514-6BC0238EC6E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86D1C094-8D03-476D-9514-6BC0238EC6E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86D1C094-8D03-476D-9514-6BC0238EC6E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86D1C094-8D03-476D-9514-6BC0238EC6E6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{257D86A2-D111-4D2C-8765-75F29705A283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{257D86A2-D111-4D2C-8765-75F29705A283}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{257D86A2-D111-4D2C-8765-75F29705A283}.Release|Any CPU.ActiveCfg = Release|Any CPU

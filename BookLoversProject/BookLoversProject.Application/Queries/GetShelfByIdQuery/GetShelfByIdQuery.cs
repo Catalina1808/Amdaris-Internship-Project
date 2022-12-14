@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetShelfByIdQuery
 {
-    public class GetShelfByIdQuery: IRequest<ShelfDTO>
+    public class GetShelfByIdQuery: IRequest<ShelfGetDTO>
     {
         public int Id { get; set; }
     }

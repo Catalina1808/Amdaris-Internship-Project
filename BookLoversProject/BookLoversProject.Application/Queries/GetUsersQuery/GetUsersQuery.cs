@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetUsersQuery
 {
-    public class GetUsersQuery : IRequest<IEnumerable<UserDTO>>
+    public class GetUsersQuery : IRequest<IEnumerable<UserGetDTO>>
     {
     }
 }

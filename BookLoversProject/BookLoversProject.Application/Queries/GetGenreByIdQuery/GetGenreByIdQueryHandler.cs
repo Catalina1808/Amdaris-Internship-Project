@@ -5,7 +5,7 @@ using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetGenreByIdQuery
 {
-    public class GetGenreByIdQueryHandler : IRequestHandler<GetGenreByIdQuery, GenreDTO>
+    public class GetGenreByIdQueryHandler : IRequestHandler<GetGenreByIdQuery, GenreGetDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,9 +16,9 @@ namespace BookLoversProject.Application.Queries.GetGenreByIdQuery
             _mapper = mapper;
         }
 
-        public async Task<GenreDTO> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
+        public async Task<GenreGetDTO> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<GenreDTO>(await _unitOfWork.GenreRepository.GetGenreByIdAsync(request.Id));
+            var result = _mapper.Map<GenreGetDTO>(await _unitOfWork.GenreRepository.GetGenreByIdAsync(request.Id));
 
             return result;
         }

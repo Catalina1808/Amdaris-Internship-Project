@@ -10,10 +10,13 @@ namespace BookLoversProject.Application.Profiles
     {
         public AuthorProfile()
         {
-            CreateMap<AuthorPutPostDTO, CreateAuthorCommand>(); // ?
-            CreateMap<AuthorPutPostDTO, UpdateAuthorCommand>(); // ?
+            CreateMap<AuthorPutPostDTO, CreateAuthorCommand>();
+            CreateMap<AuthorPutPostDTO, UpdateAuthorCommand>();
+            CreateMap<Author, AuthorGetDTO>()
+                .ForMember(authorDTO => authorDTO.Books, opt => opt.MapFrom(author => author.Books.Select(bookAuthor => bookAuthor.Book)))
+                .ForMember(authorDTO => authorDTO.Followers, opt => opt.MapFrom(author => author.Followers.Select(userAuthor => userAuthor.User)));
             CreateMap<Author, AuthorDTO>();
-            CreateMap<AuthorDTO, Author>();
+
         }
     }
 }

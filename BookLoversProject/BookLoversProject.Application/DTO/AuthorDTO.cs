@@ -1,6 +1,4 @@
-﻿using BookLoversProject.Domain.Domain;
-
-namespace BookLoversProject.Application.DTO
+﻿namespace BookLoversProject.Application.DTO
 {
     public class AuthorDTO
     {
@@ -9,9 +7,5 @@ namespace BookLoversProject.Application.DTO
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        public ICollection<BookAuthor> Books { get; set; }
-
-        public ICollection<UserAuthor> Followers { get; set; }
     }
 }

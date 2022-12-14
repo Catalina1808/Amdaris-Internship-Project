@@ -5,7 +5,7 @@ using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetAuthorByIdQuery
 {
-    public class GetAuthorByIdQueryHandler : IRequestHandler<GetAuthorByIdQuery, AuthorDTO>
+    public class GetAuthorByIdQueryHandler : IRequestHandler<GetAuthorByIdQuery, AuthorGetDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,9 +16,9 @@ namespace BookLoversProject.Application.Queries.GetAuthorByIdQuery
             _mapper = mapper;
         }
 
-        public async Task<AuthorDTO> Handle(GetAuthorByIdQuery request, CancellationToken cancellationToken)
+        public async Task<AuthorGetDTO> Handle(GetAuthorByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<AuthorDTO>(await _unitOfWork.AuthorRepository.GetAuthorByIdAsync(request.Id));
+            var result = _mapper.Map<AuthorGetDTO>(await _unitOfWork.AuthorRepository.GetAuthorByIdAsync(request.Id));
             return result;
         }
     }

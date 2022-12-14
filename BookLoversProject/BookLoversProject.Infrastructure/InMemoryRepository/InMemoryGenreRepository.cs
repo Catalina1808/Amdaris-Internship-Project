@@ -24,7 +24,7 @@ namespace BookLoversProject.Infrastructure.InMemoryRepository
             return genre;
         }
 
-        public async Task DeleteGenreAsync(int id)
+        public void DeleteGenre(int id)
         {
             var genre = _genres.SingleOrDefault(x => x.Id == id);
             if (genre == null)
@@ -69,6 +69,16 @@ namespace BookLoversProject.Infrastructure.InMemoryRepository
             {
                 throw new ArgumentNullException();
             }
+        }
+
+        public void UpdateGenre(Genre genre)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteGenre(Genre genre)
+        {
+            _genres.Remove(genre);
         }
     }
 }

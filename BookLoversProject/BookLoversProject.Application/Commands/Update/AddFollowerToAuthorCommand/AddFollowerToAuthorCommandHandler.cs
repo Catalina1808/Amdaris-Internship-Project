@@ -18,11 +18,6 @@ namespace BookLoversProject.Application.Commands.Update.AddFollowerToAuthorComma
             var author = await _unitOfWork.AuthorRepository.GetAuthorByIdAsync(request.AuthorId);
             var user = await _unitOfWork.UserRepository.GetUserByIdAsync(request.UserId);
 
-            if (author == null || user != null)
-            {
-                return null;
-            }
-
             var userAuthorLink = new UserAuthor{ AuthorId = request.AuthorId, UserId = request.UserId };
             author.Followers.Add(userAuthorLink);
 

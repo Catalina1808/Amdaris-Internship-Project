@@ -10,6 +10,8 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<ICollection<Genre>> GetAllGenresAsync();
 
-        Task DeleteGenreAsync(int id);
+        void DeleteGenre(Genre genre);
+
+        void UpdateGenre(Genre genre);
     }
 }

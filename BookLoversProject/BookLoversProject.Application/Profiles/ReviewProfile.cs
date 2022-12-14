@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookLoversProject.Application.Commands.Create.CreateReviewCommand;
 using BookLoversProject.Application.DTO;
 using BookLoversProject.Domain.Domain;
 
@@ -8,8 +9,8 @@ namespace BookLoversProject.Application.Profiles
     {
         public ReviewProfile()
         {
-            CreateMap<Review, ReviewDTO>();
-            CreateMap<ReviewDTO, Review>();
+            CreateMap<ReviewPutPostDTO, CreateReviewCommand>();
+            CreateMap<Review, ReviewGetDTO>();
         }
     }
 }

@@ -18,10 +18,10 @@ namespace BookLoversProject.Application.Commands.Update.AddGenreToBookCommand
             var book = await _unitOfWork.BookRepository.GetBookByIdAsync(request.BookId);
             var genre = await _unitOfWork.GenreRepository.GetGenreByIdAsync(request.GenreId);
 
-            if(book == null || genre == null)
-            {
-                return null;
-            }
+            //if(book == null || genre == null)
+            //{
+            //    return null;
+            //}
 
             var genreBookLink = new GenreBook { BookId = request.BookId, GenreId = request.GenreId };
 

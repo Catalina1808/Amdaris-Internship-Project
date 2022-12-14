@@ -20,13 +20,8 @@ namespace BookLoversProject.Infrastructure.Repositories
             return user;
         }
 
-        public async Task DeleteUserAsync(int id)
+        public void DeleteUser(User user)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
-            if (user == null)
-            {
-                throw new Exception("Exception occured, user not found!");
-            }
             _context.Users.Remove(user);
         }
 
@@ -34,6 +29,7 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             return await _context.Users
                 .Include(u => u.Authors)
+                .ThenInclude(ua => ua.Author)
                 .Include(u => u.Reviews)
                 .Include(u => u.Shelves)
                 .ToListAsync();
@@ -43,16 +39,22 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             var user = await _context.Users
                 .Include(u => u.Authors)
+                .ThenInclude(ua => ua.Author)
                 .Include(u => u.Reviews)
                 .Include(u => u.Shelves)
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
             {
-                throw new Exception("Exception occured, user not found!");
+                throw new ObjectNotFoundException("Exception occured, user not found!");
             }
 
             return user;
+        }
+
+        public void UpdateUser(User user)
+        {
+            _context.Update(user);
         }
     }
 }

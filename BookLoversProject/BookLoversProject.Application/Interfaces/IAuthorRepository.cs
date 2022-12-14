@@ -11,7 +11,7 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<ICollection<Author>> GetAllAuthorsAsync();
 
-        Task DeleteAuthorAsync(int id);
+        void DeleteAuthor(Author author);
 
         void UpdateAuthor(Author author);
     }

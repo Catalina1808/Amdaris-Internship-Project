@@ -18,11 +18,6 @@ namespace BookLoversProject.Application.Commands.Update.AddBookToShelfCommand
             var book = await _unitOfWork.BookRepository.GetBookByIdAsync(request.BookId);
             var shelf = await _unitOfWork.ShelfRepository.GetShelfByIdAsync(request.ShelfId);
 
-            if(book == null || shelf == null)
-            {
-                return null;
-            }
-
             var shelfBookLink = new ShelfBook { BookId = request.BookId, ShelfId = request.ShelfId };
             shelf.Books.Add(shelfBookLink);
 

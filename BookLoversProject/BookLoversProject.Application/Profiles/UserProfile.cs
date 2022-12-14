@@ -9,9 +9,10 @@ namespace BookLoversProject.Application.Profiles
     {
         public UserProfile()
         {
-            CreateMap<UserPutPostDTO, CreateUserCommand>(); // ?
+            CreateMap<UserPutPostDTO, CreateUserCommand>(); 
+            CreateMap<User, UserGetDTO>()
+                .ForMember(userDTO => userDTO.Authors, opt => opt.MapFrom(user => user.Authors.Select(userAuthor => userAuthor.Author)));
             CreateMap<User, UserDTO>();
-            CreateMap<UserDTO, User>();
         }
     }
 }

@@ -10,6 +10,8 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<ICollection<User>> GetAllUsersAsync();
 
-        Task DeleteUserAsync(int id);
+        void DeleteUser(User user);
+
+        void UpdateUser(User user);
     }
 }

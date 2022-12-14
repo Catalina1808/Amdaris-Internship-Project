@@ -8,6 +8,8 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<Shelf> GetShelfByIdAsync(int id);
 
-        Task DeleteShelfAsync(int id);
+        void DeleteShelf(Shelf shelf);
+
+        void UpdateShelf(Shelf shelf);
     }
 }

@@ -20,13 +20,8 @@ namespace BookLoversProject.Infrastructure.Repositories
             return book;
         }
 
-        public async Task DeleteBookAsync(int id)
+        public void DeleteBook(Book book)
         {
-            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == id);
-            if(book == null)
-            {
-                throw new BookNotFoundException();
-            }
             _context.Books.Remove(book);
         }
 
@@ -34,7 +29,11 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             return await _context.Books
                 .Include(b => b.Genres)
+                .ThenInclude(gb => gb.Genre)
                 .Include(b => b.Authors)
+                .ThenInclude(ba => ba.Author)
+                .Include(s => s.Shelves)
+                .ThenInclude(sb => sb.Shelf)
                 .Include(b => b.Reviews)
                 .ToListAsync();
         }
@@ -43,27 +42,25 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             var book = await _context.Books
                 .Include(b => b.Genres)
+                .ThenInclude(gb => gb.Genre)
                 .Include(b => b.Authors)
+                .ThenInclude(ba => ba.Author)
+                .Include(s => s.Shelves)
+                .ThenInclude(sb => sb.Shelf)
                 .Include(b => b.Reviews)
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             if (book == null)
             {
-                throw new BookNotFoundException("Exception occured, book not found!");
+                throw new ObjectNotFoundException("Exception occured, book not found!");
             }
 
             return book;
         }
 
-        public async Task<ICollection<Review>> GetReviewsByBookIdAsync(int bookId)
+        public void UpdateBook(Book book)
         {
-            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
-            if (book == null || book.Reviews == null)
-            {
-                throw new ReviewNotFoundException("Exception occured, _genres not found!");
-            }
-
-            return book.Reviews;
+            _context.Update(book);
         }
     }
 }

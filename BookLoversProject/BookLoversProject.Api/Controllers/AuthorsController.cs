@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
+using BookLoversProject.Application.Commands.Create.CreateAuthorCommand;
+using BookLoversProject.Application.Commands.Delete.DeleteAuthorCommand;
 using BookLoversProject.Application.Commands.Update.UpdateAuthorCommand;
 using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetAuthorByIdQuery;
 using BookLoversProject.Application.Queries.GetAuthorsQuery;
-using BookLoversProject.Domain.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,23 @@ namespace BookLoversProject.Api.Controllers
             _mapper = mapper;
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAuthor([FromBody] AuthorPutPostDTO author)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var command = _mapper.Map<CreateAuthorCommand>(author);
+
+            var result = await _mediator.Send(command);
+
+            var dto = _mapper.Map<AuthorGetDTO>(result);
+
+            return CreatedAtAction(nameof(GetById), new { authorId = dto.Id }, dto);
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -36,19 +54,22 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> GetById(int authorId)
         {
             var query = new GetAuthorByIdQuery { Id = authorId };
-            var result = await _mediator.Send(query);
 
-            if (result == null)
-                return NotFound();
-
-            return Ok(result);
+            try
+            {
+               var result = await _mediator.Send(query);
+               return Ok(result);
+            }
+            catch (ObjectNotFoundException)
+            {
+               return NotFound();
+            }
         }
 
         [HttpPut]
         [Route("{authorId}")]
         public async Task<IActionResult> UpdateAuthor(int authorId, [FromBody] AuthorPutPostDTO updatedAuthor)
         {
-
             var command = _mapper.Map<UpdateAuthorCommand>(updatedAuthor);
             command.Id = authorId;
 
@@ -58,6 +79,22 @@ namespace BookLoversProject.Api.Controllers
                 return NotFound();
 
             return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("{authorId}")]
+        public async Task<IActionResult> DeleteAuthor(int authorId)
+        {
+            var command = new DeleteAuthorCommand { Id = authorId };
+            try
+            {
+                var result = await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (ObjectNotFoundException)
+            {
+                return NotFound();
+            }
         }
     }
 }

@@ -9,9 +9,10 @@ namespace BookLoversProject.Application.Profiles
     {
         public GenreProfile()
         {
-            CreateMap<GenrePutPostDTO, CreateGenreCommand>(); // ?
+            CreateMap<GenrePutPostDTO, CreateGenreCommand>();
+            CreateMap<Genre, GenreGetDTO>()
+                .ForMember(genreDTO => genreDTO.Books, opt => opt.MapFrom(genre => genre.Books.Select(genreBook => genreBook.Book)));
             CreateMap<Genre, GenreDTO>();
-            CreateMap<GenreDTO, Genre>();
         }
     }
 }

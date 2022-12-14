@@ -22,7 +22,6 @@
     <Folder Include="Commands\Create\CreateGenreCommand\" />
     <Folder Include="Commands\Create\CreateShelfCommand\" />
     <Folder Include="Commands\Create\CreateReviewCommand\" />
-    <Folder Include="Commands\Delete\" />
   </ItemGroup>
 
 </Project>

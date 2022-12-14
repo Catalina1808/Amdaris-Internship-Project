@@ -10,7 +10,8 @@ namespace BookLoversProject.Application.Profiles
         public ShelfProfile()
         {
             CreateMap<ShelfPutPostDTO, CreateShelfCommand>();
-            CreateMap<ShelfDTO, Shelf>();
+            CreateMap<Shelf, ShelfGetDTO>()
+                .ForMember(shelfDTO => shelfDTO.Books, opt => opt.MapFrom(shelf => shelf.Books.Select(shelfBook => shelfBook.Book)));
             CreateMap<Shelf, ShelfDTO>();
         }
     }

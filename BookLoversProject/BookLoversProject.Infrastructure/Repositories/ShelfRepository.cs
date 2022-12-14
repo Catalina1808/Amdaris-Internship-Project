@@ -1,4 +1,5 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using BookLoversProject.Application.Exceptions;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,13 +20,8 @@ namespace BookLoversProject.Infrastructure.Repositories
             return shelf;
         }
 
-        public async Task DeleteShelfAsync(int id)
+        public void DeleteShelf(Shelf shelf)
         {
-            var shelf = await _context.Shelves.SingleOrDefaultAsync(s => s.Id == id);
-            if (shelf == null)
-            {
-                throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
-            }
             _context.Shelves.Remove(shelf);
         }
 
@@ -33,10 +29,11 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             var shelf = await _context.Shelves
                 .Include(s => s.Books)
+                .ThenInclude(sb => sb.Book)
                 .SingleOrDefaultAsync(s => s.Id == id);
             if (shelf == null)
             {
-                throw new Application.Exceptions.ShelfNotFoundException("Exception occured, shelf not found!");
+                throw new ObjectNotFoundException("Exception occured, shelf not found!");
             }
             return shelf;
         }
@@ -45,7 +42,13 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             return await _context.Shelves
                 .Include(s => s.Books)
+                .ThenInclude(sb => sb.Book)
                 .ToListAsync();
+        }
+
+        public void UpdateShelf(Shelf shelf)
+        {
+            _context.Update(shelf);
         }
     }
 }

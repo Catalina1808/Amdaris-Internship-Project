@@ -10,6 +10,8 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<ICollection<Admin>> GetAllAdminsAsync();
 
-        Task DeleteAdminAsync(int id);
+        void DeleteAdmin(Admin admin);
+
+        void UpdateAdmin(Admin admin);
     }
 }

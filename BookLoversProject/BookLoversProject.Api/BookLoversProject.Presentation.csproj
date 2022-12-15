@@ -20,4 +20,8 @@
     <ProjectReference Include="..\BookLoversProject.Infrastructure\BookLoversProject.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="BookLoversProject.Presentation.IntegrationTest" />
+  </ItemGroup>
+
 </Project>

@@ -18,7 +18,7 @@ namespace BookLoversProject.Application.Commands.Create.CreateReviewCommand
             var review = new Review
             {
                 Comment = request.Comment,
-                Date = request.Date
+                Date = DateTime.Now
             };
 
             await _unitOfWork.ReviewRepository.AddReviewAsync(review);

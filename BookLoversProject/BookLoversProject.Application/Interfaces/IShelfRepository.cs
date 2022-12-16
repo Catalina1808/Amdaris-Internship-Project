@@ -8,6 +8,8 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<Shelf> GetShelfByIdAsync(int id);
 
+        Task<ICollection<Shelf>> GetAllShelvesAsync();
+
         void DeleteShelf(Shelf shelf);
 
         void UpdateShelf(Shelf shelf);

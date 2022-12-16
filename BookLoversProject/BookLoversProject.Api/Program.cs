@@ -3,6 +3,7 @@ using BookLoversProject.Application;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Infrastructure;
 using BookLoversProject.Infrastructure.Repositories;
+using BookLoversProject.Presentation.Filters;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -36,11 +37,16 @@ builder.Services.Configure<MySettingsExample>(
     builder.Configuration.GetSection(
         nameof(MySettingsExample)));
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    options.JsonSerializerOptions.WriteIndented = true;
-});
+builder.Services
+    .AddControllers(options => 
+    {
+        options.Filters.Add(typeof(ObjectNotFoundFilter));
+    })
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
 
 
 var app = builder.Build();

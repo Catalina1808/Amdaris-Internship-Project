@@ -48,9 +48,13 @@ namespace BookLoversProject.Infrastructure.Repositories
             return genre;
         }
 
-        public void UpdateGenre(Genre genre)
+        public async Task UpdateGenreAsync(Genre genre)
         {
-            _context.Update(genre);
+            var oldGenre = await GetGenreByIdAsync(genre.Id);
+
+            genre.Books = oldGenre.Books;
+
+            _context.Entry(oldGenre).CurrentValues.SetValues(genre);
         }
     }
 }

@@ -2,7 +2,7 @@
 using BookLoversProject.Application.Commands.Create.CreateAuthorCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteAuthorCommand;
 using BookLoversProject.Application.Commands.Update.UpdateAuthorCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.AuthorDTOs;
 using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetAuthorByIdQuery;
 using BookLoversProject.Application.Queries.GetAuthorsQuery;

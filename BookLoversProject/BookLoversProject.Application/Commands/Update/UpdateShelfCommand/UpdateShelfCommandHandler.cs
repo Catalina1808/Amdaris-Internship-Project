@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.ShelfDTOs;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
@@ -25,8 +25,7 @@ namespace BookLoversProject.Application.Commands.Update.UpdateShelfCommand
                 Name = request.Name
             };
 
-            await _unitOfWork.ShelfRepository.GetShelfByIdAsync(request.Id);
-            _unitOfWork.ShelfRepository.UpdateShelf(toUpdate);
+            await _unitOfWork.ShelfRepository.UpdateShelfAsync(toUpdate);
 
             await _unitOfWork.Save();
 

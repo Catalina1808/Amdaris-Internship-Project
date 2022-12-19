@@ -1,4 +1,4 @@
-﻿namespace BookLoversProject.Application.DTO
+﻿namespace BookLoversProject.Application.DTO.UserDTOs
 {
     public class UserDTO
     {

@@ -1,6 +1,7 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.DTO.ShelfDTOs;
+using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.DTO
+namespace BookLoversProject.Application.DTO.UserDTOs
 {
     public class UserGetDTO
     {
@@ -16,7 +17,7 @@ namespace BookLoversProject.Application.DTO
 
         public string ImagePath { get; set; }
 
-        public ICollection<ShelfDTO> BookShelves { get; }
+        public ICollection<ShelfPutDTO> BookShelves { get; }
 
         public ICollection<User> Friends { get; set; }
 

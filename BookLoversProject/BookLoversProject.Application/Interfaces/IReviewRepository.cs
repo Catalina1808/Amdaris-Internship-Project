@@ -12,6 +12,6 @@ namespace BookLoversProject.Application.Interfaces
 
         void DeleteReview(Review review);
 
-        void UpdateReview(Review review);
+        Task UpdateReviewAsync(Review review);
     }
 }

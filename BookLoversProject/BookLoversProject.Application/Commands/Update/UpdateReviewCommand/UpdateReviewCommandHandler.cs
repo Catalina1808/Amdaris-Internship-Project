@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.ReviewDTOs;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
@@ -26,8 +26,7 @@ namespace BookLoversProject.Application.Commands.Update.UpdateReviewCommand
                 Date = DateTime.Now
             };
 
-            await _unitOfWork.ReviewRepository.GetReviewByIdAsync(request.Id);
-            _unitOfWork.ReviewRepository.UpdateReview(toUpdate);
+            await _unitOfWork.ReviewRepository.UpdateReviewAsync(toUpdate);
 
             await _unitOfWork.Save();
 

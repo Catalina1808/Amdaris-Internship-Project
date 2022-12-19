@@ -12,6 +12,6 @@ namespace BookLoversProject.Application.Interfaces
 
         void DeleteUser(User user);
 
-        void UpdateUser(User user);
+        Task UpdateUserAsync(User user);
     }
 }

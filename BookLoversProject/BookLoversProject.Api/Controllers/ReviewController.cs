@@ -2,7 +2,7 @@
 using BookLoversProject.Application.Commands.Create.CreateReviewCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteReviewCommand;
 using BookLoversProject.Application.Commands.Update.UpdateReviewCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.ReviewDTOs;
 using BookLoversProject.Application.Queries.GetReviewByIdQuery;
 using BookLoversProject.Application.Queries.GetReviewQuery;
 using MediatR;
@@ -25,7 +25,7 @@ namespace BookLoversProject.Presentation.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateReview([FromBody] ReviewPutPostDTO review)
+        public async Task<IActionResult> CreateReview([FromBody] ReviewPostDTO review)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -58,7 +58,7 @@ namespace BookLoversProject.Presentation.Controllers
 
         [HttpPut]
         [Route("{reviewId}")]
-        public async Task<IActionResult> UpdateReview(int reviewId, [FromBody] ReviewPutPostDTO updatedReview)
+        public async Task<IActionResult> UpdateReview(int reviewId, [FromBody] ReviewPutDTO updatedReview)
         {
             var command = _mapper.Map<UpdateReviewCommand>(updatedReview);
             command.Id = reviewId;

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.Commands.Create.CreateBookCommand;
 using BookLoversProject.Application.Commands.Update.UpdateBookCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.BookDTOs;
 using BookLoversProject.Domain.Domain;
 
 namespace BookLoversProject.Application.Profiles

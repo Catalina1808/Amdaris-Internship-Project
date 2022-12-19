@@ -58,9 +58,16 @@ namespace BookLoversProject.Infrastructure.Repositories
             return book;
         }
 
-        public void UpdateBook(Book book)
+        public async Task UpdateBookAsync(Book book)
         {
-            _context.Update(book);
+            var oldBook = await GetBookByIdAsync(book.Id);
+
+            book.Reviews = oldBook.Reviews;
+            book.Authors = oldBook.Authors;
+            book.Shelves = oldBook.Shelves;
+            book.Genres = oldBook.Genres;
+
+            _context.Entry(oldBook).CurrentValues.SetValues(book);
         }
     }
 }

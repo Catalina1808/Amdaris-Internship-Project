@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.AuthorDTOs;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
@@ -26,8 +26,7 @@ namespace BookLoversProject.Application.Commands.Update.UpdateAuthorCommand
                 Description = request.Description
             };
 
-            await _unitOfWork.AdminRepository.GetAdminByIdAsync(request.Id);
-            _unitOfWork.AuthorRepository.UpdateAuthor(toUpdate);
+            await _unitOfWork.AuthorRepository.UpdateAuthorAsync(toUpdate);
 
             await _unitOfWork.Save();
 

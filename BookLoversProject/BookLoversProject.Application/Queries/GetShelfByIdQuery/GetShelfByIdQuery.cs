@@ -1,4 +1,4 @@
-﻿using BookLoversProject.Application.DTO;
+﻿using BookLoversProject.Application.DTO.ShelfDTOs;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetShelfByIdQuery

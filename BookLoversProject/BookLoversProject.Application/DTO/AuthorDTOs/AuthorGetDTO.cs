@@ -1,4 +1,7 @@
-﻿namespace BookLoversProject.Application.DTO
+﻿using BookLoversProject.Application.DTO.BookDTOs;
+using BookLoversProject.Application.DTO.UserDTOs;
+
+namespace BookLoversProject.Application.DTO.AuthorDTOs
 {
     public class AuthorGetDTO
     {

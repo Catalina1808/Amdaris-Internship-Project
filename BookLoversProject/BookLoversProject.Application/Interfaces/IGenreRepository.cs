@@ -12,6 +12,6 @@ namespace BookLoversProject.Application.Interfaces
 
         void DeleteGenre(Genre genre);
 
-        void UpdateGenre(Genre genre);
+        Task UpdateGenreAsync(Genre genre);
     }
 }

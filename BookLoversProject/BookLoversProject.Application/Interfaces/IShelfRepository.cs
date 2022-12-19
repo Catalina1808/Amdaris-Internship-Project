@@ -12,6 +12,6 @@ namespace BookLoversProject.Application.Interfaces
 
         void DeleteShelf(Shelf shelf);
 
-        void UpdateShelf(Shelf shelf);
+        Task UpdateShelfAsync(Shelf shelf);
     }
 }

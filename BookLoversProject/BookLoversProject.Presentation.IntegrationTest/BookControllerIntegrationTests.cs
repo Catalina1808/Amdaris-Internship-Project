@@ -1,6 +1,6 @@
 using BookLoversProject.Application.Commands.Create.CreateBookCommand;
 using BookLoversProject.Application.Commands.Update.UpdateBookCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.BookDTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using OnlineBookStore.IntegrationTests.SocialMedia.Host.IntegrationTests;

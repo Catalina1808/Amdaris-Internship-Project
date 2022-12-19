@@ -52,9 +52,14 @@ namespace BookLoversProject.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public void UpdateAuthor(Author author)
+        public async Task UpdateAuthorAsync(Author author)
         {
-            _context.Update(author);
+            var oldAuthor = await GetAuthorByIdAsync(author.Id);
+
+            author.Books = oldAuthor.Books;
+            author.Followers = oldAuthor.Followers;
+
+            _context.Entry(oldAuthor).CurrentValues.SetValues(author);
         }
     }
 }

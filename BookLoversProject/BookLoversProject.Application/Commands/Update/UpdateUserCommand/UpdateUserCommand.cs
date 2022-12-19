@@ -1,4 +1,4 @@
-﻿using BookLoversProject.Application.DTO;
+﻿using BookLoversProject.Application.DTO.UserDTOs;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Update.UpdateUserCommand

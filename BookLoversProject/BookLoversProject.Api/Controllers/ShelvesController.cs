@@ -3,7 +3,7 @@ using BookLoversProject.Application.Commands.Create.CreateShelfCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteShelfCommand;
 using BookLoversProject.Application.Commands.Update.AddBookToShelfCommand;
 using BookLoversProject.Application.Commands.Update.UpdateShelfCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.ShelfDTOs;
 using BookLoversProject.Application.Queries.GetShelfByIdQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace BookLoversProject.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateShelf([FromBody] ShelfPutPostDTO shelf)
+        public async Task<IActionResult> CreateShelf([FromBody] ShelfPostDTO shelf)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -64,7 +64,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpPut]
         [Route("{shelfId}")]
-        public async Task<IActionResult> UpdateShelf(int shelfId, [FromBody] ShelfPutPostDTO updatedShelf)
+        public async Task<IActionResult> UpdateShelf(int shelfId, [FromBody] ShelfPutDTO updatedShelf)
         {
             var command = _mapper.Map<UpdateShelfCommand>(updatedShelf);
             command.Id = shelfId;

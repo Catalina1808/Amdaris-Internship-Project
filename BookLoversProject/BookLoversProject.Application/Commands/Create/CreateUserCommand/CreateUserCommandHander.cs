@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.UserDTOs;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;

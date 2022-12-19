@@ -40,9 +40,14 @@ namespace BookLoversProject.Infrastructure.Repositories
             return review;
         }
 
-        public void UpdateReview(Review review)
+        public async Task UpdateReviewAsync(Review review)
         {
-            _context.Update(review);
+            var oldReview = await GetReviewByIdAsync(review.Id);
+
+            review.UserId = oldReview.UserId;
+            review.BookId = oldReview.BookId;
+
+            _context.Entry(oldReview).CurrentValues.SetValues(review);
         }
     }
 }

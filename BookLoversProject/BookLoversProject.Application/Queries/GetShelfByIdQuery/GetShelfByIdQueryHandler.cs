@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.ShelfDTOs;
 using BookLoversProject.Application.Interfaces;
 using MediatR;
 

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.ReviewDTOs;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
@@ -19,13 +19,19 @@ namespace BookLoversProject.Application.Commands.Create.CreateReviewCommand
 
         public async Task<ReviewGetDTO> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
         {
+            var book = await _unitOfWork.BookRepository.GetBookByIdAsync(request.BookId);
+            await _unitOfWork.UserRepository.GetUserByIdAsync(request.UserId);
+
             var review = new Review
             {
                 Comment = request.Comment,
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                BookId = request.BookId,
+                UserId = request.UserId
             };
 
-            await _unitOfWork.ReviewRepository.AddReviewAsync(review);
+            book.Reviews.Add(review);
+
             await _unitOfWork.Save();
 
             return _mapper.Map<ReviewGetDTO>(review);

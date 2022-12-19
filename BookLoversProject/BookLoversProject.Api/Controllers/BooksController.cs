@@ -3,7 +3,7 @@ using BookLoversProject.Application;
 using BookLoversProject.Application.Commands.Create.CreateBookCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteBookCommand;
 using BookLoversProject.Application.Commands.Update.UpdateBookCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.BookDTOs;
 using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetBookByIdQuery;
 using BookLoversProject.Application.Queries.GetBooksQuery;

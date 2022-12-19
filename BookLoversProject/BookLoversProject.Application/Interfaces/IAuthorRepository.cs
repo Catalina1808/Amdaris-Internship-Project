@@ -13,6 +13,6 @@ namespace BookLoversProject.Application.Interfaces
 
         void DeleteAuthor(Author author);
 
-        void UpdateAuthor(Author author);
+        Task UpdateAuthorAsync(Author author);
     }
 }

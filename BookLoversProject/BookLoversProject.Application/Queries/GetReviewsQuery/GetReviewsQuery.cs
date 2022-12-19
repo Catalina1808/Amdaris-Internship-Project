@@ -1,4 +1,4 @@
-﻿using BookLoversProject.Application.DTO;
+﻿using BookLoversProject.Application.DTO.ReviewDTOs;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetReviewQuery

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.ShelfDTOs;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
@@ -27,11 +27,12 @@ namespace BookLoversProject.Application.Commands.Create.CreateShelfCommand
 
             var shelf = new Shelf
             {
-                Name = request.Name
+                Name = request.Name,
+                UserId = request.UserId
             };
+
             user.Shelves.Add(shelf);
 
-            await _unitOfWork.ShelfRepository.AddShelfAsync(shelf);
             await _unitOfWork.Save();
 
             return _mapper.Map<ShelfGetDTO>(shelf);

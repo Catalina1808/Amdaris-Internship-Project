@@ -40,9 +40,11 @@ namespace BookLoversProject.Infrastructure.Repositories
             return await _context.Admins.ToListAsync();
         }
 
-        public void UpdateAdmin(Admin admin)
-        {
-            _context.Update(admin);
+        public async Task UpdateAdminAsync(Admin admin)
+        {   
+           var oldAdmin = await GetAdminByIdAsync(admin.Id);
+
+            _context.Entry(oldAdmin).CurrentValues.SetValues(admin);
         }
     }
 }

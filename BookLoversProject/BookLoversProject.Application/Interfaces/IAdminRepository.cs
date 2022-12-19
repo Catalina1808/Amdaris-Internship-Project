@@ -12,6 +12,6 @@ namespace BookLoversProject.Application.Interfaces
 
         void DeleteAdmin(Admin admin);
 
-        void UpdateAdmin(Admin admin);
+        Task UpdateAdminAsync(Admin admin);
     }
 }

@@ -2,7 +2,7 @@
 using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteGenreCommand;
 using BookLoversProject.Application.Commands.Update.UpdateGenreCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.GenreDTOs;
 using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetGenreByIdQuery;
 using BookLoversProject.Application.Queries.GetGenresQuery;

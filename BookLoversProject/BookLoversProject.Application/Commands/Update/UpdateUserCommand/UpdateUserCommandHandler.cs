@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.UserDTOs;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
@@ -21,7 +21,7 @@ namespace BookLoversProject.Application.Commands.Update.UpdateUserCommand
         public async Task<UserGetDTO> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var toUpdate = new User
-            {
+            {   Id= request.Id,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 ImagePath = request.ImagePath,
@@ -29,8 +29,7 @@ namespace BookLoversProject.Application.Commands.Update.UpdateUserCommand
                 Password = request.Password
             };
 
-            await _unitOfWork.UserRepository.GetUserByIdAsync(request.Id);
-            _unitOfWork.UserRepository.UpdateUser(toUpdate);
+            await _unitOfWork.UserRepository.UpdateUserAsync(toUpdate);
 
             await _unitOfWork.Save();
 

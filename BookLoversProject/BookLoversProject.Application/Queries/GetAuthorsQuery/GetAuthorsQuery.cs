@@ -1,4 +1,4 @@
-﻿using BookLoversProject.Application.DTO;
+﻿using BookLoversProject.Application.DTO.AuthorDTOs;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetAuthorsQuery

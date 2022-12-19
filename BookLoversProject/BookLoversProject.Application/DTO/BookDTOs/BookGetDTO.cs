@@ -1,6 +1,9 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.DTO.AuthorDTOs;
+using BookLoversProject.Application.DTO.GenreDTOs;
+using BookLoversProject.Application.DTO.ShelfDTOs;
+using BookLoversProject.Domain.Domain;
 
-namespace BookLoversProject.Application.DTO
+namespace BookLoversProject.Application.DTO.BookDTOs
 {
     public class BookGetDTO
     {
@@ -16,6 +19,6 @@ namespace BookLoversProject.Application.DTO
 
         public ICollection<GenreDTO> Genres { get; set; }
 
-        public ICollection<ShelfDTO> Shelves { get; set; }
+        public ICollection<ShelfPutDTO> Shelves { get; set; }
     }
 }

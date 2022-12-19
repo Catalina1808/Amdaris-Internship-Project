@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BookLoversProject.Application.Commands.Update.AddBookToShelfCommand
 {
-    public class AddBookToShelfCommand: IRequest<Shelf>
+    public class AddBookToShelfCommand : IRequest<Shelf>
     {
         public int BookId { get; set; }
 

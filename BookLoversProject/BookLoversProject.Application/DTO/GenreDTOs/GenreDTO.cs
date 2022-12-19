@@ -1,4 +1,4 @@
-﻿namespace BookLoversProject.Application.DTO
+﻿namespace BookLoversProject.Application.DTO.GenreDTOs
 {
     public class GenreDTO
     {

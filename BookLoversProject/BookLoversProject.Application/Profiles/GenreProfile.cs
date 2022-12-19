@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
 using BookLoversProject.Application.Commands.Update.UpdateGenreCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.GenreDTOs;
 using BookLoversProject.Domain.Domain;
 
 namespace BookLoversProject.Application.Profiles

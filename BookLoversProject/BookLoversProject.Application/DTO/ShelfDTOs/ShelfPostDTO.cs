@@ -1,6 +1,6 @@
-﻿namespace BookLoversProject.Application.DTO
+﻿namespace BookLoversProject.Application.DTO.ShelfDTOs
 {
-    public class ShelfPutPostDTO
+    public class ShelfPostDTO
     {
         public string Name { get; set; }
 

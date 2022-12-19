@@ -80,5 +80,10 @@ namespace BookLoversProject.Infrastructure.InMemoryRepository
         {
             _genres.Remove(genre);
         }
+
+        public Task UpdateGenreAsync(Genre genre)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

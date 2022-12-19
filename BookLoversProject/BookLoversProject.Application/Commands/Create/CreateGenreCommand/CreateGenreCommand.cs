@@ -1,4 +1,4 @@
-﻿using BookLoversProject.Application.DTO;
+﻿using BookLoversProject.Application.DTO.GenreDTOs;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Create.CreateGenreCommand

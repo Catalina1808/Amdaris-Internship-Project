@@ -2,7 +2,7 @@
 using BookLoversProject.Application.Commands.Create.CreateAdminCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteAdminCommand;
 using BookLoversProject.Application.Commands.Update.UpdateAdminCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.AdminDTOs;
 using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetAdminByIdQuery;
 using BookLoversProject.Application.Queries.GetAdminsQuery;

@@ -1,6 +1,8 @@
-﻿namespace BookLoversProject.Application.DTO
+﻿using BookLoversProject.Application.DTO.BookDTOs;
+
+namespace BookLoversProject.Application.DTO.ShelfDTOs
 {
-    public class GenreGetDTO
+    public class ShelfGetDTO
     {
         public int Id { get; set; }
 

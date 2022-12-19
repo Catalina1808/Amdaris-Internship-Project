@@ -3,7 +3,7 @@ using BookLoversProject.Application.Commands.Create.CreateUserCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteUserCommand;
 using BookLoversProject.Application.Commands.Update.UpdateReviewCommand;
 using BookLoversProject.Application.Commands.Update.UpdateUserCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.UserDTOs;
 using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetUserByIdQuery;
 using BookLoversProject.Application.Queries.GetUsersQuery;

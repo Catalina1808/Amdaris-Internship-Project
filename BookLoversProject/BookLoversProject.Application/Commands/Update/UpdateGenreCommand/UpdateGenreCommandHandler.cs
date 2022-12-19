@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.GenreDTOs;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
@@ -25,8 +25,7 @@ namespace BookLoversProject.Application.Commands.Update.UpdateGenreCommand
                 Name = request.Name
             };
 
-            await _unitOfWork.GenreRepository.GetGenreByIdAsync(request.Id);
-            _unitOfWork.GenreRepository.UpdateGenre(toUpdate);
+            await _unitOfWork.GenreRepository.UpdateGenreAsync(toUpdate);
 
             await _unitOfWork.Save();
 

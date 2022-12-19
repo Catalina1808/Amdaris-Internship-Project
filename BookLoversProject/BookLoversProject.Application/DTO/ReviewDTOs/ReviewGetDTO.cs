@@ -1,4 +1,4 @@
-﻿namespace BookLoversProject.Application.DTO
+﻿namespace BookLoversProject.Application.DTO.ReviewDTOs
 {
     public class ReviewGetDTO
     {
@@ -7,5 +7,9 @@
         public string Comment { get; set; }
 
         public DateTime Date { get; set; }
+
+        public int BookId { get; set; }
+
+        public int UserId { get; set; }
     }
 }

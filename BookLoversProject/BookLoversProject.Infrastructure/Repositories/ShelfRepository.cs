@@ -46,9 +46,13 @@ namespace BookLoversProject.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public void UpdateShelf(Shelf shelf)
+        public async Task UpdateShelfAsync(Shelf shelf)
         {
-            _context.Update(shelf);
+            var oldShelf = await GetShelfByIdAsync(shelf.Id);
+
+            shelf.UserId = oldShelf.UserId;
+
+            _context.Entry(oldShelf).CurrentValues.SetValues(shelf);
         }
     }
 }

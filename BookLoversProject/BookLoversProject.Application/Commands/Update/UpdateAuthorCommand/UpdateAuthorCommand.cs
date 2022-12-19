@@ -1,9 +1,9 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.DTO;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Update.UpdateAuthorCommand
 {
-    public class UpdateAuthorCommand: IRequest<Author>
+    public class UpdateAuthorCommand: IRequest<AuthorGetDTO>
     {
         public int Id { get; set; }
 

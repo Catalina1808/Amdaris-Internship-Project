@@ -162,17 +162,18 @@ namespace BookLoversProject.Presentation.UnitTest
                 .Returns<UpdateAuthorCommand, CancellationToken>(async (q, c) =>
                 {
                     return await Task.FromResult(
-                        new Author
+                        new AuthorGetDTO
                         {
                             Id = 1,
                             Name = "Author Name",
-                            Description = "Description",
-                            Books = new List<BookAuthor>
+                            Description = "Author description",
+                            Books = new List<BookDTO>
                             {
-                                new BookAuthor
+                                new BookDTO
                                 {
-                                    BookId = 1,
-                                    AuthorId = 1
+                                    Id = 1,
+                                    Title = "Title",
+                                    Description = "Book description",
                                 }
                             }
                         });
@@ -183,7 +184,7 @@ namespace BookLoversProject.Presentation.UnitTest
             var result = await controller.UpdateAuthor(1, new AuthorPutPostDTO
             {
                 Name = "Author Name",
-                Description = "Description",
+                Description = "Author description",
             });
 
             var okResult = result as NoContentResult;
@@ -235,46 +236,41 @@ namespace BookLoversProject.Presentation.UnitTest
                     Description = a.Description
                 });
 
-            _mockMapper
-                .Setup(m => m.Map<BookDTO>(It.IsAny<Book>()))
-                .Returns((Book a) => new BookDTO()
-                {
-                    Id = a.Id,
-                    Title = a.Title,
-                    Description = a.Description
-                });
+            //_mockMapper
+            //    .Setup(m => m.Map<BookDTO>(It.IsAny<Book>()))
+            //    .Returns((Book a) => new BookDTO()
+            //    {
+            //        Id = a.Id,
+            //        Title = a.Title,
+            //        Description = a.Description
+            //    });
 
-            _mockMapper
-              .Setup(m => m.Map<AuthorGetDTO>(It.IsAny<Author>()))
-              .Returns((Author a) => new AuthorGetDTO()
-              {
-                  Name = a.Name,
-                  Description = a.Description,
-                  Books = a.Books.Select(bookAuthor => _mockMapper.Object.Map <BookDTO> (bookAuthor.Book)).ToList(),
-              });
+            //_mockMapper
+            //  .Setup(m => m.Map<AuthorGetDTO>(It.IsAny<Author>()))
+            //  .Returns((Author a) => new AuthorGetDTO()
+            //  {
+            //      Name = a.Name,
+            //      Description = a.Description,
+            //      Books = a.Books.Select(bookAuthor => _mockMapper.Object.Map <BookDTO> (bookAuthor.Book)).ToList(),
+            //  });
 
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<CreateAuthorCommand>(), It.IsAny<CancellationToken>()))
                 .Returns<CreateAuthorCommand, CancellationToken>(async (q, c) =>
                 {
                     return await Task.FromResult(
-                        new Author
+                        new AuthorGetDTO
                         {
                             Id = 1,
                             Name = "Author Name",
-                            Description = "Description",
-                            Books = new List<BookAuthor>
+                            Description = "Author description",
+                            Books = new List<BookDTO>
                             {
-                                new BookAuthor
+                                new BookDTO
                                 {
-                                    BookId = 1,
-                                    Book = new Book
-                                    {
-                                        Id = 1,
-                                        Title = "Title",
-                                        Description = "Description"
-                                    },
-                                    AuthorId = 1
+                                    Id = 1,
+                                    Title = "Title",
+                                    Description = "Book description",
                                 }
                             }
                         });
@@ -304,46 +300,23 @@ namespace BookLoversProject.Presentation.UnitTest
                     Description = a.Description
                 });
 
-            _mockMapper
-                .Setup(m => m.Map<BookDTO>(It.IsAny<Book>()))
-                .Returns((Book a) => new BookDTO()
-                {
-                    Id = a.Id,
-                    Title = a.Title,
-                    Description = a.Description
-                });
-
-            _mockMapper
-              .Setup(m => m.Map<AuthorGetDTO>(It.IsAny<Author>()))
-              .Returns((Author a) => new AuthorGetDTO()
-              {
-                  Name = a.Name,
-                  Description = a.Description,
-                  Books = a.Books.Select(bookAuthor => _mockMapper.Object.Map<BookDTO>(bookAuthor.Book)).ToList(),
-              });
-
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<CreateAuthorCommand>(), It.IsAny<CancellationToken>()))
                 .Returns<CreateAuthorCommand, CancellationToken>(async (q, c) =>
                 {
                     return await Task.FromResult(
-                        new Author
+                        new AuthorGetDTO
                         {
                             Id = 1,
                             Name = "Author Name",
-                            Description = "Description",
-                            Books = new List<BookAuthor>
+                            Description = "Author description",
+                            Books = new List<BookDTO>
                             {
-                                new BookAuthor
+                                new BookDTO
                                 {
-                                    BookId = 1,
-                                    Book = new Book
-                                    {
-                                        Id = 1,
-                                        Title = "Title",
-                                        Description = "Description"
-                                    },
-                                    AuthorId = 1
+                                    Id = 1,
+                                    Title = "Title",
+                                    Description = "Book description",
                                 }
                             }
                         });

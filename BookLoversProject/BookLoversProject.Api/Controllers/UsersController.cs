@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.Commands.Create.CreateUserCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteUserCommand;
+using BookLoversProject.Application.Commands.Update.UpdateReviewCommand;
+using BookLoversProject.Application.Commands.Update.UpdateUserCommand;
 using BookLoversProject.Application.DTO;
 using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetUserByIdQuery;
@@ -33,9 +35,7 @@ namespace BookLoversProject.Api.Controllers
 
             var result = await _mediator.Send(command);
 
-            var dto = _mapper.Map<UserGetDTO>(result);
-
-            return CreatedAtAction(nameof(GetById), new { userId = dto.Id }, dto);
+            return CreatedAtAction(nameof(GetById), new { userId = result.Id }, result);
         }
 
         [HttpGet]
@@ -51,15 +51,21 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> GetById(int userId)
         {
             var query = new GetUserByIdQuery { Id = userId };
-            try
-            {
-                var result = await _mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ObjectNotFoundException)
-            {
-                return NotFound();
-            }
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("{userId}")]
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserPutPostDTO updatedUser)
+        {
+            var command = _mapper.Map<UpdateUserCommand>(updatedUser);
+            command.Id = userId;
+
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
         }
 
 
@@ -68,15 +74,9 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> DeleteUser(int userId)
         {
             var command = new DeleteUserCommand { Id = userId };
-            try
-            {
-                var result = await _mediator.Send(command);
-                return NoContent();
-            }
-            catch (ObjectNotFoundException)
-            {
-                return NotFound();
-            }
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

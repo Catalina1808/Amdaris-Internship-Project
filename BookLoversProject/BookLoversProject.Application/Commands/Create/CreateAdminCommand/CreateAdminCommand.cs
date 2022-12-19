@@ -1,9 +1,9 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.DTO;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Create.CreateAdminCommand
 {
-    public class CreateAdminCommand : IRequest<Admin>
+    public class CreateAdminCommand : IRequest<AdminGetDTO>
     {
         public string Email { get; set; }
 

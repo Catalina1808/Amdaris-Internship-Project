@@ -35,9 +35,7 @@ namespace BookLoversProject.Api.Controllers
 
             var result = await _mediator.Send(command);
 
-            var dto = _mapper.Map<AuthorGetDTO>(result);
-
-            return CreatedAtAction(nameof(GetById), new { authorId = dto.Id }, dto);
+            return CreatedAtAction(nameof(GetById), new { authorId = result.Id }, result);
         }
 
 
@@ -54,16 +52,9 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> GetById(int authorId)
         {
             var query = new GetAuthorByIdQuery { Id = authorId };
+            var result = await _mediator.Send(query);
 
-            try
-            {
-               var result = await _mediator.Send(query);
-               return Ok(result);
-            }
-            catch (ObjectNotFoundException)
-            {
-               return NotFound();
-            }
+            return Ok(result);
         }
 
         [HttpPut]
@@ -75,10 +66,7 @@ namespace BookLoversProject.Api.Controllers
 
             var result = await _mediator.Send(command);
 
-            if (result == null)
-                return NotFound();
-
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpDelete]
@@ -86,15 +74,10 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> DeleteAuthor(int authorId)
         {
             var command = new DeleteAuthorCommand { Id = authorId };
-            try
-            {
-                var result = await _mediator.Send(command);
-                return NoContent();
-            }
-            catch (ObjectNotFoundException)
-            {
-                return NotFound();
-            }
+            
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

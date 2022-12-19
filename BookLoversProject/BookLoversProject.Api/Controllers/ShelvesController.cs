@@ -2,8 +2,8 @@
 using BookLoversProject.Application.Commands.Create.CreateShelfCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteShelfCommand;
 using BookLoversProject.Application.Commands.Update.AddBookToShelfCommand;
+using BookLoversProject.Application.Commands.Update.UpdateShelfCommand;
 using BookLoversProject.Application.DTO;
-using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetShelfByIdQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -34,9 +34,7 @@ namespace BookLoversProject.Api.Controllers
 
             var result = await _mediator.Send(command);
 
-            var dto = _mapper.Map<ShelfGetDTO>(result);
-
-            return CreatedAtAction(nameof(GetById), new { shelfId = dto.Id }, dto);
+            return CreatedAtAction(nameof(GetById), new { shelfId = result.Id }, result);
         }
 
         [HttpPost]
@@ -49,15 +47,9 @@ namespace BookLoversProject.Api.Controllers
                 ShelfId = shelfId
             };
 
-            try
-            {
-                var shelf = await _mediator.Send(command);
-                return Ok(_mapper.Map<ShelfGetDTO>(shelf));
-            }
-            catch (ObjectNotFoundException)
-            {
-                return NotFound();
-            }
+            var shelf = await _mediator.Send(command);
+
+            return Ok(_mapper.Map<ShelfGetDTO>(shelf));
         }
 
         [HttpGet]
@@ -65,15 +57,21 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> GetById(int shelfId)
         {
             var query = new GetShelfByIdQuery { Id = shelfId };
-            try
-            {
-                var result = await _mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ObjectNotFoundException)
-            {
-                return NotFound();
-            }
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("{shelfId}")]
+        public async Task<IActionResult> UpdateShelf(int shelfId, [FromBody] ShelfPutPostDTO updatedShelf)
+        {
+            var command = _mapper.Map<UpdateShelfCommand>(updatedShelf);
+            command.Id = shelfId;
+
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
         }
 
         [HttpDelete]
@@ -81,15 +79,9 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> DeleteShelf(int shelfId)
         {
             var command = new DeleteShelfCommand { Id = shelfId };
-            try
-            {
-                var result = await _mediator.Send(command);
-                return NoContent();
-            }
-            catch (ObjectNotFoundException)
-            {
-                return NotFound();
-            }
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

@@ -1,19 +1,23 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using AutoMapper;
+using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Update.UpdateBookCommand
 {
-    public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Book>
+    public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, BookGetDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UpdateBookCommandHandler(IUnitOfWork unitOfWork)
+        public UpdateBookCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<Book> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
+        public async Task<BookGetDTO> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
         {
             var toUpdate = new Book
             {
@@ -22,11 +26,12 @@ namespace BookLoversProject.Application.Commands.Update.UpdateBookCommand
                 Description = request.Description
             };
 
+            await _unitOfWork.BookRepository.GetBookByIdAsync(request.Id);
             _unitOfWork.BookRepository.UpdateBook(toUpdate);
 
             await _unitOfWork.Save();
 
-            return toUpdate;
+            return _mapper.Map<BookGetDTO>(toUpdate);
         }
     }
 }

@@ -1,19 +1,23 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using AutoMapper;
+using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Create.CreateReviewCommand
 {
-    public class CreateReviewCommandHander : IRequestHandler<CreateReviewCommand, Review>
+    public class CreateReviewCommandHander : IRequestHandler<CreateReviewCommand, ReviewGetDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CreateReviewCommandHander(IUnitOfWork unitOfWork)
+        public CreateReviewCommandHander(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<Review> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
+        public async Task<ReviewGetDTO> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
         {
             var review = new Review
             {
@@ -24,7 +28,7 @@ namespace BookLoversProject.Application.Commands.Create.CreateReviewCommand
             await _unitOfWork.ReviewRepository.AddReviewAsync(review);
             await _unitOfWork.Save();
 
-            return review;
+            return _mapper.Map<ReviewGetDTO>(review);
         }
     }
 }

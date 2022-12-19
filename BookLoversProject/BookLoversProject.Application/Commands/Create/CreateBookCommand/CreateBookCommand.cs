@@ -1,9 +1,9 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.DTO;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Create.CreateBookCommand
 {
-    public class CreateBookCommand : IRequest<Book>
+    public class CreateBookCommand : IRequest<BookGetDTO>
     {
         public string Title { get; set; }
 

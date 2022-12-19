@@ -1,19 +1,23 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using AutoMapper;
+using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Update.UpdateGenreCommand
 {
-    public class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommand, Genre>
+    public class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommand, GenreGetDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UpdateGenreCommandHandler(IUnitOfWork unitOfWork)
+        public UpdateGenreCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<Genre> Handle(UpdateGenreCommand request, CancellationToken cancellationToken)
+        public async Task<GenreGetDTO> Handle(UpdateGenreCommand request, CancellationToken cancellationToken)
         {
             var toUpdate = new Genre
             {
@@ -21,11 +25,12 @@ namespace BookLoversProject.Application.Commands.Update.UpdateGenreCommand
                 Name = request.Name
             };
 
+            await _unitOfWork.GenreRepository.GetGenreByIdAsync(request.Id);
             _unitOfWork.GenreRepository.UpdateGenre(toUpdate);
 
             await _unitOfWork.Save();
 
-            return toUpdate;
+            return _mapper.Map<GenreGetDTO>(toUpdate);
         }
     }
 }

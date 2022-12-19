@@ -1,9 +1,9 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.DTO;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Create.CreateUserCommand
 {
-    public class CreateUserCommand : IRequest<User>
+    public class CreateUserCommand : IRequest<UserGetDTO>
     {
         public string FirstName { get; set; }
 

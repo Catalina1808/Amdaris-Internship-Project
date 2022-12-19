@@ -34,9 +34,7 @@ namespace BookLoversProject.Api.Controllers
 
             var result = await _mediator.Send(command);
 
-            var dto = _mapper.Map<GenreGetDTO>(result);
-
-            return CreatedAtAction(nameof(GetById), new { genreId = dto.Id }, dto);
+            return CreatedAtAction(nameof(GetById), new { genreId = result.Id }, result);
         }
 
         [HttpGet]
@@ -52,15 +50,9 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> GetById(int genreId)
         {
             var query = new GetGenreByIdQuery { Id = genreId };
-            try
-            {
-                var result = await _mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ObjectNotFoundException)
-            {
-                return NotFound();
-            }
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
 
         [HttpPut]
@@ -73,10 +65,7 @@ namespace BookLoversProject.Api.Controllers
 
             var result = await _mediator.Send(command);
 
-            if (result == null)
-                return NotFound();
-
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpDelete]
@@ -84,15 +73,9 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> DeleteGenre(int genreId)
         {
             var command = new DeleteGenreCommand { Id = genreId };
-            try
-            {
-                var result = await _mediator.Send(command);
-                return NoContent();
-            }
-            catch (ObjectNotFoundException)
-            {
-                return NotFound();
-            }
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

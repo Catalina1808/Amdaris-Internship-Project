@@ -1,9 +1,9 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.DTO;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Update.UpdateShelfCommand
 {
-    public class UpdateShelfCommand: IRequest<Shelf>
+    public class UpdateShelfCommand: IRequest<ShelfGetDTO>
     {
         public int Id { get; set; }
 

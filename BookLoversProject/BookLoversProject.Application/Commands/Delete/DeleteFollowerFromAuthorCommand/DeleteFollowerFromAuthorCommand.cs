@@ -1,9 +1,9 @@
 ﻿using BookLoversProject.Application.DTO.AuthorDTOs;
 using MediatR;
 
-namespace BookLoversProject.Application.Commands.Update.AddFollowerToAuthorCommand
+namespace BookLoversProject.Application.Commands.Delete.DeleteFollowerFromAuthorCommand
 {
-    public class AddFollowerToAuthorCommand: IRequest<AuthorGetDTO>
+    public class DeleteFollowerFromAuthorCommand : IRequest<AuthorGetDTO>
     {
         public int UserId { get; set; }
 

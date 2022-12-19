@@ -1,19 +1,23 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using AutoMapper;
+using BookLoversProject.Application.DTO.ShelfDTOs;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Update.AddBookToShelfCommand
 {
-    public class AddBookToShelfCommandHandler : IRequestHandler<AddBookToShelfCommand, Shelf>
+    public class AddBookToShelfCommandHandler : IRequestHandler<AddBookToShelfCommand, ShelfGetDTO>
     {
         public readonly IUnitOfWork _unitOfWork;
+        public readonly IMapper _mapper;
 
-        public AddBookToShelfCommandHandler(IUnitOfWork unitOfWork)
+        public AddBookToShelfCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<Shelf> Handle(AddBookToShelfCommand request, CancellationToken cancellationToken)
+        public async Task<ShelfGetDTO> Handle(AddBookToShelfCommand request, CancellationToken cancellationToken)
         {
             var book = await _unitOfWork.BookRepository.GetBookByIdAsync(request.BookId);
             var shelf = await _unitOfWork.ShelfRepository.GetShelfByIdAsync(request.ShelfId);
@@ -23,7 +27,7 @@ namespace BookLoversProject.Application.Commands.Update.AddBookToShelfCommand
 
             await _unitOfWork.Save();
 
-            return shelf;
+            return _mapper.Map<ShelfGetDTO>(shelf);
         }
     }
 }

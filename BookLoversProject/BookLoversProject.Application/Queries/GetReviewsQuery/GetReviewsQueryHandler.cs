@@ -3,7 +3,7 @@ using BookLoversProject.Application.DTO.ReviewDTOs;
 using BookLoversProject.Application.Interfaces;
 using MediatR;
 
-namespace BookLoversProject.Application.Queries.GetReviewQuery
+namespace BookLoversProject.Application.Queries.GetReviewsQuery
 {
     public class GetReviewsQueryHandler : IRequestHandler<GetReviewsQuery, IEnumerable<ReviewGetDTO>>
     {

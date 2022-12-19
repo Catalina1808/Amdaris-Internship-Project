@@ -4,7 +4,7 @@ using BookLoversProject.Application.Commands.Delete.DeleteReviewCommand;
 using BookLoversProject.Application.Commands.Update.UpdateReviewCommand;
 using BookLoversProject.Application.DTO.ReviewDTOs;
 using BookLoversProject.Application.Queries.GetReviewByIdQuery;
-using BookLoversProject.Application.Queries.GetReviewQuery;
+using BookLoversProject.Application.Queries.GetReviewsQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

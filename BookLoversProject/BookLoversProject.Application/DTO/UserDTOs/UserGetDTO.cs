@@ -1,4 +1,5 @@
-﻿using BookLoversProject.Application.DTO.ShelfDTOs;
+﻿using BookLoversProject.Application.DTO.AuthorDTOs;
+using BookLoversProject.Application.DTO.ShelfDTOs;
 using BookLoversProject.Domain.Domain;
 
 namespace BookLoversProject.Application.DTO.UserDTOs
@@ -21,7 +22,7 @@ namespace BookLoversProject.Application.DTO.UserDTOs
 
         public ICollection<User> Friends { get; set; }
 
-        public ICollection<UserDTO> Authors { get; set; }
+        public ICollection<AuthorDTO> Authors { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
     }

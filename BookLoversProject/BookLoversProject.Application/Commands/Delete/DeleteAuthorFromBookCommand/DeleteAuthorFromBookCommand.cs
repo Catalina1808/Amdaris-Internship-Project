@@ -1,9 +1,9 @@
 ﻿using BookLoversProject.Application.DTO.BookDTOs;
 using MediatR;
 
-namespace BookLoversProject.Application.Commands.Update.AddAuthorToBookCommand
+namespace BookLoversProject.Application.Commands.Delete.DeleteAuthorFromBookCommand
 {
-    public class AddAuthorToBookCommand: IRequest<BookGetDTO>
+    public class DeleteAuthorFromBookCommand: IRequest<BookGetDTO>
     {
         public int AuthorId { get; set; }
 

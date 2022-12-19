@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application;
 using BookLoversProject.Application.Commands.Create.CreateBookCommand;
+using BookLoversProject.Application.Commands.Delete.DeleteAuthorFromBookCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteBookCommand;
+using BookLoversProject.Application.Commands.Delete.DeleteGenreFromBookCommand;
+using BookLoversProject.Application.Commands.Update.AddAuthorToBookCommand;
+using BookLoversProject.Application.Commands.Update.AddGenreToBookCommand;
 using BookLoversProject.Application.Commands.Update.UpdateBookCommand;
 using BookLoversProject.Application.DTO.BookDTOs;
-using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetBookByIdQuery;
 using BookLoversProject.Application.Queries.GetBooksQuery;
 using MediatR;
@@ -33,6 +36,49 @@ namespace BookLoversProject.Api.Controllers
             _logger = logger;
             _settings = options.Value;
             logger.LogInformation(_settings.WelcomeMessage);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBook([FromBody] BookPostDTO book)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var command = _mapper.Map<CreateBookCommand>(book);
+
+            var result = await _mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetById), new { bookId = result.Id }, result);
+        }
+
+        [HttpPost]
+        [Route("{bookId}/Authors/{authorId}")]
+        public async Task<IActionResult> AddAuthorToBook(int authorId, int bookId)
+        {
+            var command = new AddAuthorToBookCommand
+            {
+                BookId = bookId,
+                AuthorId = authorId
+            };
+
+            var book = await _mediator.Send(command);
+
+            return Ok(book);
+        }
+
+        [HttpPost]
+        [Route("{bookId}/Genres/{genreId}")]
+        public async Task<IActionResult> AddGenreToBook(int genreId, int bookId)
+        {
+            var command = new AddGenreToBookCommand
+            {
+                BookId = bookId,
+                GenreId = genreId
+            };
+
+            var book = await _mediator.Send(command);
+
+            return Ok(book);
         }
 
         [HttpGet]
@@ -66,19 +112,6 @@ namespace BookLoversProject.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateBook([FromBody] BookPostDTO book)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var command = _mapper.Map<CreateBookCommand>(book);
-
-            var result = await _mediator.Send(command);
-
-            return CreatedAtAction(nameof(GetById), new { bookId = result.Id }, result);
-        }
-
         [HttpDelete]
         [Route("{bookId}")]
         public async Task<IActionResult> DeleteBook(int bookId)
@@ -87,6 +120,37 @@ namespace BookLoversProject.Api.Controllers
             await _mediator.Send(command);
 
             return NoContent();
+        }
+
+
+        [HttpDelete]
+        [Route("{bookId}/Authors/{authorId}")]
+        public async Task<IActionResult> DeleteAuthorToFromBook(int authorId, int bookId)
+        {
+            var command = new DeleteAuthorFromBookCommand
+            {
+                BookId = bookId,
+                AuthorId = authorId
+            };
+
+            var book = await _mediator.Send(command);
+
+            return Ok(book);
+        }
+
+        [HttpDelete]
+        [Route("{bookId}/Genres/{genreId}")]
+        public async Task<IActionResult> DeleteGenreFromBook(int genreId, int bookId)
+        {
+            var command = new DeleteGenreFromBookCommand
+            {
+                BookId = bookId,
+                GenreId = genreId
+            };
+
+            var book = await _mediator.Send(command);
+
+            return Ok(book);
         }
     }
 }

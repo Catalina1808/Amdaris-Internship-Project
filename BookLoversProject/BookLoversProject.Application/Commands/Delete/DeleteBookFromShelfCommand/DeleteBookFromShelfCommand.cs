@@ -1,9 +1,9 @@
 ﻿using BookLoversProject.Application.DTO.ShelfDTOs;
 using MediatR;
 
-namespace BookLoversProject.Application.Commands.Update.AddBookToShelfCommand
+namespace BookLoversProject.Application.Commands.Delete.DeleteBookFromShelfCommand
 {
-    public class AddBookToShelfCommand : IRequest<ShelfGetDTO>
+    public class DeleteBookFromShelfCommand : IRequest<ShelfGetDTO>
     {
         public int BookId { get; set; }
 

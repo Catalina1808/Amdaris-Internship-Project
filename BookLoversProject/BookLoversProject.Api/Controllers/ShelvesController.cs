@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.Commands.Create.CreateShelfCommand;
+using BookLoversProject.Application.Commands.Delete.DeleteBookFromShelfCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteShelfCommand;
 using BookLoversProject.Application.Commands.Update.AddBookToShelfCommand;
 using BookLoversProject.Application.Commands.Update.UpdateShelfCommand;
 using BookLoversProject.Application.DTO.ShelfDTOs;
 using BookLoversProject.Application.Queries.GetShelfByIdQuery;
+using BookLoversProject.Application.Queries.GetShelvesQuery;
+using BookLoversProject.Application.Queries.GetUsersQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,7 +41,7 @@ namespace BookLoversProject.Api.Controllers
         }
 
         [HttpPost]
-        [Route("{shelfId}/books/{bookId}")]
+        [Route("{shelfId}/Books/{bookId}")]
         public async Task<IActionResult> AddBookToShelf(int shelfId, int bookId)
         {
             var command = new AddBookToShelfCommand
@@ -49,7 +52,15 @@ namespace BookLoversProject.Api.Controllers
 
             var shelf = await _mediator.Send(command);
 
-            return Ok(_mapper.Map<ShelfGetDTO>(shelf));
+            return Ok(shelf);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var query = new GetShelvesQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -82,6 +93,21 @@ namespace BookLoversProject.Api.Controllers
             await _mediator.Send(command);
 
             return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("{shelfId}/Books/{bookId}")]
+        public async Task<IActionResult> DeleteBookFromShelf(int shelfId, int bookId)
+        {
+            var command = new DeleteBookFromShelfCommand
+            {
+                BookId = bookId,
+                ShelfId = shelfId
+            };
+
+            var shelf = await _mediator.Send(command);
+
+            return Ok(shelf);
         }
     }
 }

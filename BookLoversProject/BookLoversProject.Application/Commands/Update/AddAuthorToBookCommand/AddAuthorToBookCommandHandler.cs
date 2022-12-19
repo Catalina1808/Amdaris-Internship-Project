@@ -1,19 +1,23 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using AutoMapper;
+using BookLoversProject.Application.DTO.BookDTOs;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Update.AddAuthorToBookCommand
 {
-    public class AddAuthorToBookCommandHandler : IRequestHandler<AddAuthorToBookCommand, Book>
+    public class AddAuthorToBookCommandHandler : IRequestHandler<AddAuthorToBookCommand, BookGetDTO>
     {
         public readonly IUnitOfWork _unitOfWork;
+        public readonly IMapper _mapper;
 
-        public AddAuthorToBookCommandHandler(IUnitOfWork unitOfWork)
+        public AddAuthorToBookCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<Book> Handle(AddAuthorToBookCommand request, CancellationToken cancellationToken)
+        public async Task<BookGetDTO> Handle(AddAuthorToBookCommand request, CancellationToken cancellationToken)
         {
             var book = await _unitOfWork.BookRepository.GetBookByIdAsync(request.BookId);
             await _unitOfWork.AuthorRepository.GetAuthorByIdAsync(request.AuthorId);
@@ -23,7 +27,7 @@ namespace BookLoversProject.Application.Commands.Update.AddAuthorToBookCommand
 
             await _unitOfWork.Save();
 
-            return book;
+            return _mapper.Map<BookGetDTO>(book);
         }
     }
 }

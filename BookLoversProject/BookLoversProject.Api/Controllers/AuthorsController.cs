@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.Commands.Create.CreateAuthorCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteAuthorCommand;
+using BookLoversProject.Application.Commands.Delete.DeleteFollowerFromAuthorCommand;
+using BookLoversProject.Application.Commands.Update.AddFollowerToAuthorCommand;
+using BookLoversProject.Application.Commands.Update.AddGenreToBookCommand;
 using BookLoversProject.Application.Commands.Update.UpdateAuthorCommand;
 using BookLoversProject.Application.DTO.AuthorDTOs;
 using BookLoversProject.Application.Exceptions;
@@ -38,6 +41,20 @@ namespace BookLoversProject.Api.Controllers
             return CreatedAtAction(nameof(GetById), new { authorId = result.Id }, result);
         }
 
+        [HttpPost]
+        [Route("{authorId}/Users/{userId}")]
+        public async Task<IActionResult> AddFollowerToAuthor(int userId, int authorId)
+        {
+            var command = new AddFollowerToAuthorCommand
+            {
+                AuthorId = authorId,
+                UserId = userId
+            };
+
+            var book = await _mediator.Send(command);
+
+            return Ok(book);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -78,6 +95,21 @@ namespace BookLoversProject.Api.Controllers
             await _mediator.Send(command);
 
             return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("{authorId}/Users/{userId}")]
+        public async Task<IActionResult> DeleteFollowerFromAuthor(int userId, int authorId)
+        {
+            var command = new DeleteFollowerFromAuthorCommand
+            {
+                AuthorId = authorId,
+                UserId = userId
+            };
+
+            var book = await _mediator.Send(command);
+
+            return Ok(book);
         }
     }
 }

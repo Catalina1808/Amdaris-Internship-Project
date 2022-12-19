@@ -23,20 +23,15 @@ namespace BookLoversProject.Presentation.Controllers
             _mapper = mapper;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> CreateReview([FromBody] ReviewPostDTO review)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var command = _mapper.Map<CreateReviewCommand>(review);
 
             var result = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetById), new { reviewId = result.Id }, result);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetAll()

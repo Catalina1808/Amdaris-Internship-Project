@@ -40,7 +40,9 @@ builder.Services.Configure<MySettingsExample>(
 builder.Services
     .AddControllers(options =>
     {
+        options.Filters.Add(typeof(ValidationActionFilter));
         options.Filters.Add(typeof(ObjectNotFoundFilter));
+        options.Filters.Add(typeof(ObjectAlreadyFoundFilter));
     })
     .AddJsonOptions(options =>
     {

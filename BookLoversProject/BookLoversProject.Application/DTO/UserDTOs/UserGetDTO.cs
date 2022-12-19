@@ -18,9 +18,7 @@ namespace BookLoversProject.Application.DTO.UserDTOs
 
         public string ImagePath { get; set; }
 
-        public ICollection<ShelfPutDTO> BookShelves { get; }
-
-        public ICollection<User> Friends { get; set; }
+        public ICollection<ShelfPutDTO> Shelves { get; set; }
 
         public ICollection<AuthorDTO> Authors { get; set; }
 

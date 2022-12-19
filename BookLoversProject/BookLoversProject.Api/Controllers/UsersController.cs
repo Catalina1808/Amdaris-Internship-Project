@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.Commands.Create.CreateUserCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteUserCommand;
-using BookLoversProject.Application.Commands.Update.UpdateReviewCommand;
 using BookLoversProject.Application.Commands.Update.UpdateUserCommand;
 using BookLoversProject.Application.DTO.UserDTOs;
-using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetUserByIdQuery;
 using BookLoversProject.Application.Queries.GetUsersQuery;
 using MediatR;
@@ -28,9 +26,6 @@ namespace BookLoversProject.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] UserPutPostDTO user)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var command = _mapper.Map<CreateUserCommand>(user);
 
             var result = await _mediator.Send(command);

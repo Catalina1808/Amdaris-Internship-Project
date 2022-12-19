@@ -3,7 +3,6 @@ using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteGenreCommand;
 using BookLoversProject.Application.Commands.Update.UpdateGenreCommand;
 using BookLoversProject.Application.DTO.GenreDTOs;
-using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetGenreByIdQuery;
 using BookLoversProject.Application.Queries.GetGenresQuery;
 using MediatR;
@@ -27,9 +26,6 @@ namespace BookLoversProject.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateGenre([FromBody] GenrePutPostDTO genre)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var command = _mapper.Map<CreateGenreCommand>(genre);
 
             var result = await _mediator.Send(command);

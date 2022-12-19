@@ -3,11 +3,9 @@ using BookLoversProject.Application.Commands.Create.CreateAdminCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteAdminCommand;
 using BookLoversProject.Application.Commands.Update.UpdateAdminCommand;
 using BookLoversProject.Application.DTO.AdminDTOs;
-using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetAdminByIdQuery;
 using BookLoversProject.Application.Queries.GetAdminsQuery;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookLoversProject.Presentation.Controllers
@@ -25,20 +23,15 @@ namespace BookLoversProject.Presentation.Controllers
             _mapper = mapper;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> CreateAdmin([FromBody] AdminPutPostDTO admin)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var command = _mapper.Map<CreateAdminCommand>(admin);
 
             var result = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetById), new { adminId = result.Id }, result);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetAll()

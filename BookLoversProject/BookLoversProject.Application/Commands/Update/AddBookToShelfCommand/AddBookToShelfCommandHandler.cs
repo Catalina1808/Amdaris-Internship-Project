@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.DTO.ShelfDTOs;
+using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
@@ -19,11 +20,18 @@ namespace BookLoversProject.Application.Commands.Update.AddBookToShelfCommand
 
         public async Task<ShelfGetDTO> Handle(AddBookToShelfCommand request, CancellationToken cancellationToken)
         {
-            var book = await _unitOfWork.BookRepository.GetBookByIdAsync(request.BookId);
             var shelf = await _unitOfWork.ShelfRepository.GetShelfByIdAsync(request.ShelfId);
+            await _unitOfWork.BookRepository.GetBookByIdAsync(request.BookId);
 
-            var shelfBookLink = new ShelfBook { BookId = request.BookId, ShelfId = request.ShelfId };
-            shelf.Books.Add(shelfBookLink);
+            var shelfBookLink = shelf.Books
+                     .SingleOrDefault(link => link.ShelfId == request.ShelfId && link.BookId == request.BookId);
+            if (shelfBookLink != null)
+            {
+                throw new ObjectAlreadyFoundException("Exception occurred! The link between the objects already exists!");
+            }
+
+            var newLink = new ShelfBook { BookId = request.BookId, ShelfId = request.ShelfId };
+            shelf.Books.Add(newLink);
 
             await _unitOfWork.Save();
 

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.DTO.AuthorDTOs;
+using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using MediatR;
+using System;
 
 namespace BookLoversProject.Application.Commands.Update.AddFollowerToAuthorCommand
 {
@@ -22,8 +24,15 @@ namespace BookLoversProject.Application.Commands.Update.AddFollowerToAuthorComma
             var author = await _unitOfWork.AuthorRepository.GetAuthorByIdAsync(request.AuthorId);
             await _unitOfWork.UserRepository.GetUserByIdAsync(request.UserId);
 
-            var userAuthorLink = new UserAuthor{ AuthorId = request.AuthorId, UserId = request.UserId };
-            author.Followers.Add(userAuthorLink);
+            var userAuthorLink = author.Followers
+                     .SingleOrDefault(link => link.AuthorId == request.AuthorId && link.UserId == request.UserId);
+            if (userAuthorLink != null)
+            {
+                throw new ObjectAlreadyFoundException("Exception occurred! The link between the objects already exists!");
+            }
+
+            var newLink = new UserAuthor{ AuthorId = request.AuthorId, UserId = request.UserId };
+            author.Followers.Add(newLink);
 
             await _unitOfWork.Save();
 

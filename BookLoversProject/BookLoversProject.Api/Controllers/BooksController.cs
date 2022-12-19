@@ -13,7 +13,6 @@ using BookLoversProject.Application.Queries.GetBooksQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BookLoversProject.Api.Controllers
 {
@@ -41,9 +40,6 @@ namespace BookLoversProject.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBook([FromBody] BookPostDTO book)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var command = _mapper.Map<CreateBookCommand>(book);
 
             var result = await _mediator.Send(command);

@@ -8,6 +8,8 @@ namespace BookLoversProject.Application.DTO.ShelfDTOs
 
         public string Name { get; set; }
 
+        public int UserId { get; set; }
+
         public ICollection<BookDTO> Books { get; set; }
     }
 }

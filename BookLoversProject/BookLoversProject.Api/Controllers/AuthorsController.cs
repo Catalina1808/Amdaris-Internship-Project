@@ -3,10 +3,8 @@ using BookLoversProject.Application.Commands.Create.CreateAuthorCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteAuthorCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteFollowerFromAuthorCommand;
 using BookLoversProject.Application.Commands.Update.AddFollowerToAuthorCommand;
-using BookLoversProject.Application.Commands.Update.AddGenreToBookCommand;
 using BookLoversProject.Application.Commands.Update.UpdateAuthorCommand;
 using BookLoversProject.Application.DTO.AuthorDTOs;
-using BookLoversProject.Application.Exceptions;
 using BookLoversProject.Application.Queries.GetAuthorByIdQuery;
 using BookLoversProject.Application.Queries.GetAuthorsQuery;
 using MediatR;
@@ -27,13 +25,9 @@ namespace BookLoversProject.Api.Controllers
             _mapper = mapper;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> CreateAuthor([FromBody] AuthorPutPostDTO author)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var command = _mapper.Map<CreateAuthorCommand>(author);
 
             var result = await _mediator.Send(command);

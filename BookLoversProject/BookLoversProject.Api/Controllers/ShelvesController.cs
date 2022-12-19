@@ -7,7 +7,6 @@ using BookLoversProject.Application.Commands.Update.UpdateShelfCommand;
 using BookLoversProject.Application.DTO.ShelfDTOs;
 using BookLoversProject.Application.Queries.GetShelfByIdQuery;
 using BookLoversProject.Application.Queries.GetShelvesQuery;
-using BookLoversProject.Application.Queries.GetUsersQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,9 +29,6 @@ namespace BookLoversProject.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateShelf([FromBody] ShelfPostDTO shelf)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var command = _mapper.Map<CreateShelfCommand>(shelf);
 
             var result = await _mediator.Send(command);

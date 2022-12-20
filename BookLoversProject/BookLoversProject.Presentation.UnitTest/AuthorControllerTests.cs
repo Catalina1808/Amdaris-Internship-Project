@@ -148,7 +148,7 @@ namespace BookLoversProject.Presentation.UnitTest
         }
 
         [TestMethod]
-        public async Task UpdateAuthorQueryShouldReturnNoContentStatusCode()
+        public async Task UpdateAuthorQueryShouldReturnOkStatusCode()
         {
             _mockMapper
                 .Setup(m => m.Map<UpdateAuthorCommand>(It.IsAny<AuthorPutPostDTO>()))
@@ -188,9 +188,9 @@ namespace BookLoversProject.Presentation.UnitTest
                 Description = "Author description",
             });
 
-            var okResult = result as NoContentResult;
+            var okResult = result as OkObjectResult;
 
-            Assert.AreEqual((int)HttpStatusCode.NoContent, okResult.StatusCode);
+            Assert.AreEqual((int)HttpStatusCode.OK, okResult.StatusCode);
         }
 
         [TestMethod]
@@ -237,24 +237,6 @@ namespace BookLoversProject.Presentation.UnitTest
                     Description = a.Description
                 });
 
-            //_mockMapper
-            //    .Setup(m => m.Map<BookDTO>(It.IsAny<Book>()))
-            //    .Returns((Book a) => new BookDTO()
-            //    {
-            //        Id = a.Id,
-            //        Title = a.Title,
-            //        Description = a.Description
-            //    });
-
-            //_mockMapper
-            //  .Setup(m => m.Map<AuthorGetDTO>(It.IsAny<Author>()))
-            //  .Returns((Author a) => new AuthorGetDTO()
-            //  {
-            //      Name = a.Name,
-            //      Description = a.Description,
-            //      Books = a.Books.Select(bookAuthor => _mockMapper.Object.Map <BookDTO> (bookAuthor.Book)).ToList(),
-            //  });
-
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<CreateAuthorCommand>(), It.IsAny<CancellationToken>()))
                 .Returns<CreateAuthorCommand, CancellationToken>(async (q, c) =>
@@ -291,7 +273,7 @@ namespace BookLoversProject.Presentation.UnitTest
         }
 
         [TestMethod]
-        public async Task CreateAuthorQueryShouldReturnBook()
+        public async Task CreateAuthorQueryShouldReturnAuthor()
         {
             _mockMapper
                 .Setup(m => m.Map<CreateAuthorCommand>(It.IsAny<AuthorPutPostDTO>()))

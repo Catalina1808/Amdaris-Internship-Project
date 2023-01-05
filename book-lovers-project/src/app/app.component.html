@@ -1,0 +1,10 @@
+
+<header>
+<h1>Book Lovers</h1>
+</header>
+<p>What are you reading?</p>
+<ul>
+    <li *ngFor="let book of books">
+        <app-book-card #bookCard [title]="book.title | titlecase" [author]="book.author | heart" [image]="book.image" (sendDataEvent)="eventFromBook($event)"></app-book-card>
+    </li>
+</ul>

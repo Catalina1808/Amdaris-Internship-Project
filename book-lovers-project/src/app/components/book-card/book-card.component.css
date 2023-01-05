@@ -1,0 +1,84 @@
+
+img{
+    width: 10rem;
+    height: 15rem;
+    border-radius: 0.5rem;
+}
+
+h1{
+  font-size:1.5rem;
+}
+
+.background-block{
+    width: 420px;
+    height: 210px; 
+    background-color: #523529;
+    border-width: 10px;
+    border-radius: 0.5rem;
+    position: absolute;
+    margin-top: 175px;
+    margin-left: 20px;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 1rem;
+    padding: 10px;
+    position: relative;
+    width:auto;
+    height: 22rem;
+    width: 25rem;
+}
+.grid-item{
+    font-family: Pacifico, serif;
+    color:  rgb(248, 173, 127);
+    padding: 0.5rem;
+    align-self: flex-end;
+}
+
+div.stars {
+    width: 270px;
+    display: inline-flex;
+    justify-content: flex-start;
+    margin: 1 rem;
+  }
+   
+  input.star { display:none; }
+   
+  label.star {
+    float: right;
+    padding: 5px;
+    font-size: 20px;
+    color: rgb(208, 163, 131);
+    transition: all .2s;
+  }
+   
+  input.star:checked ~ label.star:before {
+    content: '\f005';
+    color: #FD4;
+    transition: all .25s;
+  }
+   
+  input.star-5:checked ~ label.star:before {
+    color: #FE7;
+    text-shadow: 0 0 20px #952;
+  }
+   
+  input.star-1:checked ~ label.star:before { color: #F62; }
+   
+  label.star:hover { transform: rotate(-15deg) scale(1.3); }
+   
+  label.star:before {
+    content: '\f006';
+    font-family: FontAwesome;
+  }
+
+  button{
+    color:  rgb(252, 247, 247);
+    background-color: rgb(205, 135, 91);
+    border-radius: 1rem;
+    border-color:  rgb(252, 247, 247);
+    float: left;
+    padding: 7px 
+  }

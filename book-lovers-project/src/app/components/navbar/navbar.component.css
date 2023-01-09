@@ -1,0 +1,24 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  margin-bottom: 2rem;
+}
+
+mat-form-field{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  flex-flow: row;
+  margin: 1rem;
+}
+
+a{
+  margin-left: 1rem;
+}
+
+span{
+  font-family: Pacifico;
+  margin-right: 2rem;
+}

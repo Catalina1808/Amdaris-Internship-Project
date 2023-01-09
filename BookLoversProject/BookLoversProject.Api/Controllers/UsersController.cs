@@ -3,6 +3,7 @@ using BookLoversProject.Application.Commands.Create.CreateUserCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteUserCommand;
 using BookLoversProject.Application.Commands.Update.UpdateUserCommand;
 using BookLoversProject.Application.DTO.UserDTOs;
+using BookLoversProject.Application.Queries.GetShelvesByUserIdQuery;
 using BookLoversProject.Application.Queries.GetUserByIdQuery;
 using BookLoversProject.Application.Queries.GetUsersQuery;
 using MediatR;
@@ -46,6 +47,16 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> GetById(int userId)
         {
             var query = new GetUserByIdQuery { Id = userId };
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{userId}/Shelves")]
+        public async Task<IActionResult> GetShelvesByUserId(int userId)
+        {
+            var query = new GetShelvesByUserIdQuery { UserId = userId };
             var result = await _mediator.Send(query);
 
             return Ok(result);

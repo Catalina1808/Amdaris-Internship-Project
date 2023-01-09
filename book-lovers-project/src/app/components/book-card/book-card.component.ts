@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-book-card',
@@ -16,7 +17,10 @@ export class BookCardComponent {
   @Output()
   sendDataEvent: EventEmitter<string> = new EventEmitter<string>();
 
+  constructor(private messageService: MessagesService){}
+
    onButtonClick():void {
+    this.messageService.sayMessage("Button was clicked from " + this.title + " book.");
     this.sendDataEvent.emit("Button was clicked from " + this.title + " book.");
     }
 }

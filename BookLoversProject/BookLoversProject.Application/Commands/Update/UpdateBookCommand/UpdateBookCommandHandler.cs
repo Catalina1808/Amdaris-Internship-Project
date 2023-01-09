@@ -23,7 +23,8 @@ namespace BookLoversProject.Application.Commands.Update.UpdateBookCommand
             {
                 Id = request.Id,
                 Title = request.Title,
-                Description = request.Description
+                Description = request.Description,
+                Image = request.Image
             };
 
             await _unitOfWork.BookRepository.UpdateBookAsync(toUpdate);

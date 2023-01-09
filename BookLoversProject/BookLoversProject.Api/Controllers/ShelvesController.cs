@@ -6,6 +6,7 @@ using BookLoversProject.Application.Commands.Update.AddBookToShelfCommand;
 using BookLoversProject.Application.Commands.Update.UpdateShelfCommand;
 using BookLoversProject.Application.DTO.ShelfDTOs;
 using BookLoversProject.Application.Queries.GetShelfByIdQuery;
+using BookLoversProject.Application.Queries.GetShelvesByUserIdQuery;
 using BookLoversProject.Application.Queries.GetShelvesQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

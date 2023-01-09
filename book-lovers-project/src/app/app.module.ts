@@ -15,6 +15,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { MyBooksPageComponent } from './components/my-books-page/my-books-page.component';
+import { AllBooksPageComponent } from './components/all-books-page/all-books-page.component';
+
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,7 +27,8 @@ import { MyBooksPageComponent } from './components/my-books-page/my-books-page.c
     HeartPipe,
     NavbarComponent,
     HomePageComponent,
-    MyBooksPageComponent
+    MyBooksPageComponent,
+    AllBooksPageComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,8 @@ import { MyBooksPageComponent } from './components/my-books-page/my-books-page.c
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

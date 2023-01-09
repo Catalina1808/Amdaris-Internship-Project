@@ -1,1 +1,6 @@
-<p>my-books-page works!</p>
+<ul>
+    <li *ngFor="let book of books">
+        <app-book-card #bookCard [title]="book.title | titlecase" [image]="book.image"
+            ></app-book-card>
+    </li>
+</ul>

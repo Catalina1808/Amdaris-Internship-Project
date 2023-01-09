@@ -9,6 +9,8 @@ namespace BookLoversProject.Application.Commands.Create.CreateBookCommand
 
         public string Description { get; set; }
 
+        public string Image { get; set; }
+
         public ICollection<int> AuthorsId { get; set; }
 
         public ICollection<int> GenresId { get; set; }

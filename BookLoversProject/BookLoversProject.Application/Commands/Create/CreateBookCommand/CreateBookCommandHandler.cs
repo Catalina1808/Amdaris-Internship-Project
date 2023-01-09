@@ -23,6 +23,7 @@ namespace BookLoversProject.Application.Commands.Create.CreateBookCommand
             {
                 Title = request.Title,
                 Description = request.Description,
+                Image = request.Image
             };
 
             var bookAuthorLinks = await GetBookAuthorLinksAsync(request.AuthorsId, book);

@@ -7,8 +7,7 @@ import { BookCardComponent } from '../book-card/book-card.component';
 @Component({
   selector: 'app-all-books-page',
   templateUrl: './all-books-page.component.html',
-  styleUrls: ['./all-books-page.component.css'],
-  providers: [BooksService]
+  styleUrls: ['./all-books-page.component.css']
 })
 export class AllBooksPageComponent implements OnInit{
   books: BookType[] = []
@@ -17,7 +16,6 @@ export class AllBooksPageComponent implements OnInit{
 
   @ViewChild("bookCard")
   bookCard: BookCardComponent | undefined;
-
 
   ngOnInit(): void {
     this.booksService.getAllBooks().subscribe(x=> this.books = x);

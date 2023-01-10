@@ -1,0 +1,28 @@
+<header>
+    <h1>Log in</h1>
+</header>
+
+<div>
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm" class="form-group">
+        <mat-form-field appearance="fill">
+            <mat-label for="email">Email</mat-label>
+            <input matInput class="form-control" type="email" ngModel name="email" #email="ngModel" required email>
+            <mat-error *ngIf="!email.valid">Email is invalid</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="password">Password</mat-label>
+            <input matInput class="form-control" type="password" ngModel name="password" #password="ngModel" required
+                password>
+            <mat-error *ngIf="!password.valid">Password is invalid</mat-error>
+        </mat-form-field>
+
+        <button type="submit" mat-raised-button color="primary">Submit</button>
+    </form>
+
+    <br>
+    <div>
+        <p>Do not have an accound?</p>
+        <button mat-raised-button routerLink="/register-form">Register here</button>
+    </div>
+</div>

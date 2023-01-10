@@ -18,6 +18,9 @@ import { MyBooksPageComponent } from './components/my-books-page/my-books-page.c
 import { AllBooksPageComponent } from './components/all-books-page/all-books-page.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 
 @NgModule({
@@ -28,7 +31,9 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     HomePageComponent,
     MyBooksPageComponent,
-    AllBooksPageComponent
+    AllBooksPageComponent,
+    RegisterFormComponent,
+    LoginFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

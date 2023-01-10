@@ -43,6 +43,8 @@ namespace BookLoversProject.Infrastructure.Repositories
             return await _context.Shelves
                 .Include(s => s.Books)
                 .ThenInclude(sb => sb.Book)
+                .ThenInclude(b => b.Authors)
+                .ThenInclude(ba => ba.Author)
                 .ToListAsync();
         }
 

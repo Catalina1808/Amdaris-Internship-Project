@@ -1,0 +1,32 @@
+<header>
+    <h1>Add author</h1>
+</header>
+
+<div class="form">
+    <form [formGroup]="authorForm" class="form-group" (ngSubmit)="onSubmit(authorForm)">
+
+        <mat-form-field appearance="fill">
+            <mat-label for="name">Name</mat-label>
+            <input matInput
+                   type="text"
+                   formControlName="name"
+                   #name>
+            <mat-error *ngIf="authorForm.controls['name'].errors?.['required']">Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="description">Description</mat-label>
+            <input matInput
+                   type="text"
+                   formControlName="description"
+                   #description>
+            <mat-error *ngIf="authorForm.controls['description'].errors?.['required']">Description is required</mat-error>
+        </mat-form-field>
+
+
+        <!-- <button [disabled]="!signUpForm.valid" type="submit" mat-raised-button color="primary">Submit</button> -->
+        <button type="submit" mat-raised-button color="primary">Add author</button>
+
+    </form>
+ 
+</div>

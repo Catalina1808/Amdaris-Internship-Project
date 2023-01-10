@@ -19,7 +19,6 @@ export class MyBooksPageComponent implements OnInit {
       shelf.books.forEach(book => {
         this.books.push(book);
       })});
-    console.log(this.books);
     });
   }
 }

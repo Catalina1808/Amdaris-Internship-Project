@@ -21,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { AddBookFormComponent } from './components/add-book-form/add-book-form.component';
+import { AddAuthorFormComponent } from './components/add-author-form/add-author-form.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     AllBooksPageComponent,
     RegisterFormComponent,
     LoginFormComponent,
+    AddBookFormComponent,
+    AddAuthorFormComponent,
   ],
   imports: [
     BrowserModule,

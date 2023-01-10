@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserType } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-register-form',
@@ -9,10 +11,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class RegisterFormComponent implements OnInit{
   registerForm: FormGroup = new FormGroup({});
 
-constructor(private formBuilder: FormBuilder) { }
+constructor(private formBuilder: FormBuilder, private userService: UsersService) { }
 
   ngOnInit(): void {
-
     this.registerForm = this.formBuilder.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
@@ -23,23 +24,28 @@ constructor(private formBuilder: FormBuilder) { }
 
   onSubmit(form: FormGroup) {
     console.log(form);
+    var userFirstName: string = this.registerForm.get('firstName')?.value;
+    var userLastName: string = this.registerForm.get('lastName')?.value;
+    var userEmail: string = this.registerForm.get('email')?.value;
+    var userPassword: string = this.registerForm.get('password')?.value;
+    if (this.registerForm.valid) {
+     var user: UserType = { id: 0, imagePath: "", firstName: userFirstName, lastName:userLastName, email:userEmail, password:userPassword};
+      this.userService.postUser(user).subscribe();
+
+      this.registerForm.get('firstName')?.setValue(null);
+      this.registerForm.get('lastName')?.setValue(null);
+      this.registerForm.get('email')?.setValue(null);
+      this.registerForm.get('password')?.setValue(null);
+      alert("User added!");
+    }
   }
-
-
-  // get firstName() {
-  //   return this.signUpForm.get('firstName');
-  // }
-
-  // get email() {
-  //   return this.signUpForm.get('email');
-  // }
 
   setFormlValues() {
     this.registerForm.patchValue({
-      firstName: 'Gramada',
-      lastName: 'Catalina',
+      firstName: 'Ioana',
+      lastName: 'Gramada',
       email: "ioana.gramada@amdaris.com",
-      password: "123456"
+      password: "123456ab"
     })
   }
 

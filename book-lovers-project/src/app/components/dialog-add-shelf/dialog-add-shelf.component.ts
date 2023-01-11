@@ -9,10 +9,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class DialogAddShelfComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogAddShelfComponent>,
-    @Inject(MAT_DIALOG_DATA) public name: String,
+    @Inject(MAT_DIALOG_DATA) public name: string,
   ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 }

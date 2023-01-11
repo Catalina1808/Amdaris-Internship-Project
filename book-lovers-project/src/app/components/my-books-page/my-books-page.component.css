@@ -18,6 +18,10 @@ li.book-card {
     margin-top: -4rem;
 }
 
+.shelf-container{
+    display: inline-flex;
+}
+
 .container {
     background-color: inherit;
     width: inherit;
@@ -25,7 +29,7 @@ li.book-card {
 }
 
 h1 {
-    font-size: 2.7rem;
+    font-size: 2.5rem;
     color: black;
     font-family: Pacifico;
     padding: 0.5em;
@@ -43,18 +47,18 @@ mat-expansion-panel{
     justify-content: center;
     flex-direction: column;
     padding: 1em;
-    text-align: center;
-    width: 60%;
+    width: 70%;
     height: fit-content;
     margin: 2rem auto;
 }
 
 mat-drawer {
     background-color: inherit;
-    width: 25%;
+    width: 30%;
     text-align: center;
 }
 
 button{
     margin: 0.5rem;
+    padding: 0.5rem;
 }

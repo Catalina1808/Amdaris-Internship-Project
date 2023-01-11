@@ -12,4 +12,8 @@ export class ShelvesService {
   postShelf(shelf: ShelfType): Observable<ShelfType> {
     return this.httpClient.post<ShelfType>('api/Shelves', shelf);
   }
+
+  deleteShelf(id: number): Observable<{}> {
+    return this.httpClient.delete<ShelfType>(`api/Shelves/${id}`);
+  }
 }

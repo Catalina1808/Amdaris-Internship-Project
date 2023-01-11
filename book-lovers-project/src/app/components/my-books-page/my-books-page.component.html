@@ -9,9 +9,14 @@
             </mat-expansion-panel-header>
             <ul>
                 <li *ngFor="let shelf of shelves">
-                    <button mat-stroked-button (click)="onShelfClick(shelf)">
-                        {{shelf.name}}
-                    </button>
+                    <div class="shelf-container">
+                        <button mat-stroked-button color="accent" (click)="onShelfClick(shelf)">
+                            {{shelf.name}}
+                        </button>
+                        <button mat-mini-fab (click)="onDeleteShelfClick(shelf)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </div>
                 </li>
             </ul>
         </mat-expansion-panel>

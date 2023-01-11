@@ -27,6 +27,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogAddShelfComponent } from './components/dialog-add-shelf/dialog-add-shelf.component';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { DialogAddShelfComponent } from './components/dialog-add-shelf/dialog-ad
     AddBookFormComponent,
     AddAuthorFormComponent,
     DialogAddShelfComponent,
+    DialogDeleteComponent,
   ],
   imports: [
     BrowserModule,

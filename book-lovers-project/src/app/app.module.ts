@@ -23,6 +23,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { AddBookFormComponent } from './components/add-book-form/add-book-form.component';
 import { AddAuthorFormComponent } from './components/add-author-form/add-author-form.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogAddShelfComponent } from './components/dialog-add-shelf/dialog-add-shelf.component';
 
 
 @NgModule({
@@ -38,6 +42,7 @@ import { AddAuthorFormComponent } from './components/add-author-form/add-author-
     LoginFormComponent,
     AddBookFormComponent,
     AddAuthorFormComponent,
+    DialogAddShelfComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,10 @@ import { AddAuthorFormComponent } from './components/add-author-form/add-author-
     MatInputModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,6 +5,10 @@ img{
     border-radius: 0.5rem;
 }
 
+h1 {
+  font-family: Pacifico;
+}
+
 .background-block{
     width: 420px;
     height: 210px; 

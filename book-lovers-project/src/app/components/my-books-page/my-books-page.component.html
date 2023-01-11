@@ -1,6 +1,31 @@
-<ul>
-    <li *ngFor="let book of books">
-     <app-book-card #bookCard [title]="book.title | titlecase" [author]="book.authors[0].name | heart" [image]="book.image"
-            ></app-book-card>
-    </li>
-</ul>
+<mat-drawer-container class="container">
+    <mat-drawer mode="side" opened>
+        <h1>My books</h1>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Bookshelves
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul>
+                <li *ngFor="let shelf of shelves">
+                    <button mat-stroked-button (click)="onShelfClick(shelf)">
+                        {{shelf.name}}
+                    </button>
+                </li>
+            </ul>
+        </mat-expansion-panel>
+
+        <button mat-raised-button (click)="addShelf()">
+            Add shelf
+        </button>
+    </mat-drawer>
+    <mat-drawer-content>
+        <ul>
+            <li class="book-card" *ngFor="let book of displayedBooks">
+                <app-book-card #bookCard [title]="book.title | titlecase" [author]="book.authors[0].name | heart"
+                    [image]="book.image"></app-book-card>
+            </li>
+        </ul>
+    </mat-drawer-content>
+</mat-drawer-container>

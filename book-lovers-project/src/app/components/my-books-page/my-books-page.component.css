@@ -1,14 +1,60 @@
 ul {
     margin: 0em;
-    display:flex;
+    display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     position: relative;
     overflow: auto;
     list-style: none;
+    padding: 0;
 }
 
-li{
-    margin: 0em;
+mat-drawer-content{
+    height:80vh;
+}
+
+li.book-card {
+    margin-top: -4rem;
+}
+
+.container {
+    background-color: inherit;
+    width: inherit;
+    height: inherit;
+}
+
+h1 {
+    font-size: 2.7rem;
+    color: black;
+    font-family: Pacifico;
+    padding: 0.5em;
+    text-decoration: underline;
+}
+
+mat-panel-title {
+    font-size: 1.4rem;
+    font-family: Pacifico;
+    padding: 0.3em;
+}
+
+mat-expansion-panel{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1em;
+    text-align: center;
+    width: 60%;
+    height: fit-content;
+    margin: 2rem auto;
+}
+
+mat-drawer {
+    background-color: inherit;
+    width: 25%;
+    text-align: center;
+}
+
+button{
+    margin: 0.5rem;
 }

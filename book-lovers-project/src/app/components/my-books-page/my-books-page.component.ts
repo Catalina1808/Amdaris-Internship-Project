@@ -4,8 +4,8 @@ import { BookType } from 'src/app/models/book.model';
 import { ShelfType } from 'src/app/models/shelf.model';
 import { BooksService } from 'src/app/services/books.service';
 import { ShelvesService } from 'src/app/services/shelves.service';
-import { DialogAddShelfComponent } from '../dialog-add-shelf/dialog-add-shelf.component';
-import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+import { DialogAddShelfComponent } from '../dialogs/add-shelf-dialog/dialog-add-shelf.component';
+import { DialogDeleteComponent } from '../dialogs/delete-dialog/dialog-delete.component';
 
 @Component({
   selector: 'app-my-books-page',

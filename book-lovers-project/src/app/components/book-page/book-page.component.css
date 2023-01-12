@@ -1,5 +1,5 @@
 img {
-    width: 12rem;
+    width: 13rem;
     height: 19rem;
     border-radius: 0.5rem;
 }
@@ -13,6 +13,12 @@ h2 {
     font-size: 1rem;
 }
 
+h3 {
+    font-family: Pacifico;
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
 ul {
     margin: 0em;
     display: flex;
@@ -22,6 +28,13 @@ ul {
     position: relative;
     list-style: none;
     padding: 0;
+}
+
+.stars { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .shelf-button{

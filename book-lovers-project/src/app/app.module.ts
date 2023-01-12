@@ -26,9 +26,11 @@ import { AddAuthorFormComponent } from './components/add-author-form/add-author-
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
-import { DialogAddShelfComponent } from './components/dialog-add-shelf/dialog-add-shelf.component';
-import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+import { DialogAddShelfComponent } from './components/dialogs/add-shelf-dialog/dialog-add-shelf.component';
+import { DialogDeleteComponent } from './components/dialogs/delete-dialog/dialog-delete.component';
 import { BookPageComponent } from './components/book-page/book-page.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddReviewDialogComponent } from './components/dialogs/add-review-dialog/add-review-dialog.component';
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import { BookPageComponent } from './components/book-page/book-page.component';
     DialogAddShelfComponent,
     DialogDeleteComponent,
     BookPageComponent,
+    AddReviewDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { BookPageComponent } from './components/book-page/book-page.component';
     FormsModule,
     MatSidenavModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

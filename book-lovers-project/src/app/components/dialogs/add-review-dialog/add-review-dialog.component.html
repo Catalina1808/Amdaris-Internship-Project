@@ -1,0 +1,10 @@
+<h1 id="title" mat-dialog-title>Add a review</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Comment</mat-label>
+    <input matInput [(ngModel)]="comment">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="comment" cdkFocusInitial>Add</button>
+</div>

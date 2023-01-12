@@ -15,6 +15,8 @@ namespace BookLoversProject.Application.DTO.BookDTOs
 
         public string Image { get; set; }
 
+        public double Rating { get; set; }
+
         public ICollection<AuthorDTO> Authors { get; set; }
 
         public ICollection<Review> Reviews { get; set; }

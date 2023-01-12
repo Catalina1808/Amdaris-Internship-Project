@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogAddShelfComponent } from '../dialog-add-shelf/dialog-add-shelf.component';
+import { DialogAddShelfComponent } from '../add-shelf-dialog/dialog-add-shelf.component';
 
 @Component({
   selector: 'app-dialog-delete',

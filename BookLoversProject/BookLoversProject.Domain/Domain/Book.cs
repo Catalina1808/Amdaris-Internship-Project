@@ -12,8 +12,6 @@ namespace BookLoversProject.Domain.Domain
 
         public string Image { get; set; }
 
-        public double Rating { get; set; }
-
         public ICollection<BookAuthor> Authors { get; set; }
 
         public ICollection<Review> Reviews { get; set; }

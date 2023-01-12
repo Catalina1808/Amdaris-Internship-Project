@@ -5,6 +5,6 @@
 <ul>
     <li *ngFor="let book of books">
         <app-book-card #bookCard [title]="book.title | titlecase" [author]="book.authors[0].name | heart" [image]="book.image"
-            (sendDataEvent)="eventFromBook($event)" [currentRate]="book.rating"></app-book-card>
+            (sendDataEvent)="eventFromBook($event)" [currentRate]="4"></app-book-card>
     </li>
 </ul>

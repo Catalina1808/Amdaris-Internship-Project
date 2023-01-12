@@ -26,6 +26,7 @@ namespace BookLoversProject.Application.Commands.Create.CreateReviewCommand
             {
                 Comment = request.Comment,
                 Date = DateTime.Now,
+                Rating = request.Rating,
                 BookId = request.BookId,
                 UserId = request.UserId
             };

@@ -21,10 +21,10 @@ export class BookPageComponent implements OnInit {
     authors: [],
     image: '',
     description: '',
-    rating: 0
+    reviews: []
   }
   shelves: ShelfType[] = [];
-  currentRate: number = 4.5;
+  currentRate: number = 0;
 
   constructor(private booksService: BooksService, private shelvesService: ShelvesService,
     private activatedRoute: ActivatedRoute, public dialog: MatDialog, private reviewsService: ReviewsService) { }
@@ -32,7 +32,10 @@ export class BookPageComponent implements OnInit {
   ngOnInit(): void {
     var bookId = this.activatedRoute.snapshot.paramMap.get("id");
     if (bookId != null) {
-      this.booksService.getBookById(+bookId).subscribe(x => this.book = x);
+      this.booksService.getBookById(+bookId).subscribe(x => {
+        this.book = x;
+        this.currentRate = this.getBookRating(this.book);
+      });
     }
     this.refreshShelves();
   }
@@ -58,18 +61,32 @@ export class BookPageComponent implements OnInit {
   }
 
   verifyShelf(shelf: ShelfType): boolean {
-    return shelf.books.some((b) => { return b.id === this.book.id })
+    return shelf.books.some((b) => { return b.id == this.book.id })
   }
 
-  changedRating():void {
+  changedRating(): void {
+    if (this.book.reviews.some((review) => { return review.bookId == this.book.id && review.userId == 1 })) {
+      alert("You already rated this book!");
+    } else {
       const dialogRef = this.dialog.open(AddReviewDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         if (result != null) {
-          var review: ReviewType = { id: 0, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
+          var review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
           this.reviewsService.postReview(review).subscribe();
           alert("Review added!");
         }
       });
+    }
+  }
+
+  getBookRating(book: BookType): number {
+    var averageRating: number = 0;
+    book.reviews.forEach(review => {
+      averageRating += review.rating;
+    });
+    if (book.reviews.length == 0)
+      return 0;
+    return averageRating / book.reviews.length;
   }
 }

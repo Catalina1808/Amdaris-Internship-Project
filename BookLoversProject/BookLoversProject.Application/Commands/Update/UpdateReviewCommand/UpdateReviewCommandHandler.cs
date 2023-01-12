@@ -23,7 +23,8 @@ namespace BookLoversProject.Application.Commands.Update.UpdateReviewCommand
             {
                 Id = request.Id,
                 Comment = request.Comment,
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                Rating = request.Rating
             };
 
             await _unitOfWork.ReviewRepository.UpdateReviewAsync(toUpdate);

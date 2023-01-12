@@ -5,4 +5,5 @@ export type BookType = {
     title:string;
     authors:AuthorType[];
     image:string;
+    description: string;
 }

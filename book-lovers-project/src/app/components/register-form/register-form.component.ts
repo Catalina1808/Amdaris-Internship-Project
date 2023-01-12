@@ -40,15 +40,6 @@ constructor(private formBuilder: FormBuilder, private userService: UsersService)
     }
   }
 
-  setFormlValues() {
-    this.registerForm.patchValue({
-      firstName: 'Ioana',
-      lastName: 'Gramada',
-      email: "ioana.gramada@amdaris.com",
-      password: "123456ab"
-    })
-  }
-
   containsDigitsAndLetters(control: FormControl): {[s: string]: boolean} | null {
     if(control.value != null && control.value.match("^(?=.*[a-zA-Z])(?=.*[0-9])")) {
       return null

@@ -9,10 +9,10 @@ import { BookCardComponent } from '../book-card/book-card.component';
 })
 export class HomePageComponent implements AfterViewInit{
   books: BookType[] = [
-    {id:1, authors:[{id: 1, name:"Colleen Hoover", description:""}], title:"Ugly love", image:"https://aestasbookblog.com/wp-content/uploads/2014/05/UglyLove-ColleenHoover.png"},
-    {id:2, authors:[{id: 1, name:"Colleen Hoover", description:""}], title:"Verity", image:"https://www.colleenhoover.com/wp-content/uploads/2018/09/Verity.jpg"},
-    {id:3, authors:[{id: 1, name:"Colleen Hoover", description:""}], title:"Heart Bones", image:"https://www.colleenhoover.com/wp-content/uploads/2020/06/51ufkkgyKfL-2.jpg"},
-    {id:4, authors:[{id: 1, name:"Colleen Hoover", description:""}], title:"maybe Someday", image:"https://m.media-amazon.com/images/I/71ZLa1mXoPL.jpg"},
+    {id:1, authors:[{id: 1, name:"Colleen Hoover", description:""}], description:"", title:"Ugly love", image:"https://aestasbookblog.com/wp-content/uploads/2014/05/UglyLove-ColleenHoover.png"},
+    {id:2, authors:[{id: 1, name:"Colleen Hoover", description:""}], description:"", title:"Verity", image:"https://www.colleenhoover.com/wp-content/uploads/2018/09/Verity.jpg"},
+    {id:3, authors:[{id: 1, name:"Colleen Hoover", description:""}], description:"", title:"Heart Bones", image:"https://www.colleenhoover.com/wp-content/uploads/2020/06/51ufkkgyKfL-2.jpg"},
+    {id:4, authors:[{id: 1, name:"Colleen Hoover", description:""}], description:"", title:"maybe Someday", image:"https://m.media-amazon.com/images/I/71ZLa1mXoPL.jpg"},
   ]
 
   eventFromBook(event: any){

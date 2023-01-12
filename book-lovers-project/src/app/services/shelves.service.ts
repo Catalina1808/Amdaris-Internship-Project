@@ -16,4 +16,12 @@ export class ShelvesService {
   deleteShelf(id: number): Observable<{}> {
     return this.httpClient.delete<ShelfType>(`api/Shelves/${id}`);
   }
+
+  postBookToShelf(idBook: number, idShelf: number): Observable<{}> {
+    return this.httpClient.post<number>(`api/Shelves/${idShelf}/Books/${idBook}`, idBook);
+  }
+
+  deleteBookFromShelf(idBook: number, idShelf: number): Observable<{}> {
+    return this.httpClient.delete<number>(`api/Shelves/${idShelf}/Books/${idBook}`);
+  }
 }

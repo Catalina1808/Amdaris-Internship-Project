@@ -23,6 +23,7 @@ namespace BookLoversProject.Application.Commands.Create.CreateAuthorCommand
             {
                 Name = request.Name,
                 Description = request.Description,
+                Image = request.Image,
             };
 
             await _unitOfWork.AuthorRepository.AddAuthorAsync(author);

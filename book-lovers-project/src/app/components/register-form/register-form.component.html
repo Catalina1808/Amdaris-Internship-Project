@@ -47,12 +47,8 @@
             <mat-error *ngIf="registerForm.controls['password'].errors?.['containsDigitsAndLetters']">Is should contain both letters and digits</mat-error>
         </mat-form-field>
 
-       
-
         <!-- <button [disabled]="!signUpForm.valid" type="submit" mat-raised-button color="primary">Submit</button> -->
         <button type="submit" mat-raised-button color="primary">Submit</button>
-
-        <button style="margin: 1em 0;" (click)="setFormlValues()" mat-raised-button>Fill Form</button>
     </form>
 
     <div>

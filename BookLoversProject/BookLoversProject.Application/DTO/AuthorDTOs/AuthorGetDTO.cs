@@ -11,6 +11,8 @@ namespace BookLoversProject.Application.DTO.AuthorDTOs
 
         public string Description { get; set; }
 
+        public string Image { get; set; }
+
         public ICollection<BookDTO> Books { get; set; }
 
         public ICollection<UserDTO> Followers { get; set; }

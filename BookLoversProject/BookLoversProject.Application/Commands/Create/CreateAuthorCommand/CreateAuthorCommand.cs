@@ -8,5 +8,7 @@ namespace BookLoversProject.Application.Commands.Create.CreateAuthorCommand
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public string Image { get; set; }
     }
 }

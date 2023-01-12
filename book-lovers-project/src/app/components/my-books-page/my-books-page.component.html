@@ -28,7 +28,7 @@
     <mat-drawer-content>
         <ul>
             <li class="book-card" *ngFor="let book of displayedBooks">
-                <app-book-card #bookCard [title]="book.title | titlecase" [author]="book.authors[0].name | heart"
+                <app-book-card #bookCard [id]="book.id" [title]="book.title | titlecase" [author]="book.authors[0].name | heart"
                     [image]="book.image"></app-book-card>
             </li>
         </ul>

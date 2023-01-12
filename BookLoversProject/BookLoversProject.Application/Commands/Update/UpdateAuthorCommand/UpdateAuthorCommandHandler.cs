@@ -23,7 +23,8 @@ namespace BookLoversProject.Application.Commands.Update.UpdateAuthorCommand
             {
                 Id = request.Id,
                 Name = request.Name,
-                Description = request.Description
+                Description = request.Description,
+                Image = request.Image
             };
 
             await _unitOfWork.AuthorRepository.UpdateAuthorAsync(toUpdate);

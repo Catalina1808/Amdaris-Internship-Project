@@ -32,9 +32,9 @@ namespace BookLoversProject.Presentation.UnitTest
                         {
                             Id = q.Id,
                             Name = "Shelf",
-                            Books = new List<BookDTO>
+                            Books = new List<BookGetDTO>
                             {
-                                new BookDTO
+                                new BookGetDTO
                                 {
                                     Id = 1,
                                     Title= "Title"
@@ -59,9 +59,9 @@ namespace BookLoversProject.Presentation.UnitTest
             {
                 Id = 1,
                 Name = "Shelf",
-                Books = new List<BookDTO>
+                Books = new List<BookGetDTO>
                   {
-                     new BookDTO
+                     new BookGetDTO
                      {
                          Id = 1,
                          Title= "Title"
@@ -100,9 +100,9 @@ namespace BookLoversProject.Presentation.UnitTest
                         {
                             Id = 1,
                             Name = "Shelf",
-                            Books = new List<BookDTO>
+                            Books = new List<BookGetDTO>
                             {
-                                new BookDTO
+                                new BookGetDTO
                                 {
                                     Id = 1,
                                     Title = "Title",

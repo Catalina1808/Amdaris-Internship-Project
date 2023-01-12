@@ -12,7 +12,9 @@ export class BookCardComponent {
   @Input() 
   author:string = "";
   @Input() 
-  image: string = ""
+  image: string = "";
+  @Input() 
+  id: number = 0;
 
   @Output()
   sendDataEvent: EventEmitter<string> = new EventEmitter<string>();

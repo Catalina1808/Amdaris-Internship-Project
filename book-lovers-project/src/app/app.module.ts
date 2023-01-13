@@ -31,6 +31,7 @@ import { DialogDeleteComponent } from './components/dialogs/delete-dialog/dialog
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddReviewDialogComponent } from './components/dialogs/add-review-dialog/add-review-dialog.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { AddReviewDialogComponent } from './components/dialogs/add-review-dialog
     MatSidenavModule,
     MatExpansionModule,
     MatDialogModule,
-    NgbModule
+    NgbModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

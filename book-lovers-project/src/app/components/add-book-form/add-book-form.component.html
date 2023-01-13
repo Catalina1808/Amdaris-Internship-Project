@@ -7,43 +7,44 @@
 
         <mat-form-field appearance="fill">
             <mat-label for="title">Title</mat-label>
-            <input matInput
-                   type="text"
-                   formControlName="title"
-                   #title>
+            <input matInput type="text" formControlName="title" #title>
             <mat-error *ngIf="bookForm.controls['title'].errors?.['required']">Title is required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label for="description">Description</mat-label>
-            <input matInput
-                   type="text"
-                   formControlName="description"
-                   #description>
+            <input matInput type="text" formControlName="description" #description>
             <mat-error *ngIf="bookForm.controls['description'].errors?.['required']">Description is required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label for="authors">Authors</mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="authors"
-                   #description>
-            <mat-error *ngIf="bookForm.controls['authors'].errors?.['required']">At least one author is required</mat-error>
+            <input matInput type="text" placeholder="Pick one" formControlName="authors" [matAutocomplete]="auto1"
+                #authors>
+            <mat-autocomplete matInput #auto1="matAutocomplete" [displayWith]="getOptionName.bind(this)">
+                <mat-option *ngFor="let author of allAuthors" [value]="author">
+                    {{author.name}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="bookForm.controls['authors'].errors?.['required']">At least one author is
+                required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label for="genres">Genres</mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="genres"
-                   #description>
-            <mat-error *ngIf="bookForm.controls['genres'].errors?.['required']">At least one genre is required</mat-error>
+            <input matInput type="text" formControlName="genres" placeholder="Pick one" [matAutocomplete]="auto2" #genres>
+            <mat-autocomplete matInput #auto2="matAutocomplete" [displayWith]="getOptionName.bind(this)">
+                <mat-option *ngFor="let genre of allGenres" [value]="genre">
+                    {{genre.name}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="bookForm.controls['genres'].errors?.['required']">At least one genre is
+                required</mat-error>
         </mat-form-field>
 
         <!-- <button [disabled]="!signUpForm.valid" type="submit" mat-raised-button color="primary">Submit</button> -->
         <button type="submit" mat-raised-button color="primary">Add book</button>
 
     </form>
- 
+
 </div>

@@ -13,4 +13,8 @@ export class AuthorsService {
   postAuthor(author:AuthorType): Observable<AuthorType> {
     return this.httpClient.post<AuthorType>('api/Authors', author);
   }
+
+  getAllAuthors(): Observable<AuthorType[]> {
+    return this.httpClient.get<AuthorType[]>('api/Authors');
+  }
 }

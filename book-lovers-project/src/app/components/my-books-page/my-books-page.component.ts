@@ -49,7 +49,7 @@ export class MyBooksPageComponent implements OnInit {
   onDeleteShelfClick(shelf: ShelfType): void {
     const dialogRef = this.dialog.open(DialogDeleteComponent, { data: `${shelf.name} shelf` });
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
+      if (confirmed && shelf.id !== undefined) {
         this.shelvesService.deleteShelf(shelf.id).subscribe(x => this.refreshShelves())
       }
     });
@@ -64,7 +64,7 @@ export class MyBooksPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result != null) {
-        var shelf: ShelfType = { id: 0, name: result, userId: 1, books: [] };
+        var shelf: ShelfType = {name: result, userId: 1, books: [] };
         this.shelvesService.postShelf(shelf).subscribe(x => this.refreshShelves());
       }
     });

@@ -12,4 +12,8 @@ export class ReviewsService {
   postReview(review: ReviewType): Observable<ReviewType> {
     return this.httpClient.post<ReviewType>('api/Review', review);
   }
+
+  putReview(review: ReviewType): Observable<ReviewType> {
+    return this.httpClient.put<ReviewType>(`api/Review/${review.id}`, review);
+  }
 }

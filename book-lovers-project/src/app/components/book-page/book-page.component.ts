@@ -25,6 +25,7 @@ export class BookPageComponent implements OnInit {
   }
   shelves: ShelfType[] = [];
   currentRate: number = 0;
+  reviewId: number = 0;
 
   constructor(private booksService: BooksService, private shelvesService: ShelvesService,
     private activatedRoute: ActivatedRoute, public dialog: MatDialog, private reviewsService: ReviewsService) { }
@@ -38,6 +39,16 @@ export class BookPageComponent implements OnInit {
       });
     }
     this.refreshShelves();
+  }
+
+  refreshBook(): void {
+    var bookId = this.activatedRoute.snapshot.paramMap.get("id");
+    if (bookId != null) {
+      this.booksService.getBookById(+bookId).subscribe(x => {
+        this.book = x;
+        this.currentRate = this.getBookRating(this.book);
+      });
+    }
   }
 
   refreshShelves(): void {
@@ -64,16 +75,32 @@ export class BookPageComponent implements OnInit {
     return shelf.books.some((b) => { return b.id == this.book.id })
   }
 
+  alreadyAddedReview(element: ReviewType): boolean {
+    if (element.bookId == this.book.id && element.userId == 1) {
+      this.reviewId = element.id;
+      return true;
+    }
+    return false;
+  }
+
   changedRating(): void {
-    if (this.book.reviews.some((review) => { return review.bookId == this.book.id && review.userId == 1 })) {
-      alert("You already rated this book!");
+    if (this.book.reviews.some((element) => this.alreadyAddedReview(element))) {
+      const dialogRef = this.dialog.open(AddReviewDialogComponent, { data: { message: "Change your review" } });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        if (result != null) {
+          var review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
+          this.reviewsService.putReview(review).subscribe(x => this.refreshBook());
+          alert("Review updated!");
+        }
+      });
     } else {
-      const dialogRef = this.dialog.open(AddReviewDialogComponent);
+      const dialogRef = this.dialog.open(AddReviewDialogComponent, { data: { message: "Add a review" } });
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         if (result != null) {
           var review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
-          this.reviewsService.postReview(review).subscribe();
+          this.reviewsService.postReview(review).subscribe(x => this.refreshBook());
           alert("Review added!");
         }
       });

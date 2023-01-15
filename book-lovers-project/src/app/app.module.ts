@@ -32,6 +32,7 @@ import { BookPageComponent } from './components/book-page/book-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddReviewDialogComponent } from './components/dialogs/add-review-dialog/add-review-dialog.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatExpansionModule,
     MatDialogModule,
     NgbModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

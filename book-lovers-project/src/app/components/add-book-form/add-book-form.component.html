@@ -19,9 +19,19 @@
 
         <mat-form-field appearance="fill">
             <mat-label for="authors">Authors</mat-label>
-            <input matInput type="text" placeholder="Pick one" formControlName="authors" [matAutocomplete]="auto1"
-                #authors>
-            <mat-autocomplete matInput #auto1="matAutocomplete" [displayWith]="getOptionName.bind(this)">
+            <mat-chip-grid #chipGrid2 aria-label="Authors selection">
+                <mat-chip-row *ngFor="let author of authorsChips" (removed)="removeAuthor(author)">
+                    {{author.name}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + author.name">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+            </mat-chip-grid>
+            <input matInput type="text" placeholder="Pick one or more" formControlName="authors" [matAutocomplete]="auto1"
+                #authors [matChipInputFor]="chipGrid2"  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
+                (matChipInputTokenEnd)="addAuthor($event)">
+            <mat-autocomplete matInput #auto1="matAutocomplete" (optionSelected)="selectedAuthor($event)"
+            [displayWith]="getOptionName.bind(this)">
                 <mat-option *ngFor="let author of allAuthors" [value]="author">
                     {{author.name}}
                 </mat-option>
@@ -32,8 +42,19 @@
 
         <mat-form-field appearance="fill">
             <mat-label for="genres">Genres</mat-label>
-            <input matInput type="text" formControlName="genres" placeholder="Pick one" [matAutocomplete]="auto2" #genres>
-            <mat-autocomplete matInput #auto2="matAutocomplete" [displayWith]="getOptionName.bind(this)">
+            <mat-chip-grid #chipGrid aria-label="Genres selection">
+                <mat-chip-row *ngFor="let genre of genresChips" (removed)="removeGenre(genre)">
+                    {{genre.name}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + genre.name">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+            </mat-chip-grid>
+            <input matInput type="text" formControlName="genres" placeholder="Pick one or more" [matAutocomplete]="auto2"
+                #genres  [matChipInputFor]="chipGrid"  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
+                (matChipInputTokenEnd)="addGenre($event)">
+            <mat-autocomplete matInput #auto2="matAutocomplete" (optionSelected)="selectedGenre($event)"
+                [displayWith]="getOptionName.bind(this)">
                 <mat-option *ngFor="let genre of allGenres" [value]="genre">
                     {{genre.name}}
                 </mat-option>

@@ -6,8 +6,11 @@ import { AuthorType } from 'src/app/models/author.model';
 import { GenreType } from 'src/app/models/genre.model';
 import { AuthorsService } from 'src/app/services/authors.service';
 import { GenresService } from 'src/app/services/genres.service';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { FileOperationsService } from 'src/app/services/file-operations.service';
+import { BookPostType, BookType } from 'src/app/models/book.model';
+import { BooksService } from 'src/app/services/books.service';
 
 @Component({
   selector: 'app-add-book-form',
@@ -22,20 +25,50 @@ export class AddBookFormComponent implements OnInit {
   authorsChips: AuthorType[] = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private formBuilder: FormBuilder, private authorsService: AuthorsService, private genresService: GenresService) { }
+  shortLink: string = "";
+  loading: boolean = false; // Flag variable
+  file!: File; // Variable to store file
+  uploadedImage: string | null = null;
+
+  constructor(private formBuilder: FormBuilder, private authorsService: AuthorsService,
+    private genresService: GenresService, private filesService: FileOperationsService, private booksService: BooksService) { }
 
   ngOnInit(): void {
 
     this.bookForm = this.formBuilder.group({
       title: [null, [Validators.required]],
       description: [null, [Validators.required]],
+      image: [null, [Validators.required]],
       authors: [null, [Validators.required]],
       genres: [null, [Validators.required]],
     });
 
     this.authorsService.getAllAuthors().subscribe(x => this.allAuthors = x);
     this.genresService.getAllGenres().subscribe(x => this.allGenres = x);
+  }
 
+  onFileChange(event: any): void {
+    this.file = event.target.files[0];
+    
+    const reader = new FileReader();
+    reader.readAsDataURL(this.file);
+    reader.onload = () => {
+      this.uploadedImage = reader.result as string;
+  }
+}
+
+  onUpload() {
+    this.loading = !this.loading;
+    this.filesService.uploadPhoto(this.file).subscribe(
+      x => {
+        this.bookForm.get('image')?.setValue(x.body);
+      }
+    );
+  }
+
+  openInput(){ 
+    // your can use ElementRef for this later
+    document.getElementById("file-upload")?.click();
   }
 
   getOptionName(option: AuthorType | GenreType) {
@@ -45,20 +78,31 @@ export class AddBookFormComponent implements OnInit {
       return ""
   }
   onSubmit(form: FormGroup) {
-    this.bookForm.get('genres')?.setValue(this.genresChips); 
-    this.bookForm.get('authors')?.setValue(this.authorsChips); 
+    this.bookForm.get('genres')?.setValue(this.genresChips.map(genre => genre.id));
+    this.bookForm.get('authors')?.setValue(this.authorsChips.map(author => author.id));
 
-    console.log(this.bookForm.get('genres') ?.value);
-    console.log(this.bookForm.get('authors') ?.value);
+    if (this.bookForm.valid) {
+     var book: BookPostType = { title: this.bookForm.get('title')?.value, description: this.bookForm.get('description')?.value,
+    image: this.bookForm.get('image')?.value, authorsId: this.bookForm.get('authors')?.value, genresId: this.bookForm.get('genres')?.value};
+      this.booksService.postBook(book).subscribe();
+
+      this.bookForm.reset();
+      this.genresChips = [];
+      this.authorsChips = [];
+      this.uploadedImage = null;
+
+      console.log(book);
+      alert("Book added!");
+    }
 
   }
 
 
   addGenre(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    const genre = this.allGenres.find((genre) => {return genre.name == value});
+    const genre = this.allGenres.find((genre) => { return genre.name == value });
     // Add our fruit
-    if(genre){
+    if (genre) {
       this.genresChips.push(genre);
     }
     // Clear the input value
@@ -67,16 +111,16 @@ export class AddBookFormComponent implements OnInit {
 
   addAuthor(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    const author = this.allAuthors.find((author) => {return author.name == value});
+    const author = this.allAuthors.find((author) => { return author.name == value });
     // Add our fruit
-    if(author){
+    if (author) {
       this.authorsChips.push(author);
     }
     // Clear the input value
     event.chipInput!.clear();
   }
 
-  removeGenre(genre:GenreType): void {
+  removeGenre(genre: GenreType): void {
     const index = this.genresChips.indexOf(genre);
 
     if (index >= 0) {
@@ -84,7 +128,7 @@ export class AddBookFormComponent implements OnInit {
     }
   }
 
-  removeAuthor(author:AuthorType): void {
+  removeAuthor(author: AuthorType): void {
     const index = this.authorsChips.indexOf(author);
 
     if (index >= 0) {
@@ -93,13 +137,13 @@ export class AddBookFormComponent implements OnInit {
   }
 
   selectedGenre(event: MatAutocompleteSelectedEvent): void {
-    if(!this.genresChips.includes(event.option.value)){
+    if (!this.genresChips.includes(event.option.value)) {
       this.genresChips.push(event.option.value)
     }
   }
 
   selectedAuthor(event: MatAutocompleteSelectedEvent): void {
-    if(!this.authorsChips.includes(event.option.value)){
+    if (!this.authorsChips.includes(event.option.value)) {
       this.authorsChips.push(event.option.value)
     }
   }

@@ -19,6 +19,7 @@ export class BookPageComponent implements OnInit {
     id: 0,
     title: '',
     authors: [],
+    genres: [],
     image: '',
     description: '',
     reviews: []
@@ -58,7 +59,7 @@ export class BookPageComponent implements OnInit {
   onShelfClick(shelf: ShelfType): void {
     if (this.verifyShelf(shelf)) {
       alert(`Book ${this.book.title} is already added to ${shelf.name} shelf!`);
-    } else if (shelf.id !== undefined) {
+    } else if (shelf.id !== undefined && this.book.id != null) {
       this.shelvesService.postBookToShelf(this.book.id, shelf.id).subscribe();
       alert(`Book ${this.book.title} added to ${shelf.name} shelf!`);
       this.refreshShelves();
@@ -66,7 +67,7 @@ export class BookPageComponent implements OnInit {
   }
 
   onAddedShelfClick(shelf: ShelfType): void {
-    if (shelf.id !== undefined) {
+    if (shelf.id !== undefined && this.book.id != null) {
       this.shelvesService.deleteBookFromShelf(this.book.id, shelf.id).subscribe();
       alert(`Book ${this.book.title} deleted from ${shelf.name} shelf!`);
       this.refreshShelves();
@@ -86,11 +87,11 @@ export class BookPageComponent implements OnInit {
   }
 
   changedRating(): void {
-    if (this.book.reviews.some((element) => this.alreadyAddedReview(element))) {
+    if (this.book.reviews?.some((element) => this.alreadyAddedReview(element))) {
       const dialogRef = this.dialog.open(AddReviewDialogComponent, { data: { message: "Change your review" } });
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
-        if (result != null) {
+        if (result != null && this.book.id != null) {
           var review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
           this.reviewsService.putReview(review).subscribe(x => this.refreshBook());
           alert("Review updated!");
@@ -100,7 +101,7 @@ export class BookPageComponent implements OnInit {
       const dialogRef = this.dialog.open(AddReviewDialogComponent, { data: { message: "Add a review" } });
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
-        if (result != null) {
+        if (result != null && this.book.id != null) {
           var review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
           this.reviewsService.postReview(review).subscribe(x => this.refreshBook());
           alert("Review added!");
@@ -111,10 +112,10 @@ export class BookPageComponent implements OnInit {
 
   getBookRating(book: BookType): number {
     var averageRating: number = 0;
-    book.reviews.forEach(review => {
+    book.reviews?.forEach(review => {
       averageRating += review.rating;
     });
-    if (book.reviews.length == 0)
+    if (book.reviews == null || book.reviews.length == 0)
       return 0;
     return averageRating / book.reviews.length;
   }

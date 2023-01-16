@@ -18,3 +18,21 @@ h1 {
     font-family: Pacifico;
     margin-bottom: 2rem;
 }
+
+img {
+    width: 7rem;
+    height: auto;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.image-button {
+    margin-bottom: 1rem;
+}
+
+.mat-error {
+    color: red;
+}

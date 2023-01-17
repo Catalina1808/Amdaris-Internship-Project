@@ -111,6 +111,50 @@ builder.Services
         };
     });
 
+// Optional
+/*builder.Services
+    .AddIdentityCore<IdentityUser>(options =>
+    {
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 5;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.ClaimsIdentity.UserIdClaimType = "IdentityId";
+    })
+    .AddEntityFrameworkStores<ApplicationContext>();*/
+
+builder.Services.AddAuthorization();
+
+// Identity
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        var key = Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]);
+        var audiences = builder.Configuration.GetSection("JwtSettings:Audiences").Get<string[]>();
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+            ValidAudiences = audiences,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true
+        };
+    });
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();

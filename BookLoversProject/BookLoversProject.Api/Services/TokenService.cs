@@ -33,7 +33,7 @@ namespace BookLoversProject.Presentation.Services
                     new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    // new Claim("IdentityId", user.IdentityId),
+                    new Claim("IdentityId", user.IdentityId),
                     new Claim("UserId", user.Id.ToString()),
 
                     // TODO: Change role

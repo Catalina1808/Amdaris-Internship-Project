@@ -6,6 +6,8 @@ namespace BookLoversProject.Application.DTO.UserDTOs
 {
     public class UserGetDTO
     {
+        public string IdentityId { get; set; }
+
         public int Id { get; set; }
 
         public string FirstName { get; set; }

@@ -21,6 +21,7 @@ namespace BookLoversProject.Application.Commands.Create.CreateUserCommand
         {
             var reader = new User
             {
+                // IdentityId = request.IdentityId,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 ImagePath = request.ImagePath,

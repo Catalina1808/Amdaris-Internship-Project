@@ -4,6 +4,7 @@ using BookLoversProject.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLoversProject.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230117202250_AddIdentityIdToUser")]
+    partial class AddIdentityIdToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +46,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admins", (string)null);
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.Author", b =>
@@ -70,7 +72,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.Book", b =>
@@ -96,7 +98,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.BookAuthor", b =>
@@ -111,7 +113,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("BookAuthor", (string)null);
+                    b.ToTable("BookAuthor");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.Genre", b =>
@@ -129,7 +131,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.GenreBook", b =>
@@ -144,7 +146,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("GenreBook", (string)null);
+                    b.ToTable("GenreBook");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.Review", b =>
@@ -177,7 +179,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.Shelf", b =>
@@ -199,7 +201,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Shelves", (string)null);
+                    b.ToTable("Shelves");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.ShelfBook", b =>
@@ -214,7 +216,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("ShelfBook", (string)null);
+                    b.ToTable("ShelfBook");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.User", b =>
@@ -254,7 +256,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.UserAuthor", b =>
@@ -269,7 +271,7 @@ namespace BookLoversProject.Infrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("UserAuthor", (string)null);
+                    b.ToTable("UserAuthor");
                 });
 
             modelBuilder.Entity("BookLoversProject.Domain.Domain.BookAuthor", b =>

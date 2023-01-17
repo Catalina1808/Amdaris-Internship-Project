@@ -31,8 +31,15 @@ img {
 
 .image-button {
     margin-bottom: 1rem;
+    width: 100%;
 }
 
 .mat-error {
     color: red;
+}
+
+.image-error {
+    text-align: left;
+    margin-top: -1rem;
+    margin-left: 1rem;
 }

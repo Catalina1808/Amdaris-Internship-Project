@@ -27,7 +27,7 @@
                 (click)="onUpload()">
                 Upload image
             </button>
-            <mat-error *ngIf="bookForm.controls['image'].errors?.['required']">Image is required</mat-error>
+            <mat-error class="image-error" *ngIf="bookForm.controls['image'].errors?.['required']">Image is required</mat-error>
         </div>
 
         <mat-form-field appearance="fill">
@@ -49,7 +49,7 @@
                     {{author.name}}
                 </mat-option>
             </mat-autocomplete>
-            <mat-hint *ngIf="bookForm.controls['authors'].errors?.['required']" i18n>
+            <mat-hint *ngIf="bookForm.controls['authors'].errors?.['required']">
                 <span class="mat-error" color="warn">
                     At least one author is required
                 </span>

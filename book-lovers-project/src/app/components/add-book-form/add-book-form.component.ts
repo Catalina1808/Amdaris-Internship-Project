@@ -25,7 +25,6 @@ export class AddBookFormComponent implements OnInit {
   authorsChips: AuthorType[] = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  shortLink: string = "";
   loading: boolean = false; // Flag variable
   file!: File; // Variable to store file
   uploadedImage: string | null = null;
@@ -49,13 +48,13 @@ export class AddBookFormComponent implements OnInit {
 
   onFileChange(event: any): void {
     this.file = event.target.files[0];
-    
+
     const reader = new FileReader();
     reader.readAsDataURL(this.file);
     reader.onload = () => {
       this.uploadedImage = reader.result as string;
+    }
   }
-}
 
   onUpload() {
     this.loading = !this.loading;
@@ -66,8 +65,7 @@ export class AddBookFormComponent implements OnInit {
     );
   }
 
-  openInput(){ 
-    // your can use ElementRef for this later
+  openInput() {
     document.getElementById("file-upload")?.click();
   }
 
@@ -77,26 +75,6 @@ export class AddBookFormComponent implements OnInit {
     else
       return ""
   }
-  onSubmit(form: FormGroup) {
-    this.bookForm.get('genres')?.setValue(this.genresChips.map(genre => genre.id));
-    this.bookForm.get('authors')?.setValue(this.authorsChips.map(author => author.id));
-
-    if (this.bookForm.valid) {
-     var book: BookPostType = { title: this.bookForm.get('title')?.value, description: this.bookForm.get('description')?.value,
-    image: this.bookForm.get('image')?.value, authorsId: this.bookForm.get('authors')?.value, genresId: this.bookForm.get('genres')?.value};
-      this.booksService.postBook(book).subscribe();
-
-      this.bookForm.reset();
-      this.genresChips = [];
-      this.authorsChips = [];
-      this.uploadedImage = null;
-
-      console.log(book);
-      alert("Book added!");
-    }
-
-  }
-
 
   addGenre(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -145,6 +123,27 @@ export class AddBookFormComponent implements OnInit {
   selectedAuthor(event: MatAutocompleteSelectedEvent): void {
     if (!this.authorsChips.includes(event.option.value)) {
       this.authorsChips.push(event.option.value)
+    }
+  }
+
+  onSubmit(form: FormGroup) {
+    this.bookForm.get('genres')?.setValue(this.genresChips.map(genre => genre.id));
+    this.bookForm.get('authors')?.setValue(this.authorsChips.map(author => author.id));
+
+    if (this.bookForm.valid) {
+      var book: BookPostType = {
+        title: this.bookForm.get('title')?.value, description: this.bookForm.get('description')?.value,
+        image: this.bookForm.get('image')?.value, authorsId: this.bookForm.get('authors')?.value, genresId: this.bookForm.get('genres')?.value
+      };
+      this.booksService.postBook(book).subscribe();
+
+      this.bookForm.reset();
+      this.genresChips = [];
+      this.authorsChips = [];
+      this.uploadedImage = null;
+
+      console.log(book);
+      alert("Book added!");
     }
   }
 

@@ -33,7 +33,7 @@ export class MyBooksPageComponent implements OnInit {
   }
 
   getBookRating(book: BookType): number {
-    var averageRating: number = 0;
+    let averageRating: number = 0;
     book.reviews?.forEach(review => {
       averageRating += review.rating;
     });
@@ -64,7 +64,7 @@ export class MyBooksPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result != null) {
-        var shelf: ShelfType = {name: result, userId: 1, books: [] };
+        const shelf: ShelfType = {name: result, userId: 1, books: [] };
         this.shelvesService.postShelf(shelf).subscribe(x => this.refreshShelves());
       }
     });

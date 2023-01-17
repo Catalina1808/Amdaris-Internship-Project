@@ -23,7 +23,7 @@ export class AllBooksPageComponent implements OnInit {
   }
 
   getBookRating(book: BookType): number {
-    var averageRating: number = 0;
+    let averageRating: number = 0;
     book.reviews?.forEach(review => {
       averageRating += review.rating;
     });

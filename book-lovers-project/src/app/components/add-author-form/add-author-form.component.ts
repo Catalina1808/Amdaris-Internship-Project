@@ -24,10 +24,10 @@ export class AddAuthorFormComponent implements OnInit {
 
   onSubmit(form: FormGroup) {
     console.log(form);
-    var authorName: string = this.authorForm.get('name')?.value;
-    var authorDescription: string = this.authorForm.get('description')?.value;
+    const authorName: string = this.authorForm.get('name')?.value;
+    const authorDescription: string = this.authorForm.get('description')?.value;
     if (authorName != null && authorDescription != null) {
-     var author: AuthorType = { id: 0, name: authorName, description: authorDescription };
+     const author: AuthorType = { id: 0, name: authorName, description: authorDescription };
       this.authorService.postAuthor(author).subscribe();
       this.authorForm.get('name')?.setValue(null);
       this.authorForm.get('description')?.setValue(null);

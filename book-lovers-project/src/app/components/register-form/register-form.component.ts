@@ -56,7 +56,7 @@ constructor(private formBuilder: FormBuilder, private userService: UsersService,
       this.registerForm.get('imagePath')?.setValue("");
     }
     if (this.registerForm.valid) {
-     var user: UserType = { id: 0, imagePath: this.registerForm.get('imagePath')?.value,
+      const user: UserType = { id: 0, imagePath: this.registerForm.get('imagePath')?.value,
       firstName: this.registerForm.get('firstName')?.value, lastName:this.registerForm.get('lastName')?.value,
       email: this.registerForm.get('email')?.value, password: this.registerForm.get('password')?.value};
 

@@ -10,7 +10,7 @@ export class FileOperationsService {
 
   uploadPhoto(file: File): Observable<any> {
     // Create form data
-    var formData = new FormData();
+    let formData = new FormData();
 
     // Store form name as "file" with file data
     formData.append('files', file, file.name);

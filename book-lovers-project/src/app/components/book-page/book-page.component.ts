@@ -32,7 +32,7 @@ export class BookPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute, public dialog: MatDialog, private reviewsService: ReviewsService) { }
 
   ngOnInit(): void {
-    var bookId = this.activatedRoute.snapshot.paramMap.get("id");
+    const bookId = this.activatedRoute.snapshot.paramMap.get("id");
     if (bookId != null) {
       this.booksService.getBookById(+bookId).subscribe(x => {
         this.book = x;
@@ -43,7 +43,7 @@ export class BookPageComponent implements OnInit {
   }
 
   refreshBook(): void {
-    var bookId = this.activatedRoute.snapshot.paramMap.get("id");
+    const bookId = this.activatedRoute.snapshot.paramMap.get("id");
     if (bookId != null) {
       this.booksService.getBookById(+bookId).subscribe(x => {
         this.book = x;
@@ -92,7 +92,7 @@ export class BookPageComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         if (result != null && this.book.id != null) {
-          var review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
+          const review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
           this.reviewsService.putReview(review).subscribe(x => this.refreshBook());
           alert("Review updated!");
         }
@@ -102,7 +102,7 @@ export class BookPageComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         if (result != null && this.book.id != null) {
-          var review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
+          const review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
           this.reviewsService.postReview(review).subscribe(x => this.refreshBook());
           alert("Review added!");
         }
@@ -111,7 +111,7 @@ export class BookPageComponent implements OnInit {
   }
 
   getBookRating(book: BookType): number {
-    var averageRating: number = 0;
+    let averageRating: number = 0;
     book.reviews?.forEach(review => {
       averageRating += review.rating;
     });

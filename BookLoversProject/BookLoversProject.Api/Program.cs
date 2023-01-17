@@ -112,7 +112,7 @@ builder.Services
     });
 
 // Optional
-/*builder.Services
+builder.Services
     .AddIdentityCore<IdentityUser>(options =>
     {
         options.Password.RequireDigit = false;
@@ -122,7 +122,7 @@ builder.Services
         options.Password.RequireNonAlphanumeric = false;
         options.ClaimsIdentity.UserIdClaimType = "IdentityId";
     })
-    .AddEntityFrameworkStores<ApplicationContext>();*/
+    .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddAuthorization();
 

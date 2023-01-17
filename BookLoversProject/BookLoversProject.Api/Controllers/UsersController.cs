@@ -20,7 +20,7 @@ namespace BookLoversProject.Api.Controllers
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
-        //private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public UsersController(
             IMediator mediator,
@@ -31,22 +31,23 @@ namespace BookLoversProject.Api.Controllers
             _mediator = mediator;
             _mapper = mapper;
             _tokenService = tokenService;
-            //_userManager = userManager;
+            _userManager = userManager;
         }
 
         [HttpPost("test-register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserPutPostDTO user)
         {
-/*            var identityUser = new IdentityUser { UserName = user.Email, Email = user.Email };
+            var identityUser = new IdentityUser { UserName = user.Email, Email = user.Email };
             var identityResult = await _userManager.CreateAsync(identityUser, user.Password);
 
             if(!identityResult.Succeeded)
             { 
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-            }*/
+            }
             
             var command = _mapper.Map<CreateUserCommand>(user);
-            // command.IdentityId = identityUser.Id;
+            command.IdentityId = identityUser.Id;
+
             var result = await _mediator.Send(command);
 
             var userToken = _tokenService.CreateToken(result);

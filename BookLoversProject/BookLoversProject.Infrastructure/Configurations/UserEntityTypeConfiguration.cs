@@ -6,9 +6,9 @@ namespace BookLoversProject.Infrastructure.Configurations
 {
     public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<User> userAuthorConfiguration)
+        public void Configure(EntityTypeBuilder<User> userConfiguration)
         {
-            userAuthorConfiguration
+            userConfiguration
                 .Property(u => u.ImagePath)
                 .IsRequired(false);
         }

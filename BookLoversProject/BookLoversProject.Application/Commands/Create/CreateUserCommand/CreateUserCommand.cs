@@ -5,7 +5,7 @@ namespace BookLoversProject.Application.Commands.Create.CreateUserCommand
 {
     public class CreateUserCommand : IRequest<UserGetDTO>
     {
-        // public string IdentityId { get; set; }
+        public string IdentityId { get; set; }
 
         public string FirstName { get; set; }
 

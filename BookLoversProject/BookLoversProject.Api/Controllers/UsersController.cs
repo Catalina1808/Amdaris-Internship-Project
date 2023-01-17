@@ -6,7 +6,9 @@ using BookLoversProject.Application.DTO.UserDTOs;
 using BookLoversProject.Application.Queries.GetShelvesByUserIdQuery;
 using BookLoversProject.Application.Queries.GetUserByIdQuery;
 using BookLoversProject.Application.Queries.GetUsersQuery;
+using BookLoversProject.Presentation.Services;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookLoversProject.Api.Controllers
@@ -17,11 +19,27 @@ namespace BookLoversProject.Api.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly ITokenService _tokenService;
 
-        public UsersController(IMediator mediator, IMapper mapper)
+        public UsersController(
+            IMediator mediator,
+            IMapper mapper,
+            ITokenService tokenService)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _tokenService = tokenService;
+        }
+
+        [HttpPost("test-register")]
+        public async Task<IActionResult> RegisterUser([FromBody] UserPutPostDTO user)
+        {
+            var command = _mapper.Map<CreateUserCommand>(user);
+            var result = await _mediator.Send(command);
+
+            var userToken = _tokenService.CreateToken(result);
+
+            return Ok(new { userId = result.Id, token = userToken });
         }
 
         [HttpPost]

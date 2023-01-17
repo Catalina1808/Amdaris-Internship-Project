@@ -6,12 +6,14 @@ using BookLoversProject.Application.DTO.AdminDTOs;
 using BookLoversProject.Application.Queries.GetAdminByIdQuery;
 using BookLoversProject.Application.Queries.GetAdminsQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookLoversProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
         private readonly IMediator _mediator;

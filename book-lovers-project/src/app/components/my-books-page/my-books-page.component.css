@@ -10,15 +10,15 @@ ul {
     padding: 0;
 }
 
-mat-drawer-content{
-    height:80vh;
+mat-drawer-content {
+    height: 80vh;
 }
 
 li.book-card {
     margin-top: -4rem;
 }
 
-.shelf-container{
+.shelf-container {
     display: inline-flex;
 }
 
@@ -42,7 +42,7 @@ mat-panel-title {
     padding: 0.3em;
 }
 
-mat-expansion-panel{
+mat-expansion-panel {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -58,7 +58,7 @@ mat-drawer {
     text-align: center;
 }
 
-button{
+button {
     margin: 0.5rem;
     padding: 0.5rem;
 }

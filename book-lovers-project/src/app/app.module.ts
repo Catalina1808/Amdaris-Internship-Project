@@ -33,6 +33,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddReviewDialogComponent } from './components/dialogs/add-review-dialog/add-review-dialog.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
+import { ReviewCardComponent } from './components/review-card/review-card.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import {MatChipsModule} from '@angular/material/chips';
     DialogAddShelfComponent,
     DialogDeleteComponent,
     BookPageComponent,
-    AddReviewDialogComponent
+    AddReviewDialogComponent,
+    ReviewCardComponent
   ],
   imports: [
     BrowserModule,

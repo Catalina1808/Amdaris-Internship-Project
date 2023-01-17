@@ -1,0 +1,30 @@
+img {
+    margin-right: 0.5rem;
+    width: 5rem;
+    height: 5rem;
+    object-fit:cover;
+    border-radius: 50%;
+}
+
+h1 {
+    font-size: 1.2rem;
+}
+
+h2 {
+    margin-top: -1rem;
+    font-size: 0.5 rem;
+    font-family: Pacifico;
+}
+
+
+.flex-container {
+    display: inline-flex;
+    margin: 1rem;
+    padding: 10px;
+    position: relative;
+    height: auto;
+    width: 25rem;
+    border-radius: 1.3rem;
+    color: rgb(247, 249, 251);
+    background-color: rgb(58, 34, 8);
+}

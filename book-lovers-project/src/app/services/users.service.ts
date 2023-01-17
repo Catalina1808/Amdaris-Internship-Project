@@ -12,4 +12,8 @@ export class UsersService {
   postUser(user:UserType): Observable<UserType> {
     return this.httpClient.post<UserType>('api/Users', user);
   }
+
+  getUserById(userId:number): Observable<UserType> {
+    return this.httpClient.get<UserType>(`api/Users/${userId}`);
+  }
 }

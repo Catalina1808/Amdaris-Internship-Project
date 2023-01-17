@@ -19,6 +19,14 @@ h3 {
     margin-right: 1rem;
 }
 
+p {
+    font-size: 1.2rem;
+}
+
+.review-title{
+    font-size: 1.5rem;
+}
+
 ul {
     margin: 0em;
     display: flex;
@@ -30,18 +38,18 @@ ul {
     padding: 0;
 }
 
-.stars { 
+.stars {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 }
 
-.shelf-button{
+.shelf-button {
     margin: 0.3rem;
 }
 
-.shelf-container{
+.shelf-container {
     display: inline-flex;
 }
 
@@ -67,10 +75,9 @@ ul {
 
 .authors-list {
     display: inline-flex;
-    font-size: 1.2rem;
     margin-bottom: 1rem;
 }
 
-.author-name{
+.author-name {
     text-decoration: underline;
 }

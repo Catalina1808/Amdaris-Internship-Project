@@ -34,6 +34,16 @@
             <p class="author-name" *ngFor="let author of book.authors">&nbsp; {{author.name}}</p>
         </div>
         <h2>{{book.description}}</h2>
+
+        <br>
+        <p class="review-title">Reviews:</p>
+        <ul>
+            <li *ngFor="let review of book.reviews">
+                <app-review-card #reviewCard [user]="getUserById(review.userId)"  [comment]="review.comment" [date]="review.date"
+                    ></app-review-card>
+            </li>
+        </ul>
+
     </div>
 
 </div>

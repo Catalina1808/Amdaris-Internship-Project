@@ -8,6 +8,9 @@ import { AddReviewDialogComponent } from '../dialogs/add-review-dialog/add-revie
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewType } from 'src/app/models/review.model';
 import { ReviewsService } from 'src/app/services/reviews.service';
+import { UserType } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users.service';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-book-page',
@@ -24,12 +27,14 @@ export class BookPageComponent implements OnInit {
     description: '',
     reviews: []
   }
+  users: UserType[] = [];
   shelves: ShelfType[] = [];
   currentRate: number = 0;
   reviewId: number = 0;
 
   constructor(private booksService: BooksService, private shelvesService: ShelvesService,
-    private activatedRoute: ActivatedRoute, public dialog: MatDialog, private reviewsService: ReviewsService) { }
+    private activatedRoute: ActivatedRoute, public dialog: MatDialog,
+    private reviewsService: ReviewsService, public usersService: UsersService) { }
 
   ngOnInit(): void {
     const bookId = this.activatedRoute.snapshot.paramMap.get("id");
@@ -37,6 +42,7 @@ export class BookPageComponent implements OnInit {
       this.booksService.getBookById(+bookId).subscribe(x => {
         this.book = x;
         this.currentRate = this.getBookRating(this.book);
+        this.getUsers();
       });
     }
     this.refreshShelves();
@@ -48,6 +54,14 @@ export class BookPageComponent implements OnInit {
       this.booksService.getBookById(+bookId).subscribe(x => {
         this.book = x;
         this.currentRate = this.getBookRating(this.book);
+      });
+    }
+  }
+
+  getUsers(): void {
+    if (this.book.reviews) {
+      this.book.reviews.forEach(review => {
+        this.usersService.getUserById(review.userId).subscribe(x => this.users.push(x));
       });
     }
   }
@@ -118,5 +132,11 @@ export class BookPageComponent implements OnInit {
     if (book.reviews == null || book.reviews.length == 0)
       return 0;
     return averageRating / book.reviews.length;
+  }
+
+  getUserById(id: number): UserType{
+    const user:UserType | undefined = this.users.find(user => user.id == id)
+  
+    return user || {id: 0, firstName: "", lastName: "", email: "", password:"", imagePath:""};
   }
 }

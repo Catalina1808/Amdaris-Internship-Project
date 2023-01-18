@@ -5,7 +5,7 @@ namespace BookLoversProject.Application.Commands.Update.UpdateUserCommand
 {
     public class UpdateUserCommand: IRequest<UserGetDTO>
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 
@@ -16,5 +16,7 @@ namespace BookLoversProject.Application.Commands.Update.UpdateUserCommand
         public string Email { get; set; }
 
         public string Password { get; set; }
+
+        public string UserName { get; set; }
     }
 }

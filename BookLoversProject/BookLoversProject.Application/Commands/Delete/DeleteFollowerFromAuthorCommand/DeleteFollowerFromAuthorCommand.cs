@@ -5,7 +5,7 @@ namespace BookLoversProject.Application.Commands.Delete.DeleteFollowerFromAuthor
 {
     public class DeleteFollowerFromAuthorCommand : IRequest<AuthorGetDTO>
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public int AuthorId { get; set; }
     }

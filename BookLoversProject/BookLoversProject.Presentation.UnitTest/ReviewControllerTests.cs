@@ -1,15 +1,8 @@
 ﻿using AutoMapper;
-using BookLoversProject.Api.Controllers;
-using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
 using BookLoversProject.Application.Commands.Create.CreateReviewCommand;
-using BookLoversProject.Application.Commands.Delete.DeleteGenreCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteReviewCommand;
-using BookLoversProject.Application.Commands.Update.UpdateGenreCommand;
 using BookLoversProject.Application.Commands.Update.UpdateReviewCommand;
-using BookLoversProject.Application.DTO.BookDTOs;
-using BookLoversProject.Application.DTO.GenreDTOs;
 using BookLoversProject.Application.DTO.ReviewDTOs;
-using BookLoversProject.Application.Queries.GetGenreByIdQuery;
 using BookLoversProject.Application.Queries.GetReviewByIdQuery;
 using BookLoversProject.Domain.Domain;
 using BookLoversProject.Presentation.Controllers;
@@ -127,7 +120,7 @@ namespace BookLoversProject.Presentation.UnitTest
                             Id = q.Id,
                             Comment = "Great book!",
                             BookId = 1,
-                            UserId = 1,
+                            UserId = "1",
                             Date = DateTime.Now
                         });
                 });
@@ -172,7 +165,7 @@ namespace BookLoversProject.Presentation.UnitTest
             var result = await controller.CreateReview(new ReviewPostDTO
             {
                 Comment = "Great book!",
-                UserId = 1,
+                UserId = "1",
                 BookId = 1
             });
 
@@ -212,7 +205,7 @@ namespace BookLoversProject.Presentation.UnitTest
             ReviewPostDTO reviewPutPost = new ReviewPostDTO
             {
                 Comment = "Great book!",
-                UserId = 1,
+                UserId = "1",
                 BookId = 1
             };
 

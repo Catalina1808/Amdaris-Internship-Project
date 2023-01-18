@@ -5,6 +5,6 @@ namespace BookLoversProject.Application.Queries.GetShelvesByUserIdQuery
 {
     public class GetShelvesByUserIdQuery : IRequest<IEnumerable<ShelfGetDTO>>
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

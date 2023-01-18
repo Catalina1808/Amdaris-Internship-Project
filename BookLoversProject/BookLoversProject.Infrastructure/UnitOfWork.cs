@@ -6,12 +6,11 @@ namespace BookLoversProject.Infrastructure
     {
         private readonly ApplicationContext _applicationContext;
 
-        public UnitOfWork(ApplicationContext applicationContext, IAdminRepository adminRepository, IAuthorRepository authorRepository,
+        public UnitOfWork(ApplicationContext applicationContext, IAuthorRepository authorRepository,
             IBookRepository bookRepository, IGenreRepository genreRepository, IReviewRepository reviewRepository,
             IShelfRepository shelfRepository, IUserRepository userRepository)
         {
             _applicationContext = applicationContext;
-            AdminRepository = adminRepository;
             AuthorRepository = authorRepository;
             BookRepository = bookRepository;
             GenreRepository = genreRepository;
@@ -19,8 +18,6 @@ namespace BookLoversProject.Infrastructure
             ShelfRepository = shelfRepository;
             UserRepository = userRepository;
         }
-
-        public IAdminRepository AdminRepository { get; private set;}
 
         public IAuthorRepository AuthorRepository { get; private set; }
 

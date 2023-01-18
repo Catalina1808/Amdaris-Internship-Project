@@ -5,6 +5,6 @@ namespace BookLoversProject.Application.Commands.Delete.DeleteUserCommand
 {
     public class DeleteUserCommand: IRequest<User>
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }

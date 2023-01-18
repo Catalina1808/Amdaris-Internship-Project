@@ -6,7 +6,7 @@ namespace BookLoversProject.Application.Interfaces
     {
         Task<User> AddReaderAsync(User user);
 
-        Task<User> GetUserByIdAsync(int id);
+        Task<User> GetUserByIdAsync(string id);
 
         Task<ICollection<User>> GetAllUsersAsync();
 

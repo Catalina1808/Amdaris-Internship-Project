@@ -5,7 +5,7 @@ namespace BookLoversProject.Application.Commands.Update.AddFollowerToAuthorComma
 {
     public class AddFollowerToAuthorCommand: IRequest<AuthorGetDTO>
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public int AuthorId { get; set; }
     }

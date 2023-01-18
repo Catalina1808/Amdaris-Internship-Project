@@ -26,7 +26,8 @@ namespace BookLoversProject.Application.Commands.Update.UpdateUserCommand
                 LastName = request.LastName,
                 ImagePath = request.ImagePath,
                 Email = request.Email,
-                Password = request.Password
+                Password = request.Password,
+                UserName = request.UserName,
             };
 
             await _unitOfWork.UserRepository.UpdateUserAsync(toUpdate);

@@ -2,7 +2,6 @@
 {
     public interface IUnitOfWork : IDisposable
     {
-        public IAdminRepository AdminRepository { get; }
         public IAuthorRepository AuthorRepository { get; }
         public IBookRepository BookRepository { get; }
         public IGenreRepository GenreRepository { get; }

@@ -25,7 +25,8 @@ namespace BookLoversProject.Application.Commands.Create.CreateUserCommand
                 LastName = request.LastName,
                 ImagePath = request.ImagePath,
                 Email = request.Email,
-                Password = request.Password
+                Password = request.Password,
+                UserName = request.UserName,
             };
 
             await _unitOfWork.UserRepository.AddReaderAsync(reader);

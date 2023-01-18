@@ -37,7 +37,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpPost]
         [Route("{authorId}/Users/{userId}")]
-        public async Task<IActionResult> AddFollowerToAuthor(int userId, int authorId)
+        public async Task<IActionResult> AddFollowerToAuthor(string userId, int authorId)
         {
             var command = new AddFollowerToAuthorCommand
             {
@@ -93,7 +93,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpDelete]
         [Route("{authorId}/Users/{userId}")]
-        public async Task<IActionResult> DeleteFollowerFromAuthor(int userId, int authorId)
+        public async Task<IActionResult> DeleteFollowerFromAuthor(string userId, int authorId)
         {
             var command = new DeleteFollowerFromAuthorCommand
             {

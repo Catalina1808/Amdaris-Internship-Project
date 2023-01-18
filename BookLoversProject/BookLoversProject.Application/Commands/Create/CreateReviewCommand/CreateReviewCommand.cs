@@ -11,6 +11,6 @@ namespace BookLoversProject.Application.Commands.Create.CreateReviewCommand
 
         public int BookId { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

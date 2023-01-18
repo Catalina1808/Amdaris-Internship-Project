@@ -52,8 +52,8 @@ constructor(private formBuilder: FormBuilder, private userService: UsersService,
 
   onSubmit(form: FormGroup) {
     console.log(form);
-    if(this.uploadedImage == null){
-      this.registerForm.get('imagePath')?.setValue("");
+    if(!this.registerForm.get('imagePath')?.value){
+      this.registerForm.get('imagePath')?.setValue('https://booklovers.blob.core.windows.net/photos/NoProfileImage.png');
     }
     if (this.registerForm.valid) {
       const user: UserType = { id: 0, imagePath: this.registerForm.get('imagePath')?.value,

@@ -23,6 +23,19 @@
             <mat-error *ngIf="authorForm.controls['description'].errors?.['required']">Description is required</mat-error>
         </mat-form-field>
 
+        <div>
+            <button type="button" mat-raised-button class="image-button" (click)="openInput()">
+                Select image
+            </button>
+            <input hidden id="file-upload" type="file" (change)="onFileChange($event)">
+            <img *ngIf="uploadedImage != null" src={{uploadedImage}}>
+            <button type="button" *ngIf="uploadedImage != null" mat-raised-button class="image-button"
+                (click)="onUpload()">
+                Upload image
+            </button>
+            <mat-error class="image-error" *ngIf="authorForm.controls['image'].errors?.['required']">Image is required</mat-error>
+        </div>
+
 
         <!-- <button [disabled]="!signUpForm.valid" type="submit" mat-raised-button color="primary">Submit</button> -->
         <button type="submit" mat-raised-button color="primary">Add author</button>

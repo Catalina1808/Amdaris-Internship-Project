@@ -93,7 +93,7 @@ export class BookPageComponent implements OnInit {
   }
 
   alreadyAddedReview(element: ReviewType): boolean {
-    if (element.bookId == this.book.id && element.userId == 1) {
+    if (element.bookId == this.book.id && element.userId == "1") {
       this.reviewId = element.id;
       return true;
     }
@@ -106,7 +106,7 @@ export class BookPageComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         if (result != null && this.book.id != null) {
-          const review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
+          const review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: "1", bookId: this.book.id, date: new Date() };
           this.reviewsService.putReview(review).subscribe(x => this.refreshBook());
           alert("Review updated!");
         }
@@ -116,7 +116,7 @@ export class BookPageComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         if (result != null && this.book.id != null) {
-          const review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: 1, bookId: this.book.id, date: new Date() };
+          const review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: "1", bookId: this.book.id, date: new Date() };
           this.reviewsService.postReview(review).subscribe(x => this.refreshBook());
           alert("Review added!");
         }
@@ -134,9 +134,9 @@ export class BookPageComponent implements OnInit {
     return averageRating / book.reviews.length;
   }
 
-  getUserById(id: number): UserType{
+  getUserById(id: string): UserType{
     const user:UserType | undefined = this.users.find(user => user.id == id)
   
-    return user || {id: 0, firstName: "", lastName: "", email: "", password:"", imagePath:""};
+    return user || {id: '0', userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:""};
   }
 }

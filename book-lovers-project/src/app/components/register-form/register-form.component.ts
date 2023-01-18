@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserType } from 'src/app/models/user.model';
 import { FileOperationsService } from 'src/app/services/file-operations.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -9,18 +10,21 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.css']
 })
-export class RegisterFormComponent implements OnInit{
+export class RegisterFormComponent implements OnInit {
   registerForm: FormGroup = new FormGroup({});
-  uploadedImage: string | null = null; 
+  uploadedImage: string | null = null;
   loading: boolean = false; // Flag variable
   file!: File; // Variable to store file
 
-constructor(private formBuilder: FormBuilder, private userService: UsersService, private filesService: FileOperationsService, ) { }
+  constructor(private router: Router, private formBuilder: FormBuilder,
+    private userService: UsersService, private filesService: FileOperationsService) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
+      userName: [null, [Validators.required]],
+      isAdmin: [false, [Validators.required]],
       imagePath: [null],
       email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: [null, [Validators.required, Validators.minLength(6), this.containsDigitsAndLetters]],
@@ -51,29 +55,37 @@ constructor(private formBuilder: FormBuilder, private userService: UsersService,
   }
 
   onSubmit(form: FormGroup) {
-    console.log(form);
-    if(!this.registerForm.get('imagePath')?.value){
+    const isAdmin: Boolean = this.registerForm.get('isAdmin')?.value;
+
+    if (!this.registerForm.get('imagePath')?.value) {
       this.registerForm.get('imagePath')?.setValue('https://booklovers.blob.core.windows.net/photos/NoProfileImage.png');
     }
     if (this.registerForm.valid) {
-      const user: UserType = { id: 0, imagePath: this.registerForm.get('imagePath')?.value,
-      firstName: this.registerForm.get('firstName')?.value, lastName:this.registerForm.get('lastName')?.value,
-      email: this.registerForm.get('email')?.value, password: this.registerForm.get('password')?.value};
+      const user: UserType = {
+        id: "", imagePath: this.registerForm.get('imagePath')?.value, userName: this.registerForm.get('userName')?.value,
+        firstName: this.registerForm.get('firstName')?.value, lastName: this.registerForm.get('lastName')?.value,
+        email: this.registerForm.get('email')?.value, password: this.registerForm.get('password')?.value
+      };
 
-      this.userService.postUser(user).subscribe();
+      this.userService.registerUser(user).subscribe(result => {
+        if (isAdmin){
+          this.userService.assignRole(result.userId, "Admin").subscribe();
+        }
+      });
 
       this.registerForm.reset();
       this.uploadedImage = null;
       alert("User added!");
+      this.router.navigateByUrl('login');
     }
   }
 
-  containsDigitsAndLetters(control: FormControl): {[s: string]: boolean} | null {
-    if(control.value != null && control.value.match("^(?=.*[a-zA-Z])(?=.*[0-9])")) {
+  containsDigitsAndLetters(control: FormControl): { [s: string]: boolean } | null {
+    if (control.value != null && control.value.match("^(?=.*[a-zA-Z])(?=.*[0-9])")) {
       return null
     }
 
-    return {"containsDigitsAndLetters": true}
+    return { "containsDigitsAndLetters": true }
   }
 
 }

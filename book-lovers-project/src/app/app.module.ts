@@ -34,6 +34,7 @@ import { AddReviewDialogComponent } from './components/dialogs/add-review-dialog
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { ReviewCardComponent } from './components/review-card/review-card.compon
     MatDialogModule,
     NgbModule,
     MatAutocompleteModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

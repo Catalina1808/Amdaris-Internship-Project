@@ -33,3 +33,15 @@ img {
     margin-bottom: 1rem;
     width: 100%;
 }
+
+::ng-deep 
+.mat-mdc-checkbox .mdc-form-field {
+    color: var(--mdc-theme-text-primary-on-background, rgb(9, 9, 9));
+    font-family: Pacifico;
+    font-size: 1.5em;
+    margin-bottom: 1rem;
+}
+
+.checkbox{
+    text-align: start;
+}

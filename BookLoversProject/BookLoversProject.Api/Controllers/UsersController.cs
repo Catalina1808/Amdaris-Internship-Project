@@ -43,10 +43,16 @@ namespace BookLoversProject.Api.Controllers
         [Route("Register")]
         public async Task<IActionResult> CreateUser([FromBody] UserPutPostDTO user)
         {
-            var userExists = await _userManager.FindByEmailAsync(user.Email);
-            if(userExists != null)
+            var userEmailExists = await _userManager.FindByEmailAsync(user.Email);
+            var userUsernameExists = await _userManager.FindByEmailAsync(user.Email);
+            if (userEmailExists != null)
             {
                 return BadRequest("User with this email aready exists!");
+            }
+
+            if (userUsernameExists != null)
+            {
+                return BadRequest("User with this username aready exists!");
             }
 
             User newUser = new User

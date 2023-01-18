@@ -8,7 +8,9 @@ using BookLoversProject.Application.DTO.AuthorDTOs;
 using BookLoversProject.Application.Queries.GetAuthorByIdQuery;
 using BookLoversProject.Application.Queries.GetAuthorsQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace BookLoversProject.Api.Controllers
 {
@@ -26,6 +28,7 @@ namespace BookLoversProject.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAuthor([FromBody] AuthorPutPostDTO author)
         {
             var command = _mapper.Map<CreateAuthorCommand>(author);
@@ -70,6 +73,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpPut]
         [Route("{authorId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateAuthor(int authorId, [FromBody] AuthorPutPostDTO updatedAuthor)
         {
             var command = _mapper.Map<UpdateAuthorCommand>(updatedAuthor);
@@ -82,6 +86,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpDelete]
         [Route("{authorId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAuthor(int authorId)
         {
             var command = new DeleteAuthorCommand { Id = authorId };

@@ -10,7 +10,7 @@ export class ReviewCardComponent{
   @Input()
   comment: string = "";
   @Input()
-  user: UserType =  {id: 0, firstName: "", lastName: "", email: "", password:"", imagePath:""};
+  user: UserType =  {id: "", userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:""};
 
   @Input()
   date: Date = new Date();

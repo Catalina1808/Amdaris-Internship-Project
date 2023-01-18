@@ -6,7 +6,9 @@ using BookLoversProject.Application.DTO.GenreDTOs;
 using BookLoversProject.Application.Queries.GetGenreByIdQuery;
 using BookLoversProject.Application.Queries.GetGenresQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace BookLoversProject.Api.Controllers
 {
@@ -24,6 +26,7 @@ namespace BookLoversProject.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateGenre([FromBody] GenrePutPostDTO genre)
         {
             var command = _mapper.Map<CreateGenreCommand>(genre);
@@ -53,6 +56,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpPut]
         [Route("{genreId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateGenre(int genreId, [FromBody] GenrePutPostDTO updatedGenre)
         {
 
@@ -66,6 +70,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpDelete]
         [Route("{genreId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteGenre(int genreId)
         {
             var command = new DeleteGenreCommand { Id = genreId };

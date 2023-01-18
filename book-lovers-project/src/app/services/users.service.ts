@@ -1,3 +1,4 @@
+import { P } from '@angular/cdk/keycodes';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,11 +10,19 @@ import { UserType } from '../models/user.model';
 export class UsersService {
   constructor(private httpClient: HttpClient) {}
 
-  postUser(user:UserType): Observable<UserType> {
-    return this.httpClient.post<UserType>('api/Users', user);
+  registerUser(user:UserType): Observable<{userId: string}> {
+    return this.httpClient.post<{userId: string}>('api/Users/Register', user);
   }
 
-  getUserById(userId:number): Observable<UserType> {
+  loginUser(userName: string, password: string): Observable<{token: string}> {
+    return this.httpClient.post<{token: string}>(`api/Users/Login?userName=${userName}&password=${password}`, {userName: userName, password: password});
+  }
+
+  assignRole(userId: string, role: string): Observable<any>{
+    return this.httpClient.post(`api/Users/AssignRole?userId=${userId}&roleName=${role}`, {userId: userId, roleName: role}, {observe:'response', responseType:'text'});
+  }
+
+  getUserById(userId:string): Observable<UserType> {
     return this.httpClient.get<UserType>(`api/Users/${userId}`);
   }
 }

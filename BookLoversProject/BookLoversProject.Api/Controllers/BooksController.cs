@@ -11,8 +11,10 @@ using BookLoversProject.Application.DTO.BookDTOs;
 using BookLoversProject.Application.Queries.GetBookByIdQuery;
 using BookLoversProject.Application.Queries.GetBooksQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Data;
 
 namespace BookLoversProject.Api.Controllers
 {
@@ -38,6 +40,7 @@ namespace BookLoversProject.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateBook([FromBody] BookPostDTO book)
         {
             var command = _mapper.Map<CreateBookCommand>(book);
@@ -48,6 +51,7 @@ namespace BookLoversProject.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("{bookId}/Authors/{authorId}")]
         public async Task<IActionResult> AddAuthorToBook(int authorId, int bookId)
         {
@@ -64,6 +68,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpPost]
         [Route("{bookId}/Genres/{genreId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddGenreToBook(int genreId, int bookId)
         {
             var command = new AddGenreToBookCommand
@@ -97,6 +102,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpPut]
         [Route("{bookId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateBook(int bookId, [FromBody] BookPutDTO updatedBook)
         {
 
@@ -110,6 +116,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpDelete]
         [Route("{bookId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteBook(int bookId)
         {
             var command = new DeleteBookCommand { Id = bookId };
@@ -121,6 +128,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpDelete]
         [Route("{bookId}/Authors/{authorId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAuthorToFromBook(int authorId, int bookId)
         {
             var command = new DeleteAuthorFromBookCommand
@@ -136,6 +144,7 @@ namespace BookLoversProject.Api.Controllers
 
         [HttpDelete]
         [Route("{bookId}/Genres/{genreId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteGenreFromBook(int genreId, int bookId)
         {
             var command = new DeleteGenreFromBookCommand

@@ -1,30 +1,38 @@
 img {
-    width: 13rem;
-    height: 19rem;
-    border-radius: 0.5rem;
+    width: 10rem;
+    height: 10rem;
+    object-fit:cover;
+    border-radius: 50%;
+    margin-bottom: 2rem;
 }
 
 h1 {
-    font-family: Pacifico;
-    font-size: 2rem;
+    font-size: 2.3rem;
+}
+
+hr{
+    margin-bottom: 2rem;
 }
 
 h2 {
-    font-size: 1rem;
+    font-size: 1.7rem;
 }
 
-h3 {
+mat-panel-title, h1, h2{
     font-family: Pacifico;
-    margin-top: 1rem;
-    margin-right: 1rem;
 }
 
-p {
+mat-panel-title{
     font-size: 1.2rem;
 }
 
-.review-title{
-    font-size: 1.5rem;
+h3 {
+    font-size: 1.2rem;
+    font-family: Georgia;
+}
+
+p {
+    font-size: 1.4rem;
 }
 
 ul {
@@ -38,11 +46,17 @@ ul {
     padding: 0;
 }
 
-.stars {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+.edit-button{
+    margin-top: 2rem;
+}
+
+.book-list-title{
+    margin-top: 2rem;
+    margin-bottom: -5rem;
+    color: #523529;
+    text-decoration:underline;
+    font-family: Pacifico;
+    font-size: 1.5rem;
 }
 
 .shelf-button {
@@ -64,21 +78,11 @@ ul {
 
 .grid-item-right {
     font-family: Pacifico, serif;
-    margin: 1rem;
 }
 
 .grid-item-left {
     margin-left: auto;
-    margin-right: 4rem;
+    margin-right: 3rem;
     width: fit-content;
     text-align: center;
-}
-
-.authors-list {
-    display: inline-flex;
-    margin-bottom: 1rem;
-}
-
-.author-name {
-    text-decoration: underline;
 }

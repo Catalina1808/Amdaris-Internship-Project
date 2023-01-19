@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpResponse ,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { BookPostType, BookType } from '../models/book.model';
@@ -15,7 +15,7 @@ export class BooksService {
     return this.httpClient.get<BookType[]>('api/Books');
   }
 
-  getUserShelves(userId:number): Observable<ShelfType[]> {
+  getUserShelves(userId:string): Observable<ShelfType[]> {
     return this.httpClient.get<ShelfType[]>(`api/Users/${userId}/Shelves`);
   }
 
@@ -23,7 +23,12 @@ export class BooksService {
     return this.httpClient.get<BookType>(`api/Books/${bookId}`);
   }
 
-  postBook(book: BookPostType): Observable<BookType> {
-    return this.httpClient.post<BookType>(`api/Books`, book);
+  postBook(book: BookPostType): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.post(`api/Books`, book, { headers: headers })
   }
 }

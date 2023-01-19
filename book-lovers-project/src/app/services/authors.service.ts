@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthorType } from '../models/author.model';
@@ -11,7 +11,13 @@ export class AuthorsService {
   constructor(private httpClient: HttpClient) {}
 
   postAuthor(author:AuthorType): Observable<AuthorType> {
-    return this.httpClient.post<AuthorType>('api/Authors', author);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.httpClient.post<AuthorType>('api/Authors', author, { headers: headers });
   }
 
   getAllAuthors(): Observable<AuthorType[]> {

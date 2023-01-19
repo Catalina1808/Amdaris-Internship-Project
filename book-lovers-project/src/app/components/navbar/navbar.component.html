@@ -1,7 +1,7 @@
 <mat-toolbar>
     <span>Book Lovers</span>
-    <a mat-button routerLink="/home">Home</a>
-    <a mat-button routerLink="/my-books">My Books</a>
+    <a *ngIf="token" mat-button routerLink="/home">Home</a>
+    <a *ngIf="token" mat-button routerLink="/my-books">My Books</a>
     <a mat-button routerLink="/all-books">All Books</a>
 
     <span class="spacer"></span>
@@ -11,7 +11,21 @@
     </mat-form-field>
 
 
-    <button mat-icon-button routerLink="/login" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>account_circle</mat-icon>
-    </button>
+    <mat-icon class="icon-display" *ngIf="!token" routerLink="/login">account_circle</mat-icon>
+
+    <div *ngIf="getInfoFromToken()">
+        <button class="user-profile-button" mat-button [matMenuTriggerFor]="menu">
+            <img src={{userImage}}>
+            {{userName}}
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="profile" *ngIf="token">Profile</button>
+            <button mat-menu-item routerLink="add-book" *ngIf="isAdmin">Add book</button>
+            <button mat-menu-item routerLink="add-author" *ngIf="isAdmin">Add author</button>
+            <button mat-menu-item (click)="logOut()" *ngIf="token">Log out</button>
+        </mat-menu>
+
+    </div>
+
+
 </mat-toolbar>

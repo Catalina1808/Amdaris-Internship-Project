@@ -1,18 +1,18 @@
 img {
     margin-right: 0.5rem;
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     object-fit:cover;
     border-radius: 50%;
 }
 
 h1 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 h2 {
     margin-top: -1rem;
-    font-size: 0.5 rem;
+    font-size: 0.4 rem;
     font-family: Pacifico;
 }
 
@@ -24,7 +24,7 @@ h2 {
     position: relative;
     height: auto;
     width: 25rem;
-    border-radius: 1.3rem;
+    border-radius: 1.5rem;
     color: rgb(208, 163, 131);
-    background-color: rgb(58, 34, 8);
+    background-color: #523529;
 }

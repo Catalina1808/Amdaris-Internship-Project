@@ -35,6 +35,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatMenuModule} from '@angular/material/menu';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
+import { CurrentUserProfileComponent } from './components/current-user-profile/current-user-profile.component';
+import { UpdateUserFormComponent } from './components/update-user-form/update-user-form.component';
 
 
 @NgModule({
@@ -54,7 +58,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     DialogDeleteComponent,
     BookPageComponent,
     AddReviewDialogComponent,
-    ReviewCardComponent
+    ReviewCardComponent,
+    ProfilePageComponent,
+    CurrentUserProfileComponent,
+    UpdateUserFormComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +81,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     NgbModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

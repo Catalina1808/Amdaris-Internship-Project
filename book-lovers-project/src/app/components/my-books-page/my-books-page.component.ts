@@ -16,12 +16,14 @@ export class MyBooksPageComponent implements OnInit {
   books: BookType[] = [];
   displayedBooks: BookType[] = [];
   shelves: ShelfType[] = [];
+  userId: string = "";
 
   constructor(private booksService: BooksService, public dialog: MatDialog,
     private shelvesService: ShelvesService) { }
 
   ngOnInit(): void {
-    this.booksService.getUserShelves(1).subscribe(x => {
+    this.getInfoFromToken();
+    this.booksService.getUserShelves(this.userId).subscribe(x => {
       this.shelves = x;
       this.shelves.forEach(shelf => {
         shelf.books.forEach(book => {
@@ -30,6 +32,17 @@ export class MyBooksPageComponent implements OnInit {
       });
       this.displayedBooks = this.books;
     });
+  }
+
+  getInfoFromToken(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      let jwtData = token.split('.')[1]
+      let decodedJwtJsonData = window.atob(jwtData)
+      let decodedJwtData = JSON.parse(decodedJwtJsonData)
+
+      this.userId = decodedJwtData.UserId;
+    }
   }
 
   getBookRating(book: BookType): number {
@@ -56,7 +69,7 @@ export class MyBooksPageComponent implements OnInit {
   }
 
   refreshShelves(): void {
-    this.booksService.getUserShelves(1).subscribe(x => this.shelves = x);
+    this.booksService.getUserShelves(this.userId).subscribe(x => this.shelves = x);
   }
 
   addShelf(): void {
@@ -64,7 +77,7 @@ export class MyBooksPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result != null) {
-        const shelf: ShelfType = {name: result, userId: 1, books: [] };
+        const shelf: ShelfType = {name: result, userId: this.userId, books: [] };
         this.shelvesService.postShelf(shelf).subscribe(x => this.refreshShelves());
       }
     });

@@ -29,7 +29,7 @@ namespace BookLoversProject.Presentation.Services
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.Name, user.UserName),
-                   // new Claim("IdentityId", user.IdentityId),
+                    new Claim("ImagePath", user.ImagePath),
                     new Claim("UserId", user.Id),
             };
 

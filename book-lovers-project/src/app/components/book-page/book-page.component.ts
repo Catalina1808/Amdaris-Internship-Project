@@ -31,12 +31,14 @@ export class BookPageComponent implements OnInit {
   shelves: ShelfType[] = [];
   currentRate: number = 0;
   reviewId: number = 0;
+  userId: string = "";
 
   constructor(private booksService: BooksService, private shelvesService: ShelvesService,
     private activatedRoute: ActivatedRoute, public dialog: MatDialog,
     private reviewsService: ReviewsService, public usersService: UsersService) { }
 
   ngOnInit(): void {
+    this.getInfoFromToken();
     const bookId = this.activatedRoute.snapshot.paramMap.get("id");
     if (bookId != null) {
       this.booksService.getBookById(+bookId).subscribe(x => {
@@ -46,6 +48,17 @@ export class BookPageComponent implements OnInit {
       });
     }
     this.refreshShelves();
+  }
+
+  getInfoFromToken(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      let jwtData = token.split('.')[1]
+      let decodedJwtJsonData = window.atob(jwtData)
+      let decodedJwtData = JSON.parse(decodedJwtJsonData)
+
+      this.userId = decodedJwtData.UserId;
+    }
   }
 
   refreshBook(): void {
@@ -67,7 +80,7 @@ export class BookPageComponent implements OnInit {
   }
 
   refreshShelves(): void {
-    this.booksService.getUserShelves(1).subscribe(x => this.shelves = x);
+    this.booksService.getUserShelves(this.userId).subscribe(x => this.shelves = x);
   }
 
   onShelfClick(shelf: ShelfType): void {
@@ -93,7 +106,7 @@ export class BookPageComponent implements OnInit {
   }
 
   alreadyAddedReview(element: ReviewType): boolean {
-    if (element.bookId == this.book.id && element.userId == "1") {
+    if (element.bookId == this.book.id && element.userId == this.userId) {
       this.reviewId = element.id;
       return true;
     }
@@ -106,7 +119,7 @@ export class BookPageComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         if (result != null && this.book.id != null) {
-          const review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: "1", bookId: this.book.id, date: new Date() };
+          const review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: this.userId, bookId: this.book.id, date: new Date() };
           this.reviewsService.putReview(review).subscribe(x => this.refreshBook());
           alert("Review updated!");
         }
@@ -116,7 +129,7 @@ export class BookPageComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         if (result != null && this.book.id != null) {
-          const review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: "1", bookId: this.book.id, date: new Date() };
+          const review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: this.userId, bookId: this.book.id, date: new Date() };
           this.reviewsService.postReview(review).subscribe(x => this.refreshBook());
           alert("Review added!");
         }
@@ -137,6 +150,6 @@ export class BookPageComponent implements OnInit {
   getUserById(id: string): UserType{
     const user:UserType | undefined = this.users.find(user => user.id == id)
   
-    return user || {id: '0', userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:""};
+    return user || {id: "", userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:""};
   }
 }

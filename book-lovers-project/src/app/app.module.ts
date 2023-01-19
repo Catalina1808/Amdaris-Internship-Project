@@ -40,6 +40,7 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
 import { CurrentUserProfileComponent } from './components/current-user-profile/current-user-profile.component';
 import { UpdateUserFormComponent } from './components/update-user-form/update-user-form.component';
 import { AddGenreFormComponent } from './components/add-genre-form/add-genre-form.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { AddGenreFormComponent } from './components/add-genre-form/add-genre-for
     MatAutocompleteModule,
     MatChipsModule,
     MatCheckboxModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

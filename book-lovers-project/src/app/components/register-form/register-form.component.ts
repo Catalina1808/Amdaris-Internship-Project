@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserType } from 'src/app/models/user.model';
 import { FileOperationsService } from 'src/app/services/file-operations.service';
@@ -16,7 +17,7 @@ export class RegisterFormComponent implements OnInit {
   loading: boolean = false; // Flag variable
   file!: File; // Variable to store file
 
-  constructor(private router: Router, private formBuilder: FormBuilder,
+  constructor(private router: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar,
     private userService: UsersService, private filesService: FileOperationsService) { }
 
   ngOnInit(): void {
@@ -75,7 +76,9 @@ export class RegisterFormComponent implements OnInit {
 
       this.registerForm.reset();
       this.uploadedImage = null;
-      alert("User added!");
+      this.snackBar.open("User added!", "Ok", {
+        duration: 2000,
+      });
       this.router.navigateByUrl('login');
     }
   }

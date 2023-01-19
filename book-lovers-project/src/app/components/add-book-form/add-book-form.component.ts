@@ -11,6 +11,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { FileOperationsService } from 'src/app/services/file-operations.service';
 import { BookPostType, BookType } from 'src/app/models/book.model';
 import { BooksService } from 'src/app/services/books.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-book-form',
@@ -30,7 +31,8 @@ export class AddBookFormComponent implements OnInit {
   uploadedImage: string | null = null;
 
   constructor(private formBuilder: FormBuilder, private authorsService: AuthorsService,
-    private genresService: GenresService, private filesService: FileOperationsService, private booksService: BooksService) { }
+    private genresService: GenresService, private filesService: FileOperationsService, 
+    private booksService: BooksService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -142,8 +144,9 @@ export class AddBookFormComponent implements OnInit {
       this.authorsChips = [];
       this.uploadedImage = null;
 
-      console.log(book);
-      alert("Book added!");
+      this.snackBar.open("Book added!", "Ok", {
+        duration: 2000,
+      });
     }
   }
 

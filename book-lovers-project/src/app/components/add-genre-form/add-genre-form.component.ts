@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { GenreType } from 'src/app/models/genre.model';
 import { GenresService } from 'src/app/services/genres.service';
 
@@ -12,7 +13,7 @@ export class AddGenreFormComponent {
 
   genreForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, private genresService: GenresService) { }
+  constructor(private formBuilder: FormBuilder, private genresService: GenresService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -28,7 +29,10 @@ export class AddGenreFormComponent {
       
       this.genresService.postGenre(genre).subscribe();
       this.genreForm.get('name')?.setValue(null);
-      alert("Genre added!");
+
+      this.snackBar.open("Genre added!", "Ok", {
+        duration: 2000,
+      });
     }
   }
 }

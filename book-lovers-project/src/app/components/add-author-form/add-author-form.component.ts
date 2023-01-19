@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthorType } from 'src/app/models/author.model';
 import { AuthorsService } from 'src/app/services/authors.service';
 import { FileOperationsService } from 'src/app/services/file-operations.service';
@@ -17,7 +18,8 @@ export class AddAuthorFormComponent implements OnInit {
   file!: File; // Variable to store file
   uploadedImage: string | null = null;
 
-  constructor(private formBuilder: FormBuilder, private authorService: AuthorsService, private filesService: FileOperationsService) { }
+  constructor(private formBuilder: FormBuilder, private authorService: AuthorsService,
+     private filesService: FileOperationsService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -65,7 +67,9 @@ export class AddAuthorFormComponent implements OnInit {
       this.authorForm.get('name')?.setValue(null);
       this.authorForm.get('description')?.setValue(null);
       this.uploadedImage = null;
-      alert("Author added!");
+      this.snackBar.open("Author added!", "Ok", {
+        duration: 2000,
+      });
     }
   }
 }

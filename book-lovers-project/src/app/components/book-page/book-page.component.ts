@@ -11,6 +11,7 @@ import { ReviewsService } from 'src/app/services/reviews.service';
 import { UserType } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users.service';
 import { map, Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-book-page',
@@ -34,7 +35,7 @@ export class BookPageComponent implements OnInit {
   userId: string = "";
 
   constructor(private booksService: BooksService, private shelvesService: ShelvesService,
-    private activatedRoute: ActivatedRoute, public dialog: MatDialog,
+    private activatedRoute: ActivatedRoute, public dialog: MatDialog, private snackBar: MatSnackBar,
     private reviewsService: ReviewsService, public usersService: UsersService) { }
 
   ngOnInit(): void {
@@ -88,15 +89,19 @@ export class BookPageComponent implements OnInit {
       alert(`Book ${this.book.title} is already added to ${shelf.name} shelf!`);
     } else if (shelf.id !== undefined && this.book.id != null) {
       this.shelvesService.postBookToShelf(this.book.id, shelf.id).subscribe();
-      alert(`Book ${this.book.title} added to ${shelf.name} shelf!`);
-      this.refreshShelves();
+
+      this.snackBar.open(`Book ${this.book.title} added to ${shelf.name} shelf!`, "Ok", {
+        duration: 2000,
+      });
     }
   }
 
   onAddedShelfClick(shelf: ShelfType): void {
     if (shelf.id !== undefined && this.book.id != null) {
       this.shelvesService.deleteBookFromShelf(this.book.id, shelf.id).subscribe();
-      alert(`Book ${this.book.title} deleted from ${shelf.name} shelf!`);
+      this.snackBar.open(`Book ${this.book.title} deleted from ${shelf.name} shelf!`, "Ok", {
+        duration: 2000,
+      });
       this.refreshShelves();
     }
   }
@@ -121,7 +126,9 @@ export class BookPageComponent implements OnInit {
         if (result != null && this.book.id != null) {
           const review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: this.userId, bookId: this.book.id, date: new Date() };
           this.reviewsService.putReview(review).subscribe(x => this.refreshBook());
-          alert("Review updated!");
+          this.snackBar.open("Review updated!", "Ok", {
+            duration: 2000,
+          });
         }
       });
     } else {
@@ -131,7 +138,9 @@ export class BookPageComponent implements OnInit {
         if (result != null && this.book.id != null) {
           const review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: this.userId, bookId: this.book.id, date: new Date() };
           this.reviewsService.postReview(review).subscribe(x => this.refreshBook());
-          alert("Review added!");
+          this.snackBar.open("Review added!", "Ok", {
+            duration: 2000,
+          });
         }
       });
     }

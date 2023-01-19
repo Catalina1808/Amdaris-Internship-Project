@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserType } from 'src/app/models/user.model';
 import { FileOperationsService } from 'src/app/services/file-operations.service';
@@ -18,7 +19,7 @@ export class UpdateUserFormComponent {
   oldUser: UserType = { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "" };
 
   constructor(private router: Router, private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,
-    private userService: UsersService, private filesService: FileOperationsService) { }
+    private userService: UsersService, private filesService: FileOperationsService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     const userId = this.activatedRoute.snapshot.paramMap.get("id");
@@ -78,7 +79,9 @@ export class UpdateUserFormComponent {
   loginUser(user: UserType) {
     this.userService.loginUser(user.userName, user.password).subscribe(result => {
       localStorage.setItem('token', result.token);
-      alert("User updated!")
+      this.snackBar.open("User updated!", "Ok", {
+        duration: 2000,
+      });
       this.router.navigateByUrl('profile');
     });
   }

@@ -46,6 +46,16 @@ ul {
     padding: 0;
 }
 
+.book-card{
+    margin-bottom: -2rem;
+}
+
+.book-list{
+    margin-top: 8rem;
+    height:60%;
+    overflow-y:scroll;
+}
+
 .edit-button{
     margin-top: 2rem;
 }

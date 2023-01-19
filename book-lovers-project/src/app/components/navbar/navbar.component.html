@@ -13,7 +13,7 @@
 
     <mat-icon class="icon-display" *ngIf="!token" routerLink="/login">account_circle</mat-icon>
 
-    <div *ngIf="getInfoFromToken()">
+    <div *ngIf="getInfoFromToken()" (click)="getInfoFromToken()">
         <button class="user-profile-button" mat-button [matMenuTriggerFor]="menu">
             <img src={{userImage}}>
             {{userName}}
@@ -22,6 +22,7 @@
             <button mat-menu-item routerLink="profile" *ngIf="token">Profile</button>
             <button mat-menu-item routerLink="add-book" *ngIf="isAdmin">Add book</button>
             <button mat-menu-item routerLink="add-author" *ngIf="isAdmin">Add author</button>
+            <button mat-menu-item routerLink="add-genre" *ngIf="isAdmin">Add genre</button>
             <button mat-menu-item (click)="logOut()" *ngIf="token">Log out</button>
         </mat-menu>
 

@@ -39,6 +39,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { CurrentUserProfileComponent } from './components/current-user-profile/current-user-profile.component';
 import { UpdateUserFormComponent } from './components/update-user-form/update-user-form.component';
+import { AddGenreFormComponent } from './components/add-genre-form/add-genre-form.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { UpdateUserFormComponent } from './components/update-user-form/update-us
     ReviewCardComponent,
     ProfilePageComponent,
     CurrentUserProfileComponent,
-    UpdateUserFormComponent
+    UpdateUserFormComponent,
+    AddGenreFormComponent
   ],
   imports: [
     BrowserModule,

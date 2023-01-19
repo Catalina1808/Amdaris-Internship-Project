@@ -16,13 +16,13 @@ h1 {
   border-radius: 0.5rem;
   position: absolute;
   margin-top: 170px;
-  margin-left: 20px;
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   padding: 10px;
   position: relative;
   height: 22rem;

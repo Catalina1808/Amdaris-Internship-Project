@@ -44,7 +44,7 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> CreateUser([FromBody] UserPutPostDTO user)
         {
             var userEmailExists = await _userManager.FindByEmailAsync(user.Email);
-            var userUsernameExists = await _userManager.FindByEmailAsync(user.Email);
+            var userUsernameExists = await _userManager.FindByNameAsync(user.UserName);
             if (userEmailExists != null)
             {
                 return BadRequest("User with this email aready exists!");
@@ -115,6 +115,27 @@ namespace BookLoversProject.Api.Controllers
             return Ok($"User added successfully to {roleName} role");
         }
 
+        [HttpDelete]
+        [Route("DeleteRole")]
+        public async Task<IActionResult> DeleteFromRole(string userId, string roleName)
+        {
+            var userExists = await _userManager.FindByIdAsync(userId);
+
+            if (userExists == null)
+            {
+                return BadRequest("User does not exist!");
+            }
+
+            var deleyeRoleFromUser = await _userManager.RemoveFromRoleAsync(userExists, roleName);
+
+            if (!deleyeRoleFromUser.Succeeded)
+            {
+                return BadRequest("Failed to add user to role");
+            }
+
+            return Ok($"User added successfully to {roleName} role");
+        }
+
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login(string userName, string password)
@@ -164,12 +185,33 @@ namespace BookLoversProject.Api.Controllers
         [Route("{userId}")]
         public async Task<IActionResult> UpdateUser(string userId, [FromBody] UserPutPostDTO updatedUser)
         {
-            var command = _mapper.Map<UpdateUserCommand>(updatedUser);
-            command.Id = userId;
+            var oldUser = await _userManager.FindByIdAsync(userId);
+            var userEmailExists = await _userManager.FindByEmailAsync(updatedUser.Email);
+            var userUsernameExists = await _userManager.FindByNameAsync(updatedUser.UserName);
 
-            var result = await _mediator.Send(command);
+            if (userEmailExists != null && oldUser.Email != updatedUser.Email)
+            {
+                return BadRequest("User with this email aready exists!");
+            }
 
-            return Ok(result);
+            if (userUsernameExists != null && oldUser.UserName != updatedUser.UserName)
+            {
+                return BadRequest("User with this username aready exists!");
+            }
+
+            oldUser.UserName = updatedUser.UserName;
+            oldUser.Email = updatedUser.Email;
+            oldUser.FirstName = updatedUser.FirstName;
+            oldUser.LastName = updatedUser.LastName;
+            oldUser.ImagePath = updatedUser.ImagePath;
+
+            var identityResult = await _userManager.UpdateAsync(oldUser);
+            if (!identityResult.Succeeded)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+
+            return Ok(new { userId = oldUser.Id });
         }
 
 

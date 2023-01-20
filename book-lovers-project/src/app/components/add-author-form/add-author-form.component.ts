@@ -45,7 +45,10 @@ export class AddAuthorFormComponent implements OnInit {
     this.loading = !this.loading;
     this.filesService.uploadPhoto(this.file).subscribe(
       x => {
-        this.authorForm.get('image')?.setValue(x.body);
+        this.authorForm.get('image')?.setValue(x.body); 
+        this.snackBar.open("Image uploaded!", "Ok", {
+          duration: 2000,
+        });
       }
     );
   }
@@ -60,7 +63,7 @@ export class AddAuthorFormComponent implements OnInit {
     }
 
     if (this.authorForm.valid) {
-     const author: AuthorType = { id: 0, name: this.authorForm.get('name')?.value,
+     const author: AuthorType = { id: 0, name: this.authorForm.get('name')?.value, books: [],
       image: this.authorForm.get('image')?.value, description: this.authorForm.get('description')?.value};
       
       this.authorService.postAuthor(author).subscribe();

@@ -31,7 +31,7 @@
         <h1>{{book.title}}</h1>
         <div class="authors-list">
             <p>By</p>
-            <p class="author-name" *ngFor="let author of book.authors">&nbsp; {{author.name}}</p>
+            <p [routerLink]="['/author', author.id]" class="author-name" *ngFor="let author of book.authors">&nbsp; {{author.name}}</p>
         </div>
         <h2>{{book.description}}</h2>
 

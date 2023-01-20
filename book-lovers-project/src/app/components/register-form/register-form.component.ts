@@ -47,6 +47,9 @@ export class RegisterFormComponent implements OnInit {
     this.filesService.uploadPhoto(this.file).subscribe(
       x => {
         this.registerForm.get('imagePath')?.setValue(x.body);
+        this.snackBar.open("Image uploaded!", "Ok", {
+          duration: 2000,
+        });
       }
     );
   }

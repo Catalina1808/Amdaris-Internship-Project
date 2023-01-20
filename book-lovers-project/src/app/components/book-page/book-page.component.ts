@@ -88,8 +88,7 @@ export class BookPageComponent implements OnInit {
     if (this.verifyShelf(shelf)) {
       alert(`Book ${this.book.title} is already added to ${shelf.name} shelf!`);
     } else if (shelf.id !== undefined && this.book.id != null) {
-      this.shelvesService.postBookToShelf(this.book.id, shelf.id).subscribe();
-
+      this.shelvesService.postBookToShelf(this.book.id, shelf.id).subscribe(x => this.refreshShelves());
       this.snackBar.open(`Book ${this.book.title} added to ${shelf.name} shelf!`, "Ok", {
         duration: 2000,
       });
@@ -98,11 +97,10 @@ export class BookPageComponent implements OnInit {
 
   onAddedShelfClick(shelf: ShelfType): void {
     if (shelf.id !== undefined && this.book.id != null) {
-      this.shelvesService.deleteBookFromShelf(this.book.id, shelf.id).subscribe();
+      this.shelvesService.deleteBookFromShelf(this.book.id, shelf.id).subscribe(x => this.refreshShelves());
       this.snackBar.open(`Book ${this.book.title} deleted from ${shelf.name} shelf!`, "Ok", {
         duration: 2000,
       });
-      this.refreshShelves();
     }
   }
 

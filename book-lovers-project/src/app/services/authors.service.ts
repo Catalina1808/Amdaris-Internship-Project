@@ -23,4 +23,8 @@ export class AuthorsService {
   getAllAuthors(): Observable<AuthorType[]> {
     return this.httpClient.get<AuthorType[]>('api/Authors');
   }
+
+  getAuthorById(authorId:number): Observable<AuthorType> {
+    return this.httpClient.get<AuthorType>(`api/Authors/${authorId}`);
+  }
 }

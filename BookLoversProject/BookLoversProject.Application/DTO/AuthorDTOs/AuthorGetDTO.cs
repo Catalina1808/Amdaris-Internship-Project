@@ -13,7 +13,7 @@ namespace BookLoversProject.Application.DTO.AuthorDTOs
 
         public string Image { get; set; }
 
-        public ICollection<BookDTO> Books { get; set; }
+        public ICollection<BookGetFromAuthorDTO> Books { get; set; }
 
         public ICollection<UserDTO> Followers { get; set; }
     }

@@ -41,6 +41,7 @@ import { CurrentUserProfileComponent } from './components/current-user-profile/c
 import { UpdateUserFormComponent } from './components/update-user-form/update-user-form.component';
 import { AddGenreFormComponent } from './components/add-genre-form/add-genre-form.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AuthorPageComponent } from './components/author-page/author-page.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ProfilePageComponent,
     CurrentUserProfileComponent,
     UpdateUserFormComponent,
-    AddGenreFormComponent
+    AddGenreFormComponent,
+    AuthorPageComponent
   ],
   imports: [
     BrowserModule,

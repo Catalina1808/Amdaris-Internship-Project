@@ -17,6 +17,8 @@ namespace BookLoversProject.Application.Profiles
                 .ForMember(bookDTO => bookDTO.Genres, opt => opt.MapFrom(book => book.Genres.Select(bookGenre => bookGenre.Genre)))
                 .ForMember(bookDTO => bookDTO.Shelves, opt => opt.MapFrom(book => book.Shelves.Select(shelfBook => shelfBook.Shelf)));
             CreateMap< Book, BookDTO>();
+            CreateMap<Book, BookGetFromAuthorDTO>()
+                .ForMember(bookDTO => bookDTO.Genres, opt => opt.MapFrom(book => book.Genres.Select(bookGenre => bookGenre.Genre)));
 
         }
     }

@@ -29,7 +29,7 @@
         <ul>
             <li class="book-card" *ngFor="let book of displayedBooks">
                 <app-book-card #bookCard [id]="book.id || 0" [title]="book.title | titlecase" [author]="book.authors[0].name | heart"
-                    [image]="book.image" [currentRate]="getBookRating(book)"></app-book-card>
+                    [image]="book.image" [authorId]="book.authors[0].id" [currentRate]="getBookRating(book)"></app-book-card>
             </li>
         </ul>
     </mat-drawer-content>

@@ -35,7 +35,7 @@ p {
     font-size: 1.4rem;
 }
 
- .shelves-list{
+ .genres-list{
     margin: 0em;
     display: flex;
     justify-content: center;
@@ -56,11 +56,11 @@ p {
     margin-top: 2rem;
 }
 
-.shelf-button {
+.genre-button {
     margin: 0.3rem;
 }
 
-.shelf-container {
+.genre-container {
     display: inline-flex;
 }
 

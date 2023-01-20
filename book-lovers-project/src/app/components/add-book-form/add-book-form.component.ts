@@ -62,7 +62,10 @@ export class AddBookFormComponent implements OnInit {
     this.loading = !this.loading;
     this.filesService.uploadPhoto(this.file).subscribe(
       x => {
-        this.bookForm.get('image')?.setValue(x.body);
+        this.bookForm.get('image')?.setValue(x.body);   
+        this.snackBar.open("Image uploaded!", "Ok", {
+          duration: 2000,
+        });
       }
     );
   }

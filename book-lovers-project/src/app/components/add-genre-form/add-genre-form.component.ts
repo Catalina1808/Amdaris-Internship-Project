@@ -27,11 +27,11 @@ export class AddGenreFormComponent {
     if (this.genreForm.valid) {
      const genre: GenreType = { id: 0, name: this.genreForm.get('name')?.value, books: []};
       
-      this.genresService.postGenre(genre).subscribe();
-      this.genreForm.get('name')?.setValue(null);
-
-      this.snackBar.open("Genre added!", "Ok", {
-        duration: 2000,
+      this.genresService.postGenre(genre).subscribe(x => {
+        this.genreForm.get('name')?.setValue(null);
+        this.snackBar.open("Genre added!", "Ok", {
+          duration: 2000,
+        });
       });
     }
   }

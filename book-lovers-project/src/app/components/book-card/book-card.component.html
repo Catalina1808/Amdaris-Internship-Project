@@ -6,9 +6,9 @@
     <div class="grid-item">
         <img src={{image}} [routerLink]="['/book', id]">
     </div>
-    <div class="grid-item">
+    <div class="grid-item  grid-item-right" >
         <h1>{{title}}</h1>
-        <p>By {{author}}</p>
+        <p class="author-button" [routerLink]="['/author', authorId]">By {{author}}</p>
         <div class="stars">
             <ngb-rating [(rate)]="currentRate" (rateChange)="changedRating()" [readonly]="readonlyRating">
             </ngb-rating>

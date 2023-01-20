@@ -16,6 +16,8 @@ export class BookCardComponent {
   image: string = "";
   @Input()
   id: number = 0;
+  @Input()
+  authorId: number = 0;
 
   @Input()
   readonlyRating = true;

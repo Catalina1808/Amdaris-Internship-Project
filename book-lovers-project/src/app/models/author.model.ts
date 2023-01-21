@@ -1,4 +1,5 @@
 import { BookType } from "./book.model";
+import { UserType } from "./user.model";
 
 export type AuthorType = {
     id: number;
@@ -6,4 +7,5 @@ export type AuthorType = {
     image: string;
     description:string;
     books: BookType[];
+    followers: UserType[];
 }

@@ -11,12 +11,13 @@ import { AuthorsService } from 'src/app/services/authors.service';
   styleUrls: ['./author-page.component.css']
 })
 export class AuthorPageComponent implements OnInit {
-  author: AuthorType = { id: 1, name: "", books: [], image: "", description: "" };
+  author: AuthorType = { id: 1, name: "", books: [], image: "", description: "", followers:[] };
   genres: GenreType[] = [];
   allBooks: BookType[] = [];
   displayedBooks: BookType[] = [];
   userId: string = "";
   isAdmin: boolean = false;
+  followButtonText = "Follow";
 
 
   constructor(private activatedRoute: ActivatedRoute, private authorService: AuthorsService) { }
@@ -30,6 +31,8 @@ export class AuthorPageComponent implements OnInit {
         this.allBooks = this.author.books;
         this.displayedBooks = this.allBooks;
         this.getGenres();
+        if(this.author.followers.some(item => item.id === this.userId))
+          this.followButtonText = "Following";
       });
     }
   }
@@ -72,5 +75,17 @@ export class AuthorPageComponent implements OnInit {
 
   onAllGenresClick() {
     this.displayedBooks = this.allBooks;
+  }
+
+  onFollowClick(){
+    console.log(this.followButtonText);
+    if(this.followButtonText === "Follow"){
+      this.followButtonText = "Following";
+      this.authorService.postFollowerToAuthor(this.userId, this.author.id).subscribe();
+    }
+    else {
+      this.followButtonText = "Follow";
+      this.authorService.deleteFollowerFromAuthor(this.userId, this.author.id).subscribe();
+    }
   }
 }

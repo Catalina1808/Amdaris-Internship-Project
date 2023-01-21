@@ -20,6 +20,14 @@ export class AuthorsService {
     return this.httpClient.post<AuthorType>('api/Authors', author, { headers: headers });
   }
 
+  postFollowerToAuthor(userId: string, authorId: number): Observable<AuthorType> {
+    return this.httpClient.post<AuthorType>(`api/Authors/${authorId}/Users/${userId}`, userId);
+  }
+
+  deleteFollowerFromAuthor(userId: string, authorId: number): Observable<{}> {
+    return this.httpClient.delete(`api/Authors/${authorId}/Users/${userId}`);
+  }
+
   getAllAuthors(): Observable<AuthorType[]> {
     return this.httpClient.get<AuthorType[]>('api/Authors');
   }

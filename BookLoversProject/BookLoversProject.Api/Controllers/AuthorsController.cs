@@ -48,9 +48,9 @@ namespace BookLoversProject.Api.Controllers
                 UserId = userId
             };
 
-            var book = await _mediator.Send(command);
+            var author = await _mediator.Send(command);
 
-            return Ok(book);
+            return Ok(author);
         }
 
         [HttpGet]

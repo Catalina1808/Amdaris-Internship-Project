@@ -25,6 +25,13 @@
         <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button" [routerLink]="['/update-author', author.id]">
             Edit author
         </button>
+        <br>
+        <button mat-raised-button  color="accent" class="follow-button" (click)="onFollowClick()">
+            {{followButtonText}}
+            <mat-icon>
+                done
+            </mat-icon>
+        </button>
 
     </div>
     <div class="grid-item-middle">

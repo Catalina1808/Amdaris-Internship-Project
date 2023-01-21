@@ -63,7 +63,7 @@ export class AddAuthorFormComponent implements OnInit {
     }
 
     if (this.authorForm.valid) {
-     const author: AuthorType = { id: 0, name: this.authorForm.get('name')?.value, books: [],
+     const author: AuthorType = { id: 0, name: this.authorForm.get('name')?.value, books: [], followers:[],
       image: this.authorForm.get('image')?.value, description: this.authorForm.get('description')?.value};
       
       this.authorService.postAuthor(author).subscribe();

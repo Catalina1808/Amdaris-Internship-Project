@@ -26,7 +26,7 @@
             Edit author
         </button>
         <br>
-        <button mat-raised-button  color="accent" class="follow-button" (click)="onFollowClick()">
+        <button mat-raised-button *ngIf="userId !== ''"  color="accent" class="follow-button" (click)="onFollowClick()">
             {{followButtonText}}
             <mat-icon>
                 done

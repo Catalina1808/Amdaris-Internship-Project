@@ -1,0 +1,45 @@
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1em;
+    text-align: center;
+    width: 35%;
+    margin: 0px auto;
+}
+
+div {
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    font-family: Pacifico;
+    margin-bottom: 2rem;
+}
+
+img {
+    width: 7rem;
+    height: auto;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.image-button {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.mat-error {
+    color: red;
+}
+
+.image-error {
+    text-align: left;
+    margin-top: -1rem;
+    margin-left: 1rem;
+}

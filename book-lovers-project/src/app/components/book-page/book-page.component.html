@@ -6,7 +6,7 @@
             <ngb-rating [(rate)]="currentRate" (rateChange)="changedRating()" [max]="5">
             </ngb-rating>
         </div>
-        <mat-expansion-panel>
+        <mat-expansion-panel *ngIf="userId !== ''">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Add to a bookshelf

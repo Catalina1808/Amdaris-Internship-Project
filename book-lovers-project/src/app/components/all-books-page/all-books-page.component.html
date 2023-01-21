@@ -1,6 +1,7 @@
 <ul>
     <li *ngFor="let book of books">
-        <app-book-card #bookCard [id]="book.id || 0" [title]="book.title | titlecase" [author]="book.authors[0].name | heart" [image]="book.image" [currentRate]="getBookRating(book)"
-            ></app-book-card>
+        <app-book-card #bookCard [id]="book.id || 0" [title]="book.title | titlecase" [authorId]="book.authors[0].id"
+            [author]="book.authors[0].name | heart" [image]="book.image" [currentRate]="getBookRating(book)">
+        </app-book-card>
     </li>
 </ul>

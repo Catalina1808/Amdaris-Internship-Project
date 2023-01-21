@@ -33,6 +33,7 @@ export class BookPageComponent implements OnInit {
   currentRate: number = 0;
   reviewId: number = 0;
   userId: string = "";
+  isAdmin: boolean = false;
 
   constructor(private booksService: BooksService, private shelvesService: ShelvesService,
     private activatedRoute: ActivatedRoute, public dialog: MatDialog, private snackBar: MatSnackBar,
@@ -59,6 +60,8 @@ export class BookPageComponent implements OnInit {
       let decodedJwtData = JSON.parse(decodedJwtJsonData)
 
       this.userId = decodedJwtData.UserId;
+      if (decodedJwtData.role == "Admin")
+        this.isAdmin = true;
     }
   }
 
@@ -154,9 +157,9 @@ export class BookPageComponent implements OnInit {
     return averageRating / book.reviews.length;
   }
 
-  getUserById(id: string): UserType{
-    const user:UserType | undefined = this.users.find(user => user.id == id)
-  
-    return user || {id: "", userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:""};
+  getUserById(id: string): UserType {
+    const user: UserType | undefined = this.users.find(user => user.id == id)
+
+    return user || { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "" };
   }
 }

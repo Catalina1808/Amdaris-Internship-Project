@@ -31,4 +31,13 @@ export class BooksService {
     })
     return this.httpClient.post(`api/Books`, book, { headers: headers })
   }
+
+  putBook(book:BookPostType, id: number): Observable<BookType> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.put<BookType>(`api/Books/${id}`, book, { headers: headers });
+  } 
 }

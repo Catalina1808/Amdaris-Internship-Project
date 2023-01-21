@@ -79,6 +79,10 @@ ul {
     margin-bottom: 1rem;
 }
 
+.edit-button{
+    margin-top: 2rem;
+}
+
 .author-name {
     text-decoration: underline;
 }

@@ -26,6 +26,9 @@
                 </li>
             </ul>
         </mat-expansion-panel>
+        <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button" [routerLink]="['/update-book', book.id]">
+            Edit book
+        </button>
     </div>
     <div class="grid-item-right">
         <h1>{{book.title}}</h1>

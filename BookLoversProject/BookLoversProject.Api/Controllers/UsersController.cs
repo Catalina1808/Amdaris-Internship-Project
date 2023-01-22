@@ -219,8 +219,11 @@ namespace BookLoversProject.Api.Controllers
         [Route("{userId}")]
         public async Task<IActionResult> DeleteUser(string userId)
         {
-            var command = new DeleteUserCommand { Id = userId };
-            await _mediator.Send(command);
+            var userExists = await _userManager.FindByIdAsync(userId);
+            if (userExists != null)
+            {
+                await _userManager.DeleteAsync(userExists);
+            }
 
             return NoContent();
         }

@@ -32,7 +32,14 @@ export class AddGenreFormComponent {
         this.snackBar.open("Genre added!", "Ok", {
           duration: 2000,
         });
-      });
+      },
+      error => {
+        console.log(error);
+        this.snackBar.open(error.error , "Ok", {
+          duration: 2000,
+        });
+      }
+      );
     }
   }
 }

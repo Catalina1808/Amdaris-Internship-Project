@@ -36,6 +36,15 @@ export class AuthorsService {
     return this.httpClient.delete(`api/Authors/${authorId}/Users/${userId}`);
   }
 
+  deleteAuthor(id: number): Observable<{}> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.delete<AuthorType>(`api/Authors/${id}`,{ headers: headers });
+  }
+
   getAllAuthors(): Observable<AuthorType[]> {
     return this.httpClient.get<AuthorType[]>('api/Authors');
   }

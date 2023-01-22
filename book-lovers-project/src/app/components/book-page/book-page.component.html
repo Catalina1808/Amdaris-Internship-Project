@@ -25,10 +25,15 @@
                     </div>
                 </li>
             </ul>
-        </mat-expansion-panel>
-        <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button" [routerLink]="['/update-book', book.id]">
-            Edit book
-        </button>
+        </mat-expansion-panel>        
+        <div class="admin-buttons">
+            <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button" [routerLink]="['/update-book', book.id]">
+                Edit book
+            </button>
+            <button mat-raised-button *ngIf="isAdmin" color="warn" class="edit-button" (click)="onDeleteClick()">
+                Delete book
+            </button>
+        </div>
     </div>
     <div class="grid-item-right">
         <h1>{{book.title}}</h1>

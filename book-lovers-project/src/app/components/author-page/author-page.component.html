@@ -22,16 +22,23 @@
                 </li>
             </ul>
         </mat-expansion-panel>
-        <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button" [routerLink]="['/update-author', author.id]">
-            Edit author
-        </button>
-        <br>
-        <button mat-raised-button *ngIf="userId !== ''"  color="accent" class="follow-button" (click)="onFollowClick()">
-            {{followButtonText}}
-            <mat-icon>
-                done
-            </mat-icon>
-        </button>
+
+        <div class="admin-buttons">
+            <button mat-raised-button *ngIf="userId !== ''" color="accent" class="follow-button"
+                (click)="onFollowClick()">
+                {{followButtonText}}
+                <mat-icon>
+                    done
+                </mat-icon>
+            </button>
+            <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button"
+                [routerLink]="['/update-author', author.id]">
+                Edit author
+            </button>
+            <button mat-raised-button *ngIf="isAdmin" color="warn" class="edit-button" (click)="onDeleteClick()">
+                Delete author
+            </button>
+        </div>
 
     </div>
     <div class="grid-item-middle">

@@ -16,6 +16,9 @@ export class FileOperationsService {
     formData.append('files', file, file.name);
 
     return this.httpClient.post('/api/File/UploadFile', formData, {observe:'response', responseType:'text'});
+  }
 
+  deletePhoto(fileName: string): Observable<{}> {
+    return this.httpClient.delete(`/api/File/DeleteFile?fileName=${fileName}`);
   }
 }

@@ -12,6 +12,8 @@ import { UserType } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users.service';
 import { map, Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogDeleteComponent } from '../dialogs/delete-dialog/dialog-delete.component';
+import { FileOperationsService } from 'src/app/services/file-operations.service';
 
 @Component({
   selector: 'app-book-page',
@@ -37,7 +39,7 @@ export class BookPageComponent implements OnInit {
 
   constructor(private booksService: BooksService, private shelvesService: ShelvesService,
     private activatedRoute: ActivatedRoute, public dialog: MatDialog, private snackBar: MatSnackBar,
-    private reviewsService: ReviewsService, public usersService: UsersService) { }
+    private reviewsService: ReviewsService, public usersService: UsersService, private filesService: FileOperationsService) { }
 
   ngOnInit(): void {
     this.getInfoFromToken();
@@ -105,6 +107,20 @@ export class BookPageComponent implements OnInit {
         duration: 2000,
       });
     }
+  }
+
+  onDeleteClick(): void {
+    const dialogRef = this.dialog.open(DialogDeleteComponent, { data: `${this.book.title} book` });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed && this.book.id !== undefined) {
+        this.booksService.deleteBook(this.book.id).subscribe(x =>{
+          const indexOfLastSlash = this.book.image.lastIndexOf('/');
+          this.filesService.deletePhoto(this.book.image.substring(indexOfLastSlash +1)).subscribe();
+          this.snackBar.open(`Book ${this.book.title} deleted!`, "Ok", {
+            duration: 2000,
+          })});
+        }
+    });
   }
 
   verifyShelf(shelf: ShelfType): boolean {

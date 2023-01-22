@@ -40,4 +40,13 @@ export class BooksService {
     })
     return this.httpClient.put<BookType>(`api/Books/${id}`, book, { headers: headers });
   } 
+
+  deleteBook(id: number): Observable<{}> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.delete<BookType>(`api/Books/${id}`, { headers: headers });
+  }
 }

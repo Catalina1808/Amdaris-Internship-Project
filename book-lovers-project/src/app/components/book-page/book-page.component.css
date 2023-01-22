@@ -80,7 +80,14 @@ ul {
 }
 
 .edit-button{
-    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+}
+
+.admin-buttons{
+    display: grid;
+    margin-top: 1rem;
 }
 
 .author-name {

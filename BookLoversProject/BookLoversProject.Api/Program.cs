@@ -1,10 +1,10 @@
-using BookLoversProject.Api.Middleware;
 using BookLoversProject.Application;
 using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using BookLoversProject.Infrastructure;
 using BookLoversProject.Infrastructure.Repositories;
 using BookLoversProject.Presentation.Filters;
+using BookLoversProject.Presentation.Middleware;
 using BookLoversProject.Presentation.Options;
 using BookLoversProject.Presentation.Services;
 using MediatR;

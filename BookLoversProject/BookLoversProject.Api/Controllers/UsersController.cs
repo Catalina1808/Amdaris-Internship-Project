@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace BookLoversProject.Api.Controllers
+namespace BookLoversProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -84,10 +84,10 @@ namespace BookLoversProject.Api.Controllers
             //        return BadRequest("Failed to add user to role");
             //    }
             //}
-            
+
             //var userToken = _tokenService.CreateToken(newUser, roles);
 
-            return Ok(new { userId = newUser.Id});
+            return Ok(new { userId = newUser.Id });
         }
 
         [HttpPost]
@@ -96,7 +96,7 @@ namespace BookLoversProject.Api.Controllers
         {
             var userExists = await _userManager.FindByIdAsync(userId);
 
-            if(userExists == null)
+            if (userExists == null)
             {
                 return BadRequest("User does not exist!");
             }
@@ -108,7 +108,8 @@ namespace BookLoversProject.Api.Controllers
 
             var addRoleToUser = await _userManager.AddToRoleAsync(userExists, roleName);
 
-            if(!addRoleToUser.Succeeded) {
+            if (!addRoleToUser.Succeeded)
+            {
                 return BadRequest("Failed to add user to role");
             }
 
@@ -141,7 +142,7 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> Login(string userName, string password)
         {
             var user = await _userManager.FindByNameAsync(userName);
-            if((user != null) && await _userManager.CheckPasswordAsync(user, password))
+            if (user != null && await _userManager.CheckPasswordAsync(user, password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var userToken = _tokenService.CreateToken(user, userRoles);

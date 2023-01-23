@@ -38,6 +38,26 @@ namespace BookLoversProject.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public int GetBooksCount()
+        {
+            return _context.Books.Count();
+        }
+
+        public async Task<ICollection<Book>> GetPagedBooksAsync(int pageNumber, int pageSize)
+        {
+            return await _context.Books
+                .Include(b => b.Genres)
+                .ThenInclude(gb => gb.Genre)
+                .Include(b => b.Authors)
+                .ThenInclude(ba => ba.Author)
+                .Include(s => s.Shelves)
+                .ThenInclude(sb => sb.Shelf)
+                .Include(b => b.Reviews)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+
         public async Task<Book> GetBookByIdAsync(int id)
         {
             var book = await _context.Books

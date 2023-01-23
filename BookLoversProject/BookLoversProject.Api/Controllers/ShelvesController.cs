@@ -11,7 +11,7 @@ using BookLoversProject.Application.Queries.GetShelvesQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookLoversProject.Api.Controllers
+namespace BookLoversProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

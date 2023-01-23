@@ -5,3 +5,9 @@
         </app-book-card>
     </li>
 </ul>
+<br>
+<div class="paging">
+    <button [disabled]="disablePrevButton" mat-raised-button (click)="onPrevClick()">Prev</button>
+    <p class="page-number">{{pageNumber}}/{{totalPages}}</p>
+    <button [disabled]="disableNextButton"  mat-raised-button (click)="onNextClick()">Next</button>
+</div>

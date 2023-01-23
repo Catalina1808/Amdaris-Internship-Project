@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
-namespace BookLoversProject.Api.Controllers
+namespace BookLoversProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -90,7 +90,7 @@ namespace BookLoversProject.Api.Controllers
         public async Task<IActionResult> DeleteAuthor(int authorId)
         {
             var command = new DeleteAuthorCommand { Id = authorId };
-            
+
             await _mediator.Send(command);
 
             return NoContent();

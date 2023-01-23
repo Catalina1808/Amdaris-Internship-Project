@@ -10,6 +10,10 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<ICollection<Book>> GetAllBooksAsync();
 
+        int GetBooksCount();
+
+        Task<ICollection<Book>> GetPagedBooksAsync(int pageNumber, int pageSize);
+
         void DeleteBook(Book book);
 
         Task UpdateBookAsync(Book book);

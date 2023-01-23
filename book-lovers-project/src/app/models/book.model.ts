@@ -20,3 +20,10 @@ export type BookPostType = {
     image:string;
     description: string;
 }
+
+export type PagedBooksResponse = {
+    pageNumber: number,
+    pageSize: number,
+    totalPages: number,
+    data: BookType[],
+}

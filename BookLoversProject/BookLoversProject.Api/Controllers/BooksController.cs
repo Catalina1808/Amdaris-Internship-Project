@@ -9,14 +9,18 @@ using BookLoversProject.Application.Commands.Update.AddGenreToBookCommand;
 using BookLoversProject.Application.Commands.Update.UpdateBookCommand;
 using BookLoversProject.Application.DTO.BookDTOs;
 using BookLoversProject.Application.Queries.GetBookByIdQuery;
+using BookLoversProject.Application.Queries.GetBooksCount;
 using BookLoversProject.Application.Queries.GetBooksQuery;
+using BookLoversProject.Application.Queries.GetPagedBooksQuery;
+using BookLoversProject.Application.Wrappers;
+using BookLoversProject.Presentation.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Data;
 
-namespace BookLoversProject.Api.Controllers
+namespace BookLoversProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -83,6 +87,24 @@ namespace BookLoversProject.Api.Controllers
         }
 
         [HttpGet]
+        [Route("Paged")]
+        public async Task<IActionResult> GetPagedBooks([FromQuery] PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var query = new GetPagedBooksQuery
+            {
+                PageNumber = validFilter.PageNumber,
+                PageSize = validFilter.PageSize
+            };
+            var pagedData = await _mediator.Send(query);
+            var totalRecords = await _mediator.Send(new GetBooksCountQuery());
+            var totalPages = (double) totalRecords / (double)validFilter.PageSize;
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            return Ok(new PagedResponse<IEnumerable<BookGetDTO>>(pagedData, validFilter.PageNumber, validFilter.PageSize, roundedTotalPages));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var query = new GetBooksQuery();
@@ -94,7 +116,7 @@ namespace BookLoversProject.Api.Controllers
         [Route("{bookId}")]
         public async Task<IActionResult> GetById(int bookId)
         {
-            var query = new GetBookByIdQuery{ Id = bookId };
+            var query = new GetBookByIdQuery { Id = bookId };
             var result = await _mediator.Send(query);
 
             return Ok(result);

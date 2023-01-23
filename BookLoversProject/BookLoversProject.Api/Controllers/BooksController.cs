@@ -10,7 +10,9 @@ using BookLoversProject.Application.Commands.Update.UpdateBookCommand;
 using BookLoversProject.Application.DTO.BookDTOs;
 using BookLoversProject.Application.Queries.GetBookByIdQuery;
 using BookLoversProject.Application.Queries.GetBooksCount;
+using BookLoversProject.Application.Queries.GetBooksCountByGenre;
 using BookLoversProject.Application.Queries.GetBooksQuery;
+using BookLoversProject.Application.Queries.GetPagedBooksByGenreQuery;
 using BookLoversProject.Application.Queries.GetPagedBooksQuery;
 using BookLoversProject.Application.Wrappers;
 using BookLoversProject.Presentation.Filters;
@@ -87,7 +89,6 @@ namespace BookLoversProject.Presentation.Controllers
         }
 
         [HttpGet]
-        [Route("Paged")]
         public async Task<IActionResult> GetPagedBooks([FromQuery] PaginationFilter filter)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
@@ -105,12 +106,24 @@ namespace BookLoversProject.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Route("PagedByGenre/{genreId}")]
+        public async Task<IActionResult> GetPagedBooksByGenre([FromQuery] PaginationFilter filter, int genreId)
         {
-            var query = new GetBooksQuery();
-            var result = await _mediator.Send(query);
-            return Ok(result);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var query = new GetPagedBooksByGenreQuery
+            {
+                PageNumber = validFilter.PageNumber,
+                PageSize = validFilter.PageSize,
+                GenreId = genreId
+            };
+            var pagedData = await _mediator.Send(query);
+            var totalRecords = await _mediator.Send(new GetBooksCountByGenreQuery { GenreId = genreId});
+            var totalPages = (double)totalRecords / (double)validFilter.PageSize;
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            return Ok(new PagedResponse<IEnumerable<BookGetDTO>>(pagedData, validFilter.PageNumber, validFilter.PageSize, roundedTotalPages));
         }
+
 
         [HttpGet]
         [Route("{bookId}")]

@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
-import { BookPostType, BookType, PagedBooksResponse} from '../models/book.model';
+import { BookPostType, BookType, PagedBooksResponse } from '../models/book.model';
 import { ShelfType } from '../models/shelf.model';
 
 
@@ -12,12 +12,16 @@ export class BooksService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllBooks(): Observable<BookType[]> {
-    return this.httpClient.get<BookType[]>('api/Books');
+  getAllBooks(): Observable<PagedBooksResponse> {
+    return this.httpClient.get<PagedBooksResponse>(`api/Books`);
   }
 
   getPagedBooks(pageNumber: number, pageSize: number): Observable<PagedBooksResponse> {
-    return this.httpClient.get<PagedBooksResponse>(`api/Books/Paged?PageNumber=${pageNumber}&PageSize=${pageSize}`);
+    return this.httpClient.get<PagedBooksResponse>(`api/Books?PageNumber=${pageNumber}&PageSize=${pageSize}`);
+  }
+
+  getPagedBooksByGenre(pageNumber: number, pageSize: number, genreId:number): Observable<PagedBooksResponse> {
+    return this.httpClient.get<PagedBooksResponse>(`api/Books/PagedByGenre/${genreId}?PageNumber=${pageNumber}&PageSize=${pageSize}`);
   }
 
   getUserShelves(userId: string): Observable<ShelfType[]> {

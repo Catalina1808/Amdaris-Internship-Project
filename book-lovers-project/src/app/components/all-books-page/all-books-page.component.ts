@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BookType } from 'src/app/models/book.model';
+import { GenreType } from 'src/app/models/genre.model';
 import { BooksService } from 'src/app/services/books.service';
+import { GenresService } from 'src/app/services/genres.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { BookCardComponent } from '../book-card/book-card.component';
 
@@ -11,20 +13,33 @@ import { BookCardComponent } from '../book-card/book-card.component';
 })
 export class AllBooksPageComponent implements OnInit {
   books: BookType[] = []
+  genres: GenreType[] = []
   pageNumber: number = 1;
   pageSize: number = 2;
   totalPages: number = 0;
   disablePrevButton = true;
   disableNextButton = false;
+  genreId: number = 0;
 
-  constructor(private booksService: BooksService, private messageService: MessagesService) { }
+  constructor(private booksService: BooksService, private genresService: GenresService) { }
 
   @ViewChild("bookCard")
   bookCard: BookCardComponent | undefined;
 
   ngOnInit(): void {
     this.getPage(this.pageNumber, this.pageSize);
-    this.messageService.messageSubject.subscribe(x => alert(x));
+    this.genresService.getAllGenres().subscribe(genres => this.genres = genres);
+  }
+
+
+  onGenreClick(genre: GenreType) {
+    this.genreId = genre.id;
+    this.getGenrePage(1, this.pageSize);
+  }
+
+  onAllGenresClick() {
+    this.genreId = 0;
+    this.getPage(1, this.pageSize);
   }
 
   getPage(pageNumber: number, pageSize: number) {
@@ -36,12 +51,27 @@ export class AllBooksPageComponent implements OnInit {
     });
   }
 
+  getGenrePage(pageNumber: number, pageSize: number) {
+    this.booksService.getPagedBooksByGenre(pageNumber, pageSize, this.genreId).subscribe(x => {
+      this.books = x.data;
+      this.totalPages = x.totalPages;
+      this.pageNumber = x.pageNumber;
+      this.verifyPagingButtons();
+    });
+  }
+
   onPrevClick() {
-    this.getPage(this.pageNumber - 1, this.pageSize);  
+    if (this.genreId == 0)
+      this.getPage(this.pageNumber - 1, this.pageSize);
+    else
+      this.getGenrePage(this.pageNumber - 1, this.pageSize);
   }
 
   onNextClick() {
-    this.getPage(this.pageNumber + 1, this.pageSize);
+    if (this.genreId == 0)
+      this.getPage(this.pageNumber + 1, this.pageSize);
+    else
+      this.getGenrePage(this.pageNumber + 1, this.pageSize);
   }
 
   verifyPagingButtons() {

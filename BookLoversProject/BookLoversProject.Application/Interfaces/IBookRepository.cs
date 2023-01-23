@@ -12,7 +12,11 @@ namespace BookLoversProject.Application.Interfaces
 
         int GetBooksCount();
 
+        int GetBooksCountByGenre(int genreId);
+
         Task<ICollection<Book>> GetPagedBooksAsync(int pageNumber, int pageSize);
+
+        Task<ICollection<Book>> GetPagedBooksByGenreAsync(int pageNumber, int pageSize, int genreId);
 
         void DeleteBook(Book book);
 

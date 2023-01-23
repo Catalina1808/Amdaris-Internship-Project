@@ -43,9 +43,32 @@ namespace BookLoversProject.Infrastructure.Repositories
             return _context.Books.Count();
         }
 
+        public int GetBooksCountByGenre(int genreId)
+        {
+            return _context.Books
+                .Where(book => book.Genres.Any(gb => gb.GenreId == genreId))
+                .Count();
+        }
+
         public async Task<ICollection<Book>> GetPagedBooksAsync(int pageNumber, int pageSize)
         {
             return await _context.Books
+                .Include(b => b.Genres)
+                .ThenInclude(gb => gb.Genre)
+                .Include(b => b.Authors)
+                .ThenInclude(ba => ba.Author)
+                .Include(s => s.Shelves)
+                .ThenInclude(sb => sb.Shelf)
+                .Include(b => b.Reviews)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+
+        public async Task<ICollection<Book>> GetPagedBooksByGenreAsync(int pageNumber, int pageSize, int genreId)
+        {
+            return await _context.Books
+                .Where(book => book.Genres.Any(gb => gb.GenreId == genreId))
                 .Include(b => b.Genres)
                 .ThenInclude(gb => gb.Genre)
                 .Include(b => b.Authors)

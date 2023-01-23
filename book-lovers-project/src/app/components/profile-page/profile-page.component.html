@@ -17,8 +17,9 @@
                 </li>
             </ul>
         </mat-expansion-panel>
-        <button mat-raised-button color="primary" class="edit-button" [routerLink]="['/update-profile', user.id]">Edit
-            profile</button>
+        <button *ngIf="isCurrentUser" mat-raised-button color="primary" class="edit-button" [routerLink]="['/update-profile', user.id]">
+            Edit profile
+        </button>
 
     </div>
     <div class="grid-item-middle">

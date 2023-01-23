@@ -36,7 +36,6 @@ import { ReviewCardComponent } from './components/review-card/review-card.compon
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatMenuModule} from '@angular/material/menu';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
-import { CurrentUserProfileComponent } from './components/current-user-profile/current-user-profile.component';
 import { UpdateUserFormComponent } from './components/update-user-form/update-user-form.component';
 import { AddGenreFormComponent } from './components/add-genre-form/add-genre-form.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -64,13 +63,12 @@ import { AddReviewWithRatingDialogComponent } from './components/dialogs/add-rev
     BookPageComponent,
     ReviewCardComponent,
     ProfilePageComponent,
-    CurrentUserProfileComponent,
     UpdateUserFormComponent,
     AddGenreFormComponent,
     AuthorPageComponent,
     UpdateBookFormComponent,
     UpdateAuthorFormComponent,
-    AddReviewWithRatingDialogComponent
+    AddReviewWithRatingDialogComponent,
   ],
   imports: [
     BrowserModule,

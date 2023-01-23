@@ -1,10 +1,10 @@
 <div class="flex-container">
     <div >
-        <img src={{user.imagePath}} alt="Avatar">
+        <img src={{user.imagePath}} alt="Avatar" [routerLink]="['/user', user.id]">
     </div>
     <div>
         <p>{{date | date}}</p>
-        <h2>{{user.firstName + " " + user.lastName}}</h2>
+        <h2 [routerLink]="['/user', user.id]">{{user.firstName + " " + user.lastName}}</h2>
         <h1>{{comment}}</h1>
     </div>
 </div>

@@ -28,7 +28,7 @@
             {{userName}}
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="profile" *ngIf="token">Profile</button>
+            <button mat-menu-item [routerLink]="['/user', userId]" *ngIf="token">Profile</button>
             <button mat-menu-item routerLink="add-book" *ngIf="isAdmin">Add book</button>
             <button mat-menu-item routerLink="add-author" *ngIf="isAdmin">Add author</button>
             <button mat-menu-item routerLink="add-genre" *ngIf="isAdmin">Add genre</button>

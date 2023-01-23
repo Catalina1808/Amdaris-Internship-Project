@@ -19,8 +19,11 @@ h2 {
 
 .flex-container {
     display: inline-flex;
-    margin: 1rem;
-    padding: 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
     position: relative;
     height: auto;
     width: 25rem;

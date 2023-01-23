@@ -6,10 +6,10 @@ import { AddGenreFormComponent } from './components/add-genre-form/add-genre-for
 import { AllBooksPageComponent } from './components/all-books-page/all-books-page.component';
 import { AuthorPageComponent } from './components/author-page/author-page.component';
 import { BookPageComponent } from './components/book-page/book-page.component';
-import { CurrentUserProfileComponent } from './components/current-user-profile/current-user-profile.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MyBooksPageComponent } from './components/my-books-page/my-books-page.component';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { UpdateAuthorFormComponent } from './components/update-author-form/update-author-form.component';
 import { UpdateBookFormComponent } from './components/update-book-form/update-book-form.component';
@@ -24,9 +24,9 @@ const routes: Routes = [
   { path: 'add-book', component: AddBookFormComponent},
   { path: 'add-author', component: AddAuthorFormComponent},
   { path: 'book/:id', component: BookPageComponent},
-  { path: 'profile', component: CurrentUserProfileComponent},
   { path: 'add-genre', component: AddGenreFormComponent},
   { path: 'author/:id', component: AuthorPageComponent},
+  { path: 'user/:id', component: ProfilePageComponent},
   { path: 'update-profile/:id', component: UpdateUserFormComponent},
   { path: 'update-book/:id', component: UpdateBookFormComponent},
   { path: 'update-author/:id', component: UpdateAuthorFormComponent},

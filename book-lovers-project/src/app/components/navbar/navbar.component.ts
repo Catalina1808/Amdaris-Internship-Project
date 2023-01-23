@@ -16,6 +16,7 @@ import { BooksService } from 'src/app/services/books.service';
 export class NavbarComponent implements OnInit {
   userName: string = "";
   userImage: string = "";
+  userId: string = "";
   isAdmin: boolean = false;
   token: string | null = null;
   allAuthors: AuthorType[] = [];
@@ -61,7 +62,7 @@ export class NavbarComponent implements OnInit {
       } else {
         this.isAdmin = false;
       }
-
+      this.userId = decodedJwtData.UserId;
       this.userName = decodedJwtData.name;
       this.userImage = decodedJwtData.ImagePath;
 

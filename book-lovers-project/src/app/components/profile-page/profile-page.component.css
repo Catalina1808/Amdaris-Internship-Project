@@ -1,7 +1,7 @@
 img {
     width: 10rem;
     height: 10rem;
-    object-fit:cover;
+    object-fit: cover;
     border-radius: 50%;
     margin-bottom: 2rem;
 }
@@ -10,7 +10,7 @@ h1 {
     font-size: 2.3rem;
 }
 
-hr{
+hr {
     margin-bottom: 2rem;
 }
 
@@ -18,11 +18,13 @@ h2 {
     font-size: 1.7rem;
 }
 
-mat-panel-title, h1, h2{
+mat-panel-title,
+h1,
+h2 {
     font-family: Pacifico;
 }
 
-mat-panel-title{
+mat-panel-title {
     font-size: 1.2rem;
 }
 
@@ -35,7 +37,7 @@ p {
     font-size: 1.4rem;
 }
 
- .shelves-list{
+.shelves-list {
     margin: 0em;
     display: flex;
     justify-content: center;
@@ -46,13 +48,13 @@ p {
     padding: 0;
 }
 
-.book-card{
+.book-card {
     margin-top: -5rem;
     margin-bottom: 2rem;
 }
 
 
-.edit-button{
+.edit-button {
     margin-top: 2rem;
 }
 
@@ -83,11 +85,11 @@ p {
     text-align: center;
 }
 
-.grid-item-right{
+.grid-item-right {
     margin-right: 10rem;
 }
 
-.book-list{
+.book-list {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -99,7 +101,7 @@ p {
     height: 60vh;
 }
 
-.book-list-title{
+.book-list-title {
     color: #523529;
     text-align: center;
     font-family: Georgia;

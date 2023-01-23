@@ -1,3 +1,5 @@
+import { AuthorType } from "./author.model";
+
 export type UserType = {
     id: string;
     firstName: string;
@@ -6,4 +8,5 @@ export type UserType = {
     imagePath: string;
     email: string;
     password: string;
+    authors: AuthorType[];
 }

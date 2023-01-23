@@ -22,7 +22,7 @@ namespace BookLoversProject.Application.DTO.UserDTOs
 
         public ICollection<ShelfPutDTO> Shelves { get; set; }
 
-        public ICollection<AuthorDTO> Authors { get; set; }
+        public ICollection<AuthorGetFromUserDTO> Authors { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
     }

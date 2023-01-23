@@ -18,7 +18,7 @@ export class UpdateUserFormComponent {
   uploadedImage: string | null = null;
   loading: boolean = false; // Flag variable
   file!: File; // Variable to store file
-  oldUser: UserType = { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "" };
+  oldUser: UserType = { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "", authors: [] };
 
   constructor(private router: Router, private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, public dialog: MatDialog,
     private userService: UsersService, private filesService: FileOperationsService, private snackBar: MatSnackBar) { }
@@ -98,7 +98,7 @@ export class UpdateUserFormComponent {
       const user: UserType = {
         id: this.oldUser.id, imagePath: this.updateForm.get('imagePath')?.value, userName: this.updateForm.get('userName')?.value,
         firstName: this.updateForm.get('firstName')?.value, lastName: this.updateForm.get('lastName')?.value,
-        email: this.updateForm.get('email')?.value, password: this.oldUser.password
+        email: this.updateForm.get('email')?.value, password: this.oldUser.password, authors: this.oldUser.authors
       };
 
       this.userService.updateUser(user).subscribe(result => {

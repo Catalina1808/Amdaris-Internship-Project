@@ -40,6 +40,8 @@ namespace BookLoversProject.Infrastructure.Repositories
             var user = await _context.Users
                 .Include(u => u.Authors)
                 .ThenInclude(ua => ua.Author)
+                .ThenInclude(a => a.Books)
+                .ThenInclude(ba => ba.Book)
                 .Include(u => u.Reviews)
                 .Include(u => u.Shelves)
                 .SingleOrDefaultAsync(x => x.Id == id);

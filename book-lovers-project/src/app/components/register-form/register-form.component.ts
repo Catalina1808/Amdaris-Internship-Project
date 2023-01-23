@@ -68,7 +68,7 @@ export class RegisterFormComponent implements OnInit {
       const user: UserType = {
         id: "", imagePath: this.registerForm.get('imagePath')?.value, userName: this.registerForm.get('userName')?.value,
         firstName: this.registerForm.get('firstName')?.value, lastName: this.registerForm.get('lastName')?.value,
-        email: this.registerForm.get('email')?.value, password: this.registerForm.get('password')?.value
+        email: this.registerForm.get('email')?.value, password: this.registerForm.get('password')?.value, authors:[]
       };
 
       this.userService.registerUser(user).subscribe(result => {

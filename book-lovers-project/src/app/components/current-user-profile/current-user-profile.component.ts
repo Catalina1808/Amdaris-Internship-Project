@@ -10,7 +10,7 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./current-user-profile.component.css']
 })
 export class CurrentUserProfileComponent implements OnInit {
-  user: UserType = { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "" };
+  user: UserType = { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "", authors:[] };
 
   shelves: ShelfType[] = [];
   constructor(private userService: UsersService, private booksService: BooksService) { }
@@ -28,7 +28,4 @@ export class CurrentUserProfileComponent implements OnInit {
       this.booksService.getUserShelves(userId).subscribe(x => this.shelves = x);
     }
   }
-  ;
-
-
 }

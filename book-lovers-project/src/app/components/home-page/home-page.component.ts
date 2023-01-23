@@ -1,5 +1,9 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AuthorType } from 'src/app/models/author.model';
 import { BookType } from 'src/app/models/book.model';
+import { AuthorsService } from 'src/app/services/authors.service';
+import { BooksService } from 'src/app/services/books.service';
+import { UsersService } from 'src/app/services/users.service';
 import { BookCardComponent } from '../book-card/book-card.component';
 
 @Component({
@@ -7,23 +11,40 @@ import { BookCardComponent } from '../book-card/book-card.component';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
-export class HomePageComponent implements AfterViewInit{
-  books: BookType[] = [
-    {id:1, reviews:[], genres:[], authors:[{id: 1, name:"Colleen Hoover", books: [], image:"", description:"", followers:[]}], description:"", title:"Ugly love", image:"https://aestasbookblog.com/wp-content/uploads/2014/05/UglyLove-ColleenHoover.png"},
-    {id:2, reviews:[], genres:[], authors:[{id: 1, name:"Colleen Hoover", books: [],image:"",description:"", followers:[]}], description:"", title:"Verity", image:"https://www.colleenhoover.com/wp-content/uploads/2018/09/Verity.jpg"},
-    {id:3, reviews:[], genres:[], authors:[{id: 1, name:"Colleen Hoover", books: [],image:"",description:"", followers:[]}], description:"", title:"Heart Bones", image:"https://www.colleenhoover.com/wp-content/uploads/2020/06/51ufkkgyKfL-2.jpg"},
-    {id:4, reviews:[], genres:[], authors:[{id: 1, name:"Colleen Hoover", books: [],image:"",description:"", followers:[]}], description:"", title:"maybe Someday", image:"https://m.media-amazon.com/images/I/71ZLa1mXoPL.jpg"},
-  ]
-
-  eventFromBook(event: any){
-    console.log(event);
-  }
-
+export class HomePageComponent implements OnInit {
+  books: BookType[] = [];
+  userId: string = "";
+  author: AuthorType = { id: 0, name: "", image: "", description: "", books: [], followers: [] };
 
   @ViewChild("bookCard")
   bookCard: BookCardComponent | undefined;
 
-  ngAfterViewInit(): void {
-    console.log(this.bookCard);
+  constructor(private usersService: UsersService, private authorsService: AuthorsService) { }
+
+  ngOnInit(): void {
+    this.getInfoFromToken();
+    let authors: AuthorType[] = [];
+    let randomIndex: number = 0;
+    this.usersService.getUserById(this.userId).subscribe(user => {
+      authors = user.authors;
+      randomIndex = Math.floor(Math.random() * (authors.length - 1) + 1);
+      this.author = authors[randomIndex - 1];
+      if (this.author.books.length > 4)
+        this.books = this.author.books.slice(-4);
+      else
+        this.books = this.author.books;
+    });
   }
+
+  getInfoFromToken(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      let jwtData = token.split('.')[1]
+      let decodedJwtJsonData = window.atob(jwtData)
+      let decodedJwtData = JSON.parse(decodedJwtJsonData)
+
+      this.userId = decodedJwtData.UserId;
+    }
+  }
+
 }

@@ -105,7 +105,7 @@ p {
     list-style: none;
     overflow: hidden;
     overflow-y: scroll;
-    height: 50%;
+    height: 70vh;
 }
 
 .book-list-title{

@@ -10,7 +10,7 @@ import { UserType } from 'src/app/models/user.model';
 })
 export class ProfilePageComponent{
   @Input()
-  user: UserType =  {id: "", userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:""};
+  user: UserType =  {id: "", userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:"", authors:[]};
 
   @Input()
   shelves: ShelfType[] = [];

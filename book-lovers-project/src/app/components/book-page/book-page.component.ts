@@ -176,6 +176,6 @@ export class BookPageComponent implements OnInit {
   getUserById(id: string): UserType {
     const user: UserType | undefined = this.users.find(user => user.id == id)
 
-    return user || { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "" };
+    return user || { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "", authors:[] };
   }
 }

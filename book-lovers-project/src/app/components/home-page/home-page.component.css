@@ -7,6 +7,18 @@ h1{
     font-family: Pacifico;
 }
 
+h2{
+    margin-top: 3rem;
+    margin-bottom: 0;
+    color: #523529;
+    font-size: 1.5rem; 
+    font-style: italic;
+    text-decoration: underline;
+    font-weight: bold;
+    font-family: Georgia;
+    margin-left: 2rem;
+}
+
 p {
     text-align: center;
     margin-top: 1em;
@@ -15,7 +27,7 @@ p {
 }
 
 ul {
-    margin-top: 0em;
+    margin-top: -5rem;
     display:inline-flex;
     justify-content: flex-start;
     flex-direction: row;

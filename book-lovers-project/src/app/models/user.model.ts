@@ -10,3 +10,10 @@ export type UserType = {
     password: string;
     authors: AuthorType[];
 }
+
+export type PagedUsersResponse = {
+    pageNumber: number,
+    pageSize: number,
+    totalPages: number,
+    data: UserType[],
+}

@@ -2,15 +2,23 @@
 using BookLoversProject.Application.Commands.Create.CreateUserCommand;
 using BookLoversProject.Application.Commands.Delete.DeleteUserCommand;
 using BookLoversProject.Application.Commands.Update.UpdateUserCommand;
+using BookLoversProject.Application.DTO.BookDTOs;
 using BookLoversProject.Application.DTO.UserDTOs;
+using BookLoversProject.Application.Queries.GetBooksCount;
+using BookLoversProject.Application.Queries.GetPagedBooksQuery;
 using BookLoversProject.Application.Queries.GetShelvesByUserIdQuery;
 using BookLoversProject.Application.Queries.GetUserByIdQuery;
+using BookLoversProject.Application.Queries.GetUsersCount;
 using BookLoversProject.Application.Queries.GetUsersQuery;
+using BookLoversProject.Application.Wrappers;
 using BookLoversProject.Domain.Domain;
+using BookLoversProject.Presentation.Filters;
 using BookLoversProject.Presentation.Services;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Security.Claims;
 
 namespace BookLoversProject.Presentation.Controllers
@@ -116,6 +124,22 @@ namespace BookLoversProject.Presentation.Controllers
             return Ok($"User added successfully to {roleName} role");
         }
 
+        [HttpGet]
+        [Route("{userId}/Roles")]
+        public async Task<IActionResult> GetRoles(string userId)
+        {
+            var userExists = await _userManager.FindByIdAsync(userId);
+
+            if (userExists == null)
+            {
+                return BadRequest("User does not exist!");
+            }
+
+            var roles = await _userManager.GetRolesAsync(userExists);
+
+            return Ok(roles);
+        }
+
         [HttpDelete]
         [Route("DeleteRole")]
         public async Task<IActionResult> DeleteFromRole(string userId, string roleName)
@@ -155,11 +179,21 @@ namespace BookLoversProject.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
         {
-            var query = new GetUsersQuery();
-            var result = await _mediator.Send(query);
-            return Ok(result);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var query = new GetUsersQuery
+            {
+                PageNumber = validFilter.PageNumber,
+                PageSize = validFilter.PageSize
+            };
+            var pagedData = await _mediator.Send(query);
+            var totalRecords = await _mediator.Send(new GetUsersCountQuery());
+            var totalPages = (double)totalRecords / (double)validFilter.PageSize;
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            return Ok(new PagedResponse<IEnumerable<UserGetDTO>>(pagedData, validFilter.PageNumber, validFilter.PageSize, roundedTotalPages));
         }
 
         [HttpGet]

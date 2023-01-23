@@ -1,0 +1,32 @@
+table td,
+table th {
+    padding: 2rem 2rem;
+}
+
+div {
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
+.paging{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem;
+}
+
+.page-number{
+    font-family: Pacifico;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 1rem;
+    color:  #523529;
+}
+
+img {
+    width: 4rem;
+    height: 4rem;
+    object-fit:cover;
+    border-radius: 50%;
+}

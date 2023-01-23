@@ -43,6 +43,8 @@ import { AuthorPageComponent } from './components/author-page/author-page.compon
 import { UpdateBookFormComponent } from './components/update-book-form/update-book-form.component';
 import { UpdateAuthorFormComponent } from './components/update-author-form/update-author-form.component';
 import { AddReviewWithRatingDialogComponent } from './components/dialogs/add-review-with-rating-dialog/add-review-with-rating-dialog.component';
+import { AllUsersPageComponent } from './components/all-users-page/all-users-page.component';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -69,6 +71,7 @@ import { AddReviewWithRatingDialogComponent } from './components/dialogs/add-rev
     UpdateBookFormComponent,
     UpdateAuthorFormComponent,
     AddReviewWithRatingDialogComponent,
+    AllUsersPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +93,8 @@ import { AddReviewWithRatingDialogComponent } from './components/dialogs/add-rev
     MatChipsModule,
     MatCheckboxModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

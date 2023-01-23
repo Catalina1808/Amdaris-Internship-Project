@@ -25,7 +25,6 @@ export class RegisterFormComponent implements OnInit {
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
       userName: [null, [Validators.required]],
-      isAdmin: [false, [Validators.required]],
       imagePath: [null],
       email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: [null, [Validators.required, Validators.minLength(6), this.containsDigitsAndLetters]],
@@ -58,9 +57,7 @@ export class RegisterFormComponent implements OnInit {
     document.getElementById("file-upload")?.click();
   }
 
-  onSubmit(form: FormGroup) {
-    const isAdmin: Boolean = this.registerForm.get('isAdmin')?.value;
-
+  onSubmit() {
     if (!this.registerForm.get('imagePath')?.value) {
       this.registerForm.get('imagePath')?.setValue('https://booklovers.blob.core.windows.net/photos/NoProfileImage.png');
     }
@@ -71,11 +68,7 @@ export class RegisterFormComponent implements OnInit {
         email: this.registerForm.get('email')?.value, password: this.registerForm.get('password')?.value, authors:[]
       };
 
-      this.userService.registerUser(user).subscribe(result => {
-        if (isAdmin){
-          this.userService.assignRole(result.userId, "Admin").subscribe();
-        }
-      });
+      this.userService.registerUser(user).subscribe();
 
       this.registerForm.reset();
       this.uploadedImage = null;
@@ -90,7 +83,6 @@ export class RegisterFormComponent implements OnInit {
     if (control.value != null && control.value.match("^(?=.*[a-zA-Z])(?=.*[0-9])")) {
       return null
     }
-
     return { "containsDigitsAndLetters": true }
   }
 

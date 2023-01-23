@@ -36,23 +36,9 @@ export class UpdateUserFormComponent {
       firstName: [x.firstName, [Validators.required]],
       lastName: [x.lastName, [Validators.required]],
       userName: [x.userName, [Validators.required]],
-      isAdmin: [this.isUserAdmin(), [Validators.required]],
       imagePath: [x.imagePath],
       email: [x.email, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
     });
-  }
-
-  isUserAdmin(): boolean {
-    const token = localStorage.getItem('token');
-    if (token) {
-      let jwtData = token.split('.')[1];
-      let decodedJwtJsonData = window.atob(jwtData);
-      let decodedJwtData = JSON.parse(decodedJwtJsonData);
-
-      if (decodedJwtData.role == "Admin")
-        return true;
-    }
-    return false;
   }
 
   onFileChange(event: any): void {
@@ -88,9 +74,7 @@ export class UpdateUserFormComponent {
     });
   }
 
-  onSubmit(form: FormGroup) {
-    const isAdmin: Boolean = this.updateForm.get('isAdmin')?.value;
-
+  onSubmit() {
     if (!this.updateForm.get('imagePath')?.value) {
       this.updateForm.get('imagePath')?.setValue(this.oldUser.imagePath);
     }
@@ -102,15 +86,7 @@ export class UpdateUserFormComponent {
       };
 
       this.userService.updateUser(user).subscribe(result => {
-        if (this.isUserAdmin() != isAdmin) {
-          if (isAdmin)
-            this.userService.assignRole(result.userId, "Admin").subscribe(x => this.loginUser(user));
-          else
-            this.userService.deleteRole(result.userId, "Admin").subscribe(x => this.loginUser(user));
-        } else {
-          this.loginUser(user)
-        }
-
+        this.loginUser(user);
       });
     }
   }

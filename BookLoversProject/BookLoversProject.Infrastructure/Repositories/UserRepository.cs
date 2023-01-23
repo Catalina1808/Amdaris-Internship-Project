@@ -25,13 +25,20 @@ namespace BookLoversProject.Infrastructure.Repositories
             _context.Users.Remove(user);
         }
 
-        public async Task<ICollection<User>> GetAllUsersAsync()
+        public int GetUsersCount()
+        {
+            return _context.Users.Count();
+        }
+
+        public async Task<ICollection<User>> GetAllUsersAsync(int pageNumber, int pageSize)
         {
             return await _context.Users
                 .Include(u => u.Authors)
                 .ThenInclude(ua => ua.Author)
                 .Include(u => u.Reviews)
                 .Include(u => u.Shelves)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 

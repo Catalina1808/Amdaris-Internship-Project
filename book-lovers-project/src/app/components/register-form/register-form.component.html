@@ -3,7 +3,7 @@
 </header>
 
 <div class="form">
-    <form [formGroup]="registerForm" class="form-group" (ngSubmit)="onSubmit(registerForm)">
+    <form [formGroup]="registerForm" class="form-group" (ngSubmit)="onSubmit()">
 
         <mat-form-field appearance="fill">
             <mat-label for="firstName">First Name</mat-label>
@@ -65,9 +65,6 @@
                 Upload image
             </button>
         </div>
-
-        <mat-checkbox class="checkbox" formControlName="isAdmin" color="primary" #isAdmin>Admin</mat-checkbox>
-
 
         <button type="submit" mat-raised-button color="primary">Submit</button>
     </form>

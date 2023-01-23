@@ -1,0 +1,47 @@
+<div>
+    <table mat-table [dataSource]="users">
+
+        <ng-container matColumnDef="imagePath">
+            <th mat-header-cell *matHeaderCellDef> Image </th>
+            <td mat-cell *matCellDef="let element"> <img src={{element.imagePath}}> </td>
+            <!-- <img mat-cell *matCellDef="let element" src={{element.imagePath}}> -->
+        </ng-container>
+
+        <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef> Username </th>
+            <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> First Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef> Last Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="admin">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button *ngIf="!isAdmin(element)" mat-stroked-button (click)="addAdminRole(element)"> Make admin</button>
+                <button *ngIf="isAdmin(element)" mat-stroked-button (click)="deleteAdminRole(element)"> Delete admin role</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<div class="paging">
+    <button [disabled]="disablePrevButton" mat-raised-button (click)="onPrevClick()">Prev</button>
+    <p class="page-number">{{pageNumber}}/{{totalPages}}</p>
+    <button [disabled]="disableNextButton" mat-raised-button (click)="onNextClick()">Next</button>
+</div>

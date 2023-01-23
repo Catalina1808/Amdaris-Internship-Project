@@ -30,7 +30,6 @@ import { DialogAddShelfComponent } from './components/dialogs/add-shelf-dialog/d
 import { DialogDeleteComponent } from './components/dialogs/delete-dialog/dialog-delete.component';
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AddReviewDialogComponent } from './components/dialogs/add-review-dialog/add-review-dialog.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
@@ -44,6 +43,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AuthorPageComponent } from './components/author-page/author-page.component';
 import { UpdateBookFormComponent } from './components/update-book-form/update-book-form.component';
 import { UpdateAuthorFormComponent } from './components/update-author-form/update-author-form.component';
+import { AddReviewWithRatingDialogComponent } from './components/dialogs/add-review-with-rating-dialog/add-review-with-rating-dialog.component';
 
 
 @NgModule({
@@ -62,7 +62,6 @@ import { UpdateAuthorFormComponent } from './components/update-author-form/updat
     DialogAddShelfComponent,
     DialogDeleteComponent,
     BookPageComponent,
-    AddReviewDialogComponent,
     ReviewCardComponent,
     ProfilePageComponent,
     CurrentUserProfileComponent,
@@ -70,7 +69,8 @@ import { UpdateAuthorFormComponent } from './components/update-author-form/updat
     AddGenreFormComponent,
     AuthorPageComponent,
     UpdateBookFormComponent,
-    UpdateAuthorFormComponent
+    UpdateAuthorFormComponent,
+    AddReviewWithRatingDialogComponent
   ],
   imports: [
     BrowserModule,

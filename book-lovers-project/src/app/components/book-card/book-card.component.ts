@@ -30,13 +30,4 @@ export class BookCardComponent {
   constructor(private messageService: MessagesService, private config: NgbRatingConfig) {
     config.max = 5;
   }
-
-  onButtonClick(): void {
-    this.messageService.sayMessage("Button was clicked from " + this.title + " book.");
-    this.sendDataEvent.emit("Button was clicked from " + this.title + " book.");
-  }
-
-  changedRating(): void {
-
-  }
 }

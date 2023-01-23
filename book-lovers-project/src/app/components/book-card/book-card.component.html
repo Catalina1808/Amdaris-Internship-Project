@@ -9,13 +9,13 @@
     <div class="grid-item  grid-item-right" >
         <h1>{{title}}</h1>
         <p class="author-button" [routerLink]="['/author', authorId]">By {{author}}</p>
-        <div class="stars">
-            <ngb-rating [(rate)]="currentRate" (rateChange)="changedRating()" [readonly]="readonlyRating">
+        <div class="stars" *ngIf="currentRate != -1">
+            <ngb-rating [(rate)]="currentRate" [readonly]="readonlyRating">
             </ngb-rating>
         </div>
         <br>
-        <button mat-button (click)="onButtonClick()">
-            Want to Read
+        <button mat-button [routerLink]="['/book', id]">
+            About book
         </button>
     </div>
 </div>

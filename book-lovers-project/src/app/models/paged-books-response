@@ -1,0 +1,7 @@
+import { BookType } from "./book.model";
+
+export type PagedBooksResponse = {
+    pageNumber: number,
+    pageSize: number,
+    data: BookType[],
+}

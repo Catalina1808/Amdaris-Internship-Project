@@ -4,16 +4,16 @@ import { ShelfType } from 'src/app/models/shelf.model';
 import { BooksService } from 'src/app/services/books.service';
 import { ShelvesService } from 'src/app/services/shelves.service';
 import { ActivatedRoute } from '@angular/router';
-import { AddReviewDialogComponent } from '../dialogs/add-review-dialog/add-review-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewType } from 'src/app/models/review.model';
 import { ReviewsService } from 'src/app/services/reviews.service';
 import { UserType } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users.service';
-import { map, Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogDeleteComponent } from '../dialogs/delete-dialog/dialog-delete.component';
 import { FileOperationsService } from 'src/app/services/file-operations.service';
+import { AddReviewWithRatingDialogComponent } from '../dialogs/add-review-with-rating-dialog/add-review-with-rating-dialog.component';
+import { Observable, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-book-page',
@@ -89,6 +89,33 @@ export class BookPageComponent implements OnInit {
     this.booksService.getUserShelves(this.userId).subscribe(x => this.shelves = x);
   }
 
+  onAddReviewClick(): void{
+    if (this.book.reviews?.some((element) => this.alreadyAddedReview(element))) {
+      const dialogRef = this.dialog.open(AddReviewWithRatingDialogComponent, { data: { message: "Change your review", rate: 0}});
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null && this.book.id != null) {
+          const review: ReviewType = { id: this.reviewId, rating: result.rate, comment: result.comment, userId: this.userId, bookId: this.book.id, date: new Date() };
+          this.reviewsService.putReview(review).subscribe(x => this.refreshBook());
+          this.snackBar.open("Review updated!", "Ok", {
+            duration: 2000,
+          });
+        }
+      });
+    } else {
+      const dialogRef = this.dialog.open(AddReviewWithRatingDialogComponent, { data: { message: "Add a review" , rate: 0} });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        if (result != null && this.book.id != null) {
+          const review: ReviewType = { id: 0, rating: result.rate, comment: result.comment, userId: this.userId, bookId: this.book.id, date: new Date() };
+          this.reviewsService.postReview(review).subscribe(x => this.refreshBook());
+          this.snackBar.open("Review added!", "Ok", {
+            duration: 2000,
+          });
+        }
+      });
+    }
+  }
+
   onShelfClick(shelf: ShelfType): void {
     if (this.verifyShelf(shelf)) {
       alert(`Book ${this.book.title} is already added to ${shelf.name} shelf!`);
@@ -135,34 +162,6 @@ export class BookPageComponent implements OnInit {
     return false;
   }
 
-  changedRating(): void {
-    if (this.book.reviews?.some((element) => this.alreadyAddedReview(element))) {
-      const dialogRef = this.dialog.open(AddReviewDialogComponent, { data: { message: "Change your review" } });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        if (result != null && this.book.id != null) {
-          const review: ReviewType = { id: this.reviewId, rating: this.currentRate, comment: result, userId: this.userId, bookId: this.book.id, date: new Date() };
-          this.reviewsService.putReview(review).subscribe(x => this.refreshBook());
-          this.snackBar.open("Review updated!", "Ok", {
-            duration: 2000,
-          });
-        }
-      });
-    } else {
-      const dialogRef = this.dialog.open(AddReviewDialogComponent, { data: { message: "Add a review" } });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        if (result != null && this.book.id != null) {
-          const review: ReviewType = { id: 0, rating: this.currentRate, comment: result, userId: this.userId, bookId: this.book.id, date: new Date() };
-          this.reviewsService.postReview(review).subscribe(x => this.refreshBook());
-          this.snackBar.open("Review added!", "Ok", {
-            duration: 2000,
-          });
-        }
-      });
-    }
-  }
-
   getBookRating(book: BookType): number {
     let averageRating: number = 0;
     book.reviews?.forEach(review => {
@@ -173,9 +172,9 @@ export class BookPageComponent implements OnInit {
     return averageRating / book.reviews.length;
   }
 
-  getUserById(id: string): UserType {
-    const user: UserType | undefined = this.users.find(user => user.id == id)
+  getUserById(id: string):UserType {
+    let user: UserType | undefined = this.users.find(user => user.id == id);
 
-    return user || { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "", authors:[] };
+    return user || {id: "", userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:"", authors:[]};
   }
 }

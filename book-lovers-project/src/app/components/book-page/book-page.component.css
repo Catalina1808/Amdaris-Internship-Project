@@ -27,6 +27,10 @@ p {
     font-size: 1.5rem;
 }
 
+.reviews{
+    align-items: flex-start;
+}
+
 ul {
     margin: 0em;
     display: flex;
@@ -55,7 +59,7 @@ ul {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1.5fr 0.5fr;
     margin: 1rem;
     padding: 10px;
     position: relative;
@@ -80,14 +84,16 @@ ul {
 }
 
 .edit-button{
-    margin-left: 1rem;
-    margin-right: 1rem;
     margin-top: 0.5rem;
+}
+
+.review-button{
+    margin-top: 1rem;
 }
 
 .admin-buttons{
     display: grid;
-    margin-top: 1rem;
+    margin: 1rem;
 }
 
 .author-name {

@@ -25,13 +25,14 @@
                     </div>
                 </li>
             </ul>
-        </mat-expansion-panel>      
-        
+        </mat-expansion-panel>
+
         <button class="review-button" mat-raised-button color="accent" (click)="onAddReviewClick()">
             Add a review
-        </button>  
+        </button>
         <div class="admin-buttons">
-            <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button" [routerLink]="['/update-book', book.id]">
+            <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button"
+                [routerLink]="['/update-book', book.id]">
                 Edit book
             </button>
             <button mat-raised-button *ngIf="isAdmin" color="warn" class="edit-button" (click)="onDeleteClick()">
@@ -43,7 +44,8 @@
         <h1>{{book.title}}</h1>
         <div class="authors-list">
             <p>By</p>
-            <p [routerLink]="['/author', author.id]" class="author-name" *ngFor="let author of book.authors">&nbsp; {{author.name}}</p>
+            <p [routerLink]="['/author', author.id]" class="author-name" *ngFor="let author of book.authors">&nbsp;
+                {{author.name}}</p>
         </div>
         <h2>{{book.description}}</h2>
 
@@ -51,8 +53,13 @@
         <p class="review-title">Reviews:</p>
         <ul class="reviews">
             <li *ngFor="let review of book.reviews">
-                <app-review-card  #reviewCard [user]="getUserById(review.userId)" [currentRate]="review.rating" [comment]="review.comment" [date]="review.date"
-                    ></app-review-card>
+                <app-review-card #reviewCard [user]="getUserById(review.userId)" [currentRate]="review.rating"
+                    [comment]="review.comment" [date]="review.date">
+                </app-review-card>
+                <button mat-mini-fab class="delete-review" (click)="onDeleteReviewClick(review)"
+                    *ngIf="getUserById(review.userId).id === userId" >
+                    <mat-icon>delete</mat-icon>
+                </button>
             </li>
         </ul>
     </div>

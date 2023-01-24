@@ -73,6 +73,7 @@ export class BookPageComponent implements OnInit {
       this.booksService.getBookById(+bookId).subscribe(x => {
         this.book = x;
         this.currentRate = this.getBookRating(this.book);
+        this.getUsers();
       });
     }
   }
@@ -89,9 +90,9 @@ export class BookPageComponent implements OnInit {
     this.booksService.getUserShelves(this.userId).subscribe(x => this.shelves = x);
   }
 
-  onAddReviewClick(): void{
+  onAddReviewClick(): void {
     if (this.book.reviews?.some((element) => this.alreadyAddedReview(element))) {
-      const dialogRef = this.dialog.open(AddReviewWithRatingDialogComponent, { data: { message: "Change your review", rate: 0}});
+      const dialogRef = this.dialog.open(AddReviewWithRatingDialogComponent, { data: { message: "Change your review", rate: 0 } });
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && this.book.id != null) {
           const review: ReviewType = { id: this.reviewId, rating: result.rate, comment: result.comment, userId: this.userId, bookId: this.book.id, date: new Date() };
@@ -102,7 +103,7 @@ export class BookPageComponent implements OnInit {
         }
       });
     } else {
-      const dialogRef = this.dialog.open(AddReviewWithRatingDialogComponent, { data: { message: "Add a review" , rate: 0} });
+      const dialogRef = this.dialog.open(AddReviewWithRatingDialogComponent, { data: { message: "Add a review", rate: 0 } });
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         if (result != null && this.book.id != null) {
@@ -140,15 +141,29 @@ export class BookPageComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogDeleteComponent, { data: `${this.book.title} book` });
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed && this.book.id !== undefined) {
-        this.booksService.deleteBook(this.book.id).subscribe(x =>{
+        this.booksService.deleteBook(this.book.id).subscribe(x => {
           const indexOfLastSlash = this.book.image.lastIndexOf('/');
-          this.filesService.deletePhoto(this.book.image.substring(indexOfLastSlash +1)).subscribe();
+          this.filesService.deletePhoto(this.book.image.substring(indexOfLastSlash + 1)).subscribe();
           this.snackBar.open(`Book ${this.book.title} deleted!`, "Ok", {
             duration: 2000,
-          })});
-        }
+          })
+        });
+      }
     });
   }
+
+  onDeleteReviewClick(review: ReviewType): void {
+    const dialogRef = this.dialog.open(DialogDeleteComponent, { data: `your review` });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.reviewsService.deleteReview(review.id).subscribe(x => this.refreshBook());
+        this.snackBar.open(`Your review was deleted!`, "Ok", {
+          duration: 2000,
+        })
+      }
+    });
+  }
+
 
   verifyShelf(shelf: ShelfType): boolean {
     return shelf.books.some((b) => { return b.id == this.book.id })
@@ -169,12 +184,12 @@ export class BookPageComponent implements OnInit {
     });
     if (book.reviews == null || book.reviews.length == 0)
       return 0;
-    return averageRating / book.reviews.length;
+    return +(averageRating / book.reviews.length).toFixed(2);
   }
 
-  getUserById(id: string):UserType {
+  getUserById(id: string): UserType {
     let user: UserType | undefined = this.users.find(user => user.id == id);
 
-    return user || {id: "", userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:"", authors:[]};
+    return user || { id: "", userName: "", firstName: "", lastName: "", email: "", password: "", imagePath: "", authors: [] };
   }
 }

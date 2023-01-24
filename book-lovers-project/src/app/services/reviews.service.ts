@@ -16,4 +16,8 @@ export class ReviewsService {
   putReview(review: ReviewType): Observable<ReviewType> {
     return this.httpClient.put<ReviewType>(`api/Review/${review.id}`, review);
   }
+
+  deleteReview(id: number): Observable<{}> {
+    return this.httpClient.delete<ReviewType>(`api/Review/${id}`);
+  }
 }

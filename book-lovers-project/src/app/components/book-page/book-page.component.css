@@ -101,3 +101,8 @@ ul {
 .author-name {
     text-decoration: underline;
 }
+
+.delete-review{
+    margin-left: -3.5rem;
+    margin-top: -0.5rem;
+}

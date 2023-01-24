@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserType } from 'src/app/models/user.model';
 
 @Component({
@@ -11,8 +12,12 @@ export class ReviewCardComponent{
   comment: string = "";
   @Input()
   user: UserType =  {id: "", userName: "", firstName: "", lastName: "", email: "", password:"", imagePath:"", authors:[]};
-
   @Input()
   date: Date = new Date();
+  @Input()
+  currentRate: number = 0;
 
+  constructor(private config: NgbRatingConfig) {
+    config.max = 5;
+  }
 }

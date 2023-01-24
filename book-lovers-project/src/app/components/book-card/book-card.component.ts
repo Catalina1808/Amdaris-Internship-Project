@@ -18,14 +18,8 @@ export class BookCardComponent {
   id: number = 0;
   @Input()
   authorId: number = 0;
-
-  @Input()
-  readonlyRating = true;
   @Input()
   currentRate: number = 0;
-
-  @Output()
-  sendDataEvent: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private messageService: MessagesService, private config: NgbRatingConfig) {
     config.max = 5;

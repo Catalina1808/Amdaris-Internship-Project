@@ -27,8 +27,8 @@ export class HomePageComponent implements OnInit {
     let randomIndex: number = 0;
     this.usersService.getUserById(this.userId).subscribe(user => {
       authors = user.authors;
-      randomIndex = Math.floor(Math.random() * (authors.length - 1) + 1);
-      this.author = authors[randomIndex - 1];
+      randomIndex = Math.floor(Math.random() * authors.length);
+      this.author = authors[randomIndex];
       if (this.author.books.length > 4)
         this.books = this.author.books.slice(-4);
       else

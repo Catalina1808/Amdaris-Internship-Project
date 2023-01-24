@@ -8,12 +8,18 @@ img {
 
 h1 {
     font-size: 1.1rem;
+    font-family: Georgia;
 }
 
 h2 {
     margin-top: -1rem;
     font-size: 0.4 rem;
     font-family: Pacifico;
+    margin-bottom: 0.2rem;
+}
+
+.stars{
+    margin-bottom: 0.8rem;
 }
 
 

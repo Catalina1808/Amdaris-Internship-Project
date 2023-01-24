@@ -21,4 +21,22 @@ export class GenresService {
     })
     return this.httpClient.post(`api/Genres`, genre, { headers: headers })
   }
+
+  putGenre(genre: GenreType, id: number): Observable<GenreType> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.put<GenreType>(`api/Genres/${id}`, genre, { headers: headers });
+  }
+
+  deleteGenre(id: number): Observable<{}> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.delete<GenreType>(`api/Genres/${id}`, { headers: headers });
+  }
 }

@@ -37,7 +37,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatMenuModule} from '@angular/material/menu';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { UpdateUserFormComponent } from './components/update-user-form/update-user-form.component';
-import { AddGenreFormComponent } from './components/add-genre-form/add-genre-form.component';
+import { AddGenreFormComponent } from './components/genre-operations-form/add-genre-form.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AuthorPageComponent } from './components/author-page/author-page.component';
 import { UpdateBookFormComponent } from './components/update-book-form/update-book-form.component';

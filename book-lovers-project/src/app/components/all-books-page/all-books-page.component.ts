@@ -15,7 +15,7 @@ export class AllBooksPageComponent implements OnInit {
   books: BookType[] = []
   genres: GenreType[] = []
   pageNumber: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 3;
   totalPages: number = 0;
   disablePrevButton = true;
   disableNextButton = false;

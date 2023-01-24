@@ -5,6 +5,10 @@
     <div>
         <p>{{date | date}}</p>
         <h2 [routerLink]="['/user', user.id]">{{user.firstName + " " + user.lastName}}</h2>
+        <div class="stars">
+            <ngb-rating [(rate)]="currentRate" [readonly]="true">
+            </ngb-rating>
+        </div>
         <h1>{{comment}}</h1>
     </div>
 </div>

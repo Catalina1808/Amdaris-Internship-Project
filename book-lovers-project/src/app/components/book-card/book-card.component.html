@@ -10,7 +10,7 @@
         <h1>{{title}}</h1>
         <p class="author-button" [routerLink]="['/author', authorId]">By {{author}}</p>
         <div class="stars" *ngIf="currentRate != -1">
-            <ngb-rating [(rate)]="currentRate" [readonly]="readonlyRating">
+            <ngb-rating [(rate)]="currentRate" [readonly]="true">
             </ngb-rating>
         </div>
         <br>

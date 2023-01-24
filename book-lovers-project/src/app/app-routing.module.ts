@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddAuthorFormComponent } from './components/add-author-form/add-author-form.component';
 import { AddBookFormComponent } from './components/add-book-form/add-book-form.component';
-import { AddGenreFormComponent } from './components/add-genre-form/add-genre-form.component';
+import { AddGenreFormComponent } from './components/genre-operations-form/add-genre-form.component';
 import { AllBooksPageComponent } from './components/all-books-page/all-books-page.component';
 import { AllUsersPageComponent } from './components/all-users-page/all-users-page.component';
 import { AuthorPageComponent } from './components/author-page/author-page.component';

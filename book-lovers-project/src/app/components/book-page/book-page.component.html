@@ -51,7 +51,7 @@
         <p class="review-title">Reviews:</p>
         <ul class="reviews">
             <li *ngFor="let review of book.reviews">
-                <app-review-card  #reviewCard [user]="getUserById(review.userId)"  [comment]="review.comment" [date]="review.date"
+                <app-review-card  #reviewCard [user]="getUserById(review.userId)" [currentRate]="review.rating" [comment]="review.comment" [date]="review.date"
                     ></app-review-card>
             </li>
         </ul>

@@ -30,6 +30,9 @@ namespace BookLoversProject.Infrastructure.Repositories
             var author = await _context.Authors
                 .Include(a => a.Books)
                 .ThenInclude(ba => ba.Book)
+                .ThenInclude(b => b.Reviews)
+                .Include(a => a.Books)
+                .ThenInclude(ba => ba.Book)
                 .ThenInclude(gb => gb.Genres)
                 .ThenInclude(g => g.Genre)
                 .Include(a => a.Followers)

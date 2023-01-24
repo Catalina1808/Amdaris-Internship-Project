@@ -45,7 +45,7 @@
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addAuthor($event)">
             <mat-autocomplete matInput #auto1="matAutocomplete" (optionSelected)="selectedAuthor($event)"
                 [displayWith]="getOptionName.bind(this)">
-                <mat-option *ngFor="let author of allAuthors" [value]="author">
+                <mat-option *ngFor="let author of filteredAuthors |async" [value]="author">
                     {{author.name}}
                 </mat-option>
             </mat-autocomplete>
@@ -69,9 +69,9 @@
             <input matInput type="text" formControlName="genres" placeholder="Pick one or more"
                 [matAutocomplete]="auto2" #genres [matChipInputFor]="chipGrid"
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addGenre($event)">
-            <mat-autocomplete matInput #auto2="matAutocomplete" (optionSelected)="selectedGenre($event)"
+            <mat-autocomplete matInput #auto2="matAutocomplete" (optionSelected)="selectedGenre($event)" autoActiveFirstOption
                 [displayWith]="getOptionName.bind(this)">
-                <mat-option *ngFor="let genre of allGenres" [value]="genre">
+                <mat-option *ngFor="let genre of filteredGenres |async" [value]="genre">
                     {{genre.name}}
                 </mat-option>
             </mat-autocomplete>

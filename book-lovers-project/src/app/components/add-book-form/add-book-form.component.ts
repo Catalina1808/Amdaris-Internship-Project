@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Observable } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import { AuthorType } from 'src/app/models/author.model';
 import { GenreType } from 'src/app/models/genre.model';
 import { AuthorsService } from 'src/app/services/authors.service';
@@ -26,16 +26,18 @@ export class AddBookFormComponent implements OnInit {
   authorsChips: AuthorType[] = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  filteredAuthors: Observable<AuthorType[]> = new Observable();
+  filteredGenres: Observable<GenreType[]> = new Observable();
+
   loading: boolean = false; // Flag variable
   file!: File; // Variable to store file
   uploadedImage: string | null = null;
 
   constructor(private formBuilder: FormBuilder, private authorsService: AuthorsService,
-    private genresService: GenresService, private filesService: FileOperationsService, 
+    private genresService: GenresService, private filesService: FileOperationsService,
     private booksService: BooksService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-
     this.bookForm = this.formBuilder.group({
       title: [null, [Validators.required]],
       description: [null, [Validators.required]],
@@ -44,8 +46,31 @@ export class AddBookFormComponent implements OnInit {
       genres: [null, [Validators.required]],
     });
 
-    this.authorsService.getAllAuthors().subscribe(x => this.allAuthors = x);
-    this.genresService.getAllGenres().subscribe(x => this.allGenres = x);
+    this.authorsService.getAllAuthors().subscribe(x => {
+      this.allAuthors = x;
+      this.filteredAuthors = this.bookForm.controls['authors'].valueChanges.pipe(
+        startWith(''),
+        map(value => this.filterAuthors(value || '')),
+      );
+    });
+
+    this.genresService.getAllGenres().subscribe(x => {
+      this.allGenres = x;
+      this.filteredGenres = this.bookForm.controls['genres'].valueChanges.pipe(
+        startWith(''),
+        map(value => this.filterGenres(value || '')),
+      );
+    });
+  }
+
+  private filterAuthors(value: string): AuthorType[] {
+    const filterValue = value.toLowerCase();
+    return this.allAuthors.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  private filterGenres(value: string): GenreType[] {
+    const filterValue = value.toLowerCase();
+    return this.allGenres.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
   onFileChange(event: any): void {
@@ -62,7 +87,7 @@ export class AddBookFormComponent implements OnInit {
     this.loading = !this.loading;
     this.filesService.uploadPhoto(this.file).subscribe(
       x => {
-        this.bookForm.get('image')?.setValue(x.body);   
+        this.bookForm.get('image')?.setValue(x.body);
         this.snackBar.open("Image uploaded!", "Ok", {
           duration: 2000,
         });
@@ -84,22 +109,18 @@ export class AddBookFormComponent implements OnInit {
   addGenre(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     const genre = this.allGenres.find((genre) => { return genre.name == value });
-    // Add our fruit
     if (genre) {
       this.genresChips.push(genre);
     }
-    // Clear the input value
     event.chipInput!.clear();
   }
 
   addAuthor(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     const author = this.allAuthors.find((author) => { return author.name == value });
-    // Add our fruit
     if (author) {
       this.authorsChips.push(author);
     }
-    // Clear the input value
     event.chipInput!.clear();
   }
 
@@ -121,7 +142,7 @@ export class AddBookFormComponent implements OnInit {
 
   selectedGenre(event: MatAutocompleteSelectedEvent): void {
     if (!this.genresChips.includes(event.option.value)) {
-      this.genresChips.push(event.option.value)
+      this.genresChips.push(event.option.value);
     }
   }
 

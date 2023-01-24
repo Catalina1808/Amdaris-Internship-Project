@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'update-profile/:id', component: UpdateUserFormComponent},
   { path: 'update-book/:id', component: UpdateBookFormComponent},
   { path: 'update-author/:id', component: UpdateAuthorFormComponent},
-  { path: '', redirectTo: 'home', pathMatch: 'full'}
+  { path: '', redirectTo: 'all-books', pathMatch: 'full'}
 
 ];
 

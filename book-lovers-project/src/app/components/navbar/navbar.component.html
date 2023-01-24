@@ -5,9 +5,9 @@
     <a mat-button routerLink="/all-books">All Books</a>
 
     <span class="spacer"></span>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="search-bar"> 
         <mat-icon matPrefix>search</mat-icon>
-        <input type="text" matInput placeholder="Search" [matAutocomplete]="auto1" [formControl]="myControl"/>
+        <input type="text" matInput placeholder="Search books and authors" [matAutocomplete]="auto1" [formControl]="myControl"/>
         <mat-autocomplete autoActiveFirstOption matInput #auto1="matAutocomplete" (optionSelected)="selectedOption($event)"
         [displayWith]="getOptionName.bind(this)">
         <mat-option *ngFor="let author of filteredAuthors | async" [value]="author">

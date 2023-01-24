@@ -11,11 +11,11 @@ h1 {
 .background-block {
   width: 420px;
   height: 210px;
-  background-color: #523529;
+  background-color: #5b392a;
   border-width: 10px;
   border-radius: 0.5rem;
   position: absolute;
-  margin-top: 160px;
+  margin-top: 170px;
 }
 
 .grid-container {
@@ -31,7 +31,7 @@ h1 {
 
 .grid-item {
   font-family: Pacifico, serif;
-  color: rgb(248, 173, 127);
+  color: rgb(232, 170, 131);
   padding: 0.5rem;
   align-self: flex-end;
 }
@@ -46,5 +46,5 @@ button {
   border-radius: 1rem;
   border-color: rgb(252, 247, 247);
   float: left;
-  padding: 7px
+  padding: 1rem
 }

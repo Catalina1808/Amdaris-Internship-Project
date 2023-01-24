@@ -7,13 +7,13 @@
                     Bookshelves
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <ul>
+            <ul class="my-custom-theme">
                 <li *ngFor="let shelf of shelves">
                     <div class="shelf-container">
-                        <button class="shelf-button" mat-stroked-button color="accent" (click)="onShelfClick(shelf)">
+                        <button class="shelf-button" mat-raised-button color="accent" (click)="onShelfClick(shelf)">
                             {{shelf.name}}
                         </button>
-                        <button class="shelf-delete-button" mat-mini-fab (click)="onDeleteShelfClick(shelf)">
+                        <button color="accent" class="shelf-delete-button" mat-mini-fab (click)="onDeleteShelfClick(shelf)">
                           <mat-icon>delete</mat-icon>
                         </button>
                       </div>
@@ -21,7 +21,7 @@
             </ul>
         </mat-expansion-panel>
 
-        <button mat-raised-button (click)="addShelf()">
+        <button mat-raised-button (click)="addShelf()" color="primary">
             Add shelf
         </button>
     </mat-drawer>

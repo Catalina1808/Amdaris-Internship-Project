@@ -7,31 +7,31 @@
                     Genres
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <ul class="genres-list">
+            <ul class="my-custom-theme genres-list">
                 <li *ngFor="let genre of genres">
                     <div class="genre-container">
-                        <button class="genre-button" mat-stroked-button (click)="onGenreClick(genre)">
+                        <button class="genre-button" color="accent" mat-flat-button (click)="onGenreClick(genre)">
                             {{genre.name}}
                         </button>
                     </div>
                 </li>
                 <li>
-                    <button class="genre-button" mat-stroked-button (click)="onAllGenresClick()">
+                    <button class="genre-button" color="accent" mat-flat-button (click)="onAllGenresClick()">
                         All
                     </button>
                 </li>
             </ul>
         </mat-expansion-panel>
-
-        <div class="admin-buttons">
-            <button mat-raised-button *ngIf="userId !== ''" color="accent" class="follow-button"
-                (click)="onFollowClick()">
-                {{followButtonText}}
-                <mat-icon>
-                    done
-                </mat-icon>
-            </button>
-            <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button"
+        <button mat-raised-button *ngIf="userId !== ''" color="primary" class="follow-button"
+        (click)="onFollowClick()">
+        {{followButtonText}}
+        <mat-icon>
+            done
+        </mat-icon>
+    </button>
+        <div class="my-custom-theme admin-buttons">
+         
+            <button mat-raised-button *ngIf="isAdmin" color="accent" class="edit-button"
                 [routerLink]="['/update-author', author.id]">
                 Edit author
             </button>

@@ -12,10 +12,10 @@
                     Add to a bookshelf
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <ul>
+            <ul class="my-custom-theme">
                 <li *ngFor="let shelf of shelves">
                     <div class="shelf-container">
-                        <button class="shelf-button" mat-stroked-button color="accent" (click)="onShelfClick(shelf)">
+                        <button class="shelf-button" mat-flat-button color="accent" (click)="onShelfClick(shelf)">
                             {{shelf.name}}
                         </button>
                         <button mat-icon-button color="accent" *ngIf="verifyShelf(shelf)"
@@ -27,11 +27,11 @@
             </ul>
         </mat-expansion-panel>
 
-        <button class="review-button" mat-raised-button color="accent" (click)="onAddReviewClick()">
+        <button class="review-button" mat-raised-button color="primary" (click)="onAddReviewClick()">
             Add a review
         </button>
-        <div class="admin-buttons">
-            <button mat-raised-button *ngIf="isAdmin" color="primary" class="edit-button"
+        <div class="my-custom-theme admin-buttons">
+            <button mat-raised-button *ngIf="isAdmin" color="accent" class="edit-button"
                 [routerLink]="['/update-book', book.id]">
                 Edit book
             </button>
@@ -51,13 +51,13 @@
 
         <br>
         <p class="review-title">Reviews:</p>
-        <ul class="reviews">
+        <ul class="my-custom-theme reviews">
             <li *ngFor="let review of book.reviews">
                 <app-review-card #reviewCard [user]="getUserById(review.userId)" [currentRate]="review.rating"
                     [comment]="review.comment" [date]="review.date">
                 </app-review-card>
                 <button mat-mini-fab class="delete-review" (click)="onDeleteReviewClick(review)"
-                    *ngIf="getUserById(review.userId).id === userId" >
+                    *ngIf="getUserById(review.userId).id === userId" color="primary">
                     <mat-icon>delete</mat-icon>
                 </button>
             </li>

@@ -6,7 +6,7 @@
     <div class="grid-item">
         <img src={{image}} [routerLink]="['/book', id]">
     </div>
-    <div class="grid-item  grid-item-right" >
+    <div class="my-custom-theme grid-item  grid-item-right" >
         <h1>{{title}}</h1>
         <p class="author-button" [routerLink]="['/author', authorId]">By {{author}}</p>
         <div class="stars" *ngIf="currentRate != -1">
@@ -14,7 +14,7 @@
             </ngb-rating>
         </div>
         <br>
-        <button mat-button [routerLink]="['/book', id]">
+        <button mat-raised-button color="warn" [routerLink]="['/book', id]">
             About book
         </button>
     </div>

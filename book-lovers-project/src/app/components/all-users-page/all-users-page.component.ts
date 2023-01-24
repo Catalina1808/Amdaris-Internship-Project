@@ -12,7 +12,7 @@ export class AllUsersPageComponent implements OnInit {
   users: UserType[] = [];
   displayedColumns: string[] = ['imagePath', 'userName', 'firstName', 'lastName', 'email', 'admin'];
   pageNumber: number = 1;
-  pageSize: number = 3;
+  pageSize: number = 4;
   totalPages: number = 0;
   disablePrevButton = true;
   disableNextButton = false;

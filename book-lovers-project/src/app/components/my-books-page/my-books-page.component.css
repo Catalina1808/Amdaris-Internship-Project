@@ -5,7 +5,6 @@ ul {
     flex-direction: column;
     align-items: center;
     position: relative;
-    overflow: auto;
     list-style: none;
     padding: 0;
 }
@@ -15,7 +14,7 @@ mat-drawer-content {
 }
 
 li.book-card {
-    margin-top: -4rem;
+    margin-top: -5rem;
 }
 
 .shelf-container {
@@ -58,16 +57,15 @@ mat-drawer {
     text-align: center;
 }
 
-button {
-    margin: 0.5rem;
-    padding: 0.5rem;
-}
-
 .shelf-button{
-    padding: 0.3rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
+    padding: 0.5rem;
     height: fit-content;
 }
 
 .shelf-delete-button{
-    margin-top: 0.7rem;
+    margin-top: 0.3rem;
+    padding: 0.5rem;
 }

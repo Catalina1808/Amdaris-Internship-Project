@@ -48,19 +48,27 @@ export class AddBookFormComponent implements OnInit {
 
     this.authorsService.getAllAuthors().subscribe(x => {
       this.allAuthors = x;
-      this.filteredAuthors = this.bookForm.controls['authors'].valueChanges.pipe(
-        startWith(''),
-        map(value => this.filterAuthors(value || '')),
-      );
+      this.setFilteredAuthors();
     });
 
     this.genresService.getAllGenres().subscribe(x => {
       this.allGenres = x;
-      this.filteredGenres = this.bookForm.controls['genres'].valueChanges.pipe(
-        startWith(''),
-        map(value => this.filterGenres(value || '')),
-      );
+      this.setFilteredGenres();
     });
+  }
+
+  setFilteredGenres(){
+    this.filteredGenres = this.bookForm.controls['genres'].valueChanges.pipe(
+      startWith(''),
+      map(value => this.filterGenres(value || '')),
+    );
+  }
+
+  setFilteredAuthors(){
+    this.filteredAuthors = this.bookForm.controls['authors'].valueChanges.pipe(
+      startWith(''),
+      map(value => this.filterAuthors(value || '')),
+    );
   }
 
   private filterAuthors(value: string): AuthorType[] {
@@ -69,6 +77,7 @@ export class AddBookFormComponent implements OnInit {
   }
 
   private filterGenres(value: string): GenreType[] {
+    console.log(value);
     const filterValue = value.toLowerCase();
     return this.allGenres.filter(option => option.name.toLowerCase().includes(filterValue));
   }
@@ -106,24 +115,6 @@ export class AddBookFormComponent implements OnInit {
       return ""
   }
 
-  addGenre(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-    const genre = this.allGenres.find((genre) => { return genre.name == value });
-    if (genre) {
-      this.genresChips.push(genre);
-    }
-    event.chipInput!.clear();
-  }
-
-  addAuthor(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-    const author = this.allAuthors.find((author) => { return author.name == value });
-    if (author) {
-      this.authorsChips.push(author);
-    }
-    event.chipInput!.clear();
-  }
-
   removeGenre(genre: GenreType): void {
     const index = this.genresChips.indexOf(genre);
 
@@ -142,13 +133,23 @@ export class AddBookFormComponent implements OnInit {
 
   selectedGenre(event: MatAutocompleteSelectedEvent): void {
     if (!this.genresChips.includes(event.option.value)) {
-      this.genresChips.push(event.option.value);
+     this.genresChips.push(event.option.value);
+      event.option.deselect();
+      this.bookForm.controls['genres'].reset();
+      this.bookForm.controls['genres'].markAsPristine();
+      this.bookForm.controls['genres'].markAsUntouched();
+      this.setFilteredGenres();
     }
   }
 
   selectedAuthor(event: MatAutocompleteSelectedEvent): void {
     if (!this.authorsChips.includes(event.option.value)) {
       this.authorsChips.push(event.option.value)
+      event.option.deselect();
+      this.bookForm.controls['authors'].reset();
+      this.bookForm.controls['authors'].markAsPristine();
+      this.bookForm.controls['authors'].markAsUntouched();
+      this.setFilteredAuthors();
     }
   }
 

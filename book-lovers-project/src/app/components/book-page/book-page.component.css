@@ -34,6 +34,10 @@ p {
     height: 50vh;
 }
 
+mat-icon{
+color: aliceblue;
+}
+
 ul {
     margin: 0em;
     display: flex;

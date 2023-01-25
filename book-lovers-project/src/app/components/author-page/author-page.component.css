@@ -24,6 +24,7 @@ mat-panel-title, h1, h2{
 
 mat-panel-title{
     font-size: 1.2rem;
+    padding: 0.5rem;
 }
 
 h3 {

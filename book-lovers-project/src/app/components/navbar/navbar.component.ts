@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.authorsService.getAllAuthors().subscribe(authors => this.allAuthors = authors);
-    this.booksService.getAllBooks().subscribe(books => this.allBooks = books.data);
+    this.booksService.getAllBooks().subscribe(books => this.allBooks = books);
     this.filteredAuthors = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this.filterAuthors(value || '')),

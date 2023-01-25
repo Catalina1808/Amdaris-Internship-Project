@@ -12,12 +12,12 @@ export class BooksService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllBooks(): Observable<PagedBooksResponse> {
-    return this.httpClient.get<PagedBooksResponse>(`api/Books`);
+  getAllBooks(): Observable<BookType[]> {
+    return this.httpClient.get<BookType[]>(`api/Books`);
   }
 
   getPagedBooks(pageNumber: number, pageSize: number): Observable<PagedBooksResponse> {
-    return this.httpClient.get<PagedBooksResponse>(`api/Books?PageNumber=${pageNumber}&PageSize=${pageSize}`);
+    return this.httpClient.get<PagedBooksResponse>(`api/Books/Paged?PageNumber=${pageNumber}&PageSize=${pageSize}`);
   }
 
   getPagedBooksByGenre(pageNumber: number, pageSize: number, genreId:number): Observable<PagedBooksResponse> {

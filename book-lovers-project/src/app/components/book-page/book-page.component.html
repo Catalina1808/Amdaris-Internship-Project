@@ -3,7 +3,7 @@
         <img src={{book.image}}>
         <div class="stars">
             <h3>Rate: <b>{{currentRate}}</b></h3>
-            <ngb-rating [(rate)]="currentRate" (rateChange)="onAddReviewClick()" [max]="5">
+            <ngb-rating [(rate)]="currentRate" (rateChange)="onAddReviewClick()" [max]="5" [readonly]="userId === ''">
             </ngb-rating>
         </div>
         <mat-expansion-panel *ngIf="userId !== ''">
@@ -27,7 +27,7 @@
             </ul>
         </mat-expansion-panel>
 
-        <button class="review-button" mat-raised-button color="primary" (click)="onAddReviewClick()">
+        <button *ngIf="userId!=''" class="review-button" mat-raised-button color="primary" (click)="onAddReviewClick()">
             Add a review
         </button>
         <div class="my-custom-theme admin-buttons">

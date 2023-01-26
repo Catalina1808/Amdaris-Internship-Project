@@ -108,7 +108,7 @@ namespace BookLoversProject.Presentation.Controllers
             };
             var pagedData = await _mediator.Send(query);
             var totalRecords = await _mediator.Send(new GetBooksCountQuery());
-            var totalPages = (double) totalRecords / (double)validFilter.PageSize;
+            var totalPages = totalRecords / (double)validFilter.PageSize;
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
             return Ok(new PagedResponse<IEnumerable<BookGetDTO>>(pagedData, validFilter.PageNumber, validFilter.PageSize, roundedTotalPages));

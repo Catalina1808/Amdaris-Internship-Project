@@ -1,11 +1,5 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.Commands.Create.CreateUserCommand;
-using BookLoversProject.Application.Commands.Delete.DeleteUserCommand;
-using BookLoversProject.Application.Commands.Update.UpdateUserCommand;
-using BookLoversProject.Application.DTO.BookDTOs;
 using BookLoversProject.Application.DTO.UserDTOs;
-using BookLoversProject.Application.Queries.GetBooksCount;
-using BookLoversProject.Application.Queries.GetPagedBooksQuery;
 using BookLoversProject.Application.Queries.GetShelvesByUserIdQuery;
 using BookLoversProject.Application.Queries.GetUserByIdQuery;
 using BookLoversProject.Application.Queries.GetUsersCount;
@@ -18,8 +12,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using System.Security.Claims;
 
 namespace BookLoversProject.Presentation.Controllers
 {
@@ -78,22 +70,6 @@ namespace BookLoversProject.Presentation.Controllers
             {
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
-
-            //foreach(var role in roles)
-            //{
-            //    await _roleManager.CreateAsync(new IdentityRole
-            //    {
-            //        Name = role,
-            //    });
-            //    var addRoleToUser = await _userManager.AddToRoleAsync(newUser, role);
-
-            //    if (!addRoleToUser.Succeeded)
-            //    {
-            //        return BadRequest("Failed to add user to role");
-            //    }
-            //}
-
-            //var userToken = _tokenService.CreateToken(newUser, roles);
 
             return Ok(new { userId = newUser.Id });
         }
@@ -190,7 +166,7 @@ namespace BookLoversProject.Presentation.Controllers
             };
             var pagedData = await _mediator.Send(query);
             var totalRecords = await _mediator.Send(new GetUsersCountQuery());
-            var totalPages = (double)totalRecords / (double)validFilter.PageSize;
+            var totalPages = totalRecords / (double)validFilter.PageSize;
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
             return Ok(new PagedResponse<IEnumerable<UserGetDTO>>(pagedData, validFilter.PageNumber, validFilter.PageSize, roundedTotalPages));

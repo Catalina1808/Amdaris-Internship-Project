@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using System.Reflection.Metadata;
-
 namespace BookLoversProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
@@ -36,23 +34,6 @@ namespace BookLoversProject.Presentation.Controllers
 
             var blobUrl = blockBlob.Uri.AbsoluteUri;
             return Ok(blobUrl);
-        }
-
-        [HttpPost(nameof(DownloadFile))]
-        public async Task<IActionResult> DownloadFile(string fileName)
-        {
-            CloudBlockBlob blockBlob;
-            await using (MemoryStream memoryStream = new MemoryStream())
-            {
-                string blobstorageconnection = _configuration.GetValue<string>("BlobConnectionString");
-                CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(blobstorageconnection);
-                CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(_configuration.GetValue<string>("BlobContainerName"));
-                blockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
-                await blockBlob.DownloadToStreamAsync(memoryStream);
-            }
-            Stream blobStream = blockBlob.OpenReadAsync().Result;
-            return File(blobStream, blockBlob.Properties.ContentType, blockBlob.Name);
         }
 
 

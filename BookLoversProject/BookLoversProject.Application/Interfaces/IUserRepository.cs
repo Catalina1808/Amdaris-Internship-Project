@@ -6,10 +6,14 @@ namespace BookLoversProject.Application.Interfaces
     {
         Task<User> AddReaderAsync(User user);
 
-        Task<User> GetUserByIdAsync(int id);
+        Task<User> GetUserByIdAsync(string id);
 
-        Task<ICollection<User>> GetAllUsersAsync();
+        Task<ICollection<User>> GetAllUsersAsync(int pageNumber, int pageSize);
 
-        Task DeleteUserAsync(int id);
+        void DeleteUser(User user);
+
+        int GetUsersCount();
+
+        Task UpdateUserAsync(User user);
     }
 }

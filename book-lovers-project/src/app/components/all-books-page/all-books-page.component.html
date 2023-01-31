@@ -1,0 +1,44 @@
+<mat-drawer-container class="container">
+    <mat-drawer mode="side" opened>
+        <h1>All books</h1>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Genres
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="genres-list">
+                <li *ngFor="let genre of genres">
+                    <div class="genre-container">
+                        <button class="genre-button" mat-stroked-button (click)="onGenreClick(genre)">
+                            {{genre.name}}
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <button class="genre-button" mat-stroked-button (click)="onAllGenresClick()">
+                        All
+                    </button>
+                </li>
+            </ul>
+        </mat-expansion-panel>
+    </mat-drawer>
+    <mat-drawer-content>
+        <ul>
+            <li class="book-item"  *ngFor="let book of books">
+                <app-book-card [id]="book.id || 0" [title]="book.title | titlecase"
+                    [authorId]="book.authors[0].id" [author]="book.authors[0].name | heart" [image]="book.image"
+                    [currentRate]="getBookRating(book)">
+                </app-book-card>
+            </li>
+        </ul>
+
+        <br>
+        <div class="paging">
+            <button [disabled]="disablePrevButton" mat-raised-button (click)="onPrevClick()">Prev</button>
+            <p class="page-number">{{pageNumber}}/{{totalPages}}</p>
+            <button [disabled]="disableNextButton" mat-raised-button (click)="onNextClick()">Next</button>
+        </div>
+
+    </mat-drawer-content>
+</mat-drawer-container>

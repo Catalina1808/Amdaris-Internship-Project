@@ -1,0 +1,88 @@
+<div class="grid">
+
+    <div class="gid-item">
+        <header>
+            <h1>Add genre</h1>
+        </header>
+
+        <div class="form">
+            <form [formGroup]="genreAddForm" class="form-group" (ngSubmit)="onAddSubmit(genreAddForm)">
+
+                <mat-form-field appearance="fill">
+                    <mat-label for="name">Name</mat-label>
+                    <input matInput type="text" formControlName="name" #name>
+                    <mat-error *ngIf="genreAddForm.controls['name'].errors?.['required']">Name is required</mat-error>
+                </mat-form-field>
+
+
+                <button type="submit" mat-raised-button color="primary">Add genre</button>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="gid-item">
+        <header>
+            <h1>Edit genre</h1>
+        </header>
+
+        <div class="form">
+            <form [formGroup]="genreUpdateForm" class="form-group" (ngSubmit)="onUpdateSubmit(genreUpdateForm)">
+
+                <mat-form-field appearance="fill">
+                    <mat-label for="oldName">Old name</mat-label>
+                    <input matInput type="text" formControlName="oldName" placeholder="Pick one or more"
+                        [matAutocomplete]="auto1" #genres>
+                    <mat-autocomplete matInput #auto1="matAutocomplete" (optionSelected)="selectedUpdateGenre($event)"
+                        autoActiveFirstOption [displayWith]="getOptionName.bind(this)">
+                        <mat-option *ngFor="let genre of filteredUpdateGenres |async" [value]="genre">
+                            {{genre.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="genreUpdateForm.controls['name'].errors?.['required']">Name is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label for="name">New name</mat-label>
+                    <input matInput type="text" formControlName="name" #name>
+                    <mat-error *ngIf="genreUpdateForm.controls['name'].errors?.['required']">Name is required</mat-error>
+                </mat-form-field>
+                <button type="submit" mat-raised-button color="primary">Update genre</button>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="gid-item">
+        <header>
+            <h1>Delete genre</h1>
+        </header>
+
+        <div class="form">
+            <form [formGroup]="genreDeleteForm" class="form-group" (ngSubmit)="onDeleteSubmit(genreDeleteForm)">
+
+                <mat-form-field appearance="fill">
+                    <mat-label for="oldName">Name</mat-label>
+                    <input matInput type="text" formControlName="name" placeholder="Pick one or more"
+                        [matAutocomplete]="auto2" #genres>
+                    <mat-autocomplete matInput #auto2="matAutocomplete" (optionSelected)="selectedDeleteGenre($event)"
+                        autoActiveFirstOption [displayWith]="getOptionName.bind(this)">
+                        <mat-option *ngFor="let genre of filteredDeleteGenres |async" [value]="genre">
+                            {{genre.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="genreDeleteForm.controls['name'].errors?.['required']">Name is required</mat-error>
+                </mat-form-field>
+
+
+                <button type="submit" mat-raised-button color="primary">Delete genre</button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+</div>

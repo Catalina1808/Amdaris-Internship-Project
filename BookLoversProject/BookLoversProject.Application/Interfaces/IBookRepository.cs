@@ -10,8 +10,16 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<ICollection<Book>> GetAllBooksAsync();
 
-        Task DeleteBookAsync(int id);
+        int GetBooksCount();
 
-        Task<ICollection<Review>> GetReviewsByBookIdAsync(int bookId);
+        int GetBooksCountByGenre(int genreId);
+
+        Task<ICollection<Book>> GetPagedBooksAsync(int pageNumber, int pageSize);
+
+        Task<ICollection<Book>> GetPagedBooksByGenreAsync(int pageNumber, int pageSize, int genreId);
+
+        void DeleteBook(Book book);
+
+        Task UpdateBookAsync(Book book);
     }
 }

@@ -1,0 +1,20 @@
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1em;
+    text-align: center;
+    width: 35%;
+    margin: 0px auto;
+}
+
+div{
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    font-family: Pacifico;
+    margin-bottom: 2rem;
+}

@@ -1,0 +1,50 @@
+img {
+  width: 10rem;
+  height: 15rem;
+  border-radius: 0.5rem;
+}
+
+h1 {
+  font-family: Pacifico;
+}
+
+.background-block {
+  width: 420px;
+  height: 210px;
+  background-color: #5b392a;
+  border-width: 10px;
+  border-radius: 0.5rem;
+  position: absolute;
+  margin-top: 170px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 10px;
+  position: relative;
+  height: 22rem;
+  width: 26rem;
+}
+
+.grid-item {
+  font-family: Pacifico, serif;
+  color: rgb(232, 170, 131);
+  padding: 0.5rem;
+  align-self: flex-end;
+}
+
+.grid-item-right {
+  margin-left: -1rem;
+}
+
+button {
+  color: rgb(252, 247, 247);
+  background-color: rgb(205, 135, 91);
+  border-radius: 1rem;
+  border-color: rgb(252, 247, 247);
+  float: left;
+  padding: 1rem
+}

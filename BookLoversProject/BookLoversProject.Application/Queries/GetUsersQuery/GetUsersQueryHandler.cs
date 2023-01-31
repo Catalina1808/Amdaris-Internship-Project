@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.UserDTOs;
 using BookLoversProject.Application.Interfaces;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetUsersQuery
 {
-    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<UserDTO>>
+    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<UserGetDTO>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,11 +16,11 @@ namespace BookLoversProject.Application.Queries.GetUsersQuery
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<UserDTO>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<UserGetDTO>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.UserRepository.GetAllUsersAsync();              
+            var result = await _unitOfWork.UserRepository.GetAllUsersAsync(request.PageNumber, request.PageSize);
 
-            return result.Select(x => _mapper.Map<UserDTO>(x));
+            return result.Select(x => _mapper.Map<UserGetDTO>(x));
         }
     }
 }

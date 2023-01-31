@@ -20,13 +20,8 @@ namespace BookLoversProject.Infrastructure.Repositories
             return genre;
         }
 
-        public async Task DeleteGenreAsync(int id)
+        public void DeleteGenre(Genre genre)
         {
-            var genre = await _context.Genres.SingleOrDefaultAsync(x => x.Id == id);
-            if(genre == null)
-            {
-                throw new ArgumentNullException("There is no genre with the given ID.");
-            }
             _context.Genres.Remove(genre);
         }
 
@@ -34,6 +29,7 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             return await _context.Genres
                 .Include(g => g.Books)
+                .ThenInclude(gb => gb.Book)
                 .ToListAsync();
         }
 
@@ -41,14 +37,24 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             var genre = await _context.Genres
                 .Include(g => g.Books)
+                .ThenInclude(gb => gb.Book)
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             if (genre == null)
             {
-                throw new Exception("Exception occured, genre not found!");
+                throw new ObjectNotFoundException("Exception occured, genre not found!");
             }
 
             return genre;
+        }
+
+        public async Task UpdateGenreAsync(Genre genre)
+        {
+            var oldGenre = await GetGenreByIdAsync(genre.Id);
+
+            genre.Books = oldGenre.Books;
+
+            _context.Entry(oldGenre).CurrentValues.SetValues(genre);
         }
     }
 }

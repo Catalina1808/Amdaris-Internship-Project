@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.BookDTOs;
 using BookLoversProject.Application.Interfaces;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetBookByIdQuery
 {
-    public class GetBookByIdQueryHandler : IRequestHandler<GetBookByIdQuery, BookDTO>
+    public class GetBookByIdQueryHandler : IRequestHandler<GetBookByIdQuery, BookGetDTO>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,9 +16,9 @@ namespace BookLoversProject.Application.Queries.GetBookByIdQuery
             _mapper = mapper;
         }
 
-        public async Task<BookDTO> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
+        public async Task<BookGetDTO> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<BookDTO>(await _unitOfWork.BookRepository.GetBookByIdAsync(request.Id));
+            var result = _mapper.Map<BookGetDTO>(await _unitOfWork.BookRepository.GetBookByIdAsync(request.Id));
             return result;
         }
     }

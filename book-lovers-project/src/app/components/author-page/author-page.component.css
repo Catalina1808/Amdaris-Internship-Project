@@ -1,0 +1,118 @@
+img {
+    width: 10rem;
+    height: 10rem;
+    object-fit:cover;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.3rem;
+}
+
+hr{
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.7rem;
+}
+
+mat-panel-title, h1, h2{
+    font-family: Pacifico;
+}
+
+mat-panel-title{
+    font-size: 1.2rem;
+    padding: 0.5rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    font-family: Georgia;
+}
+
+p {
+    font-size: 1.4rem;
+}
+
+ .genres-list{
+    margin: 0em;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    list-style: none;
+    padding: 0;
+}
+
+.book-card{
+    margin-top: -5rem;
+    margin-bottom: 2rem;
+}
+
+.follow-button{
+    margin: 1rem;
+}
+
+.edit-button{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+}
+
+.genre-button{
+    margin: 0.3rem;
+}
+
+.admin-buttons{
+    display: grid;
+}
+
+.genre-container {
+    display: inline-flex;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    margin: 1rem;
+    padding: 10px;
+    position: relative;
+}
+
+.grid-item-middle {
+    font-family: Pacifico, serif;
+}
+
+.grid-item-left {
+    margin-left: auto;
+    margin-right: 3rem;
+    width: fit-content;
+    text-align: center;
+}
+
+.grid-item-right{
+    margin-right: 10rem;
+}
+
+.book-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    position: relative;
+    list-style: none;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 70vh;
+}
+
+.book-list-title{
+    color: #523529;
+    text-align: center;
+    font-family: Georgia;
+    font-weight: bold;
+    font-size: 1.7rem;
+}

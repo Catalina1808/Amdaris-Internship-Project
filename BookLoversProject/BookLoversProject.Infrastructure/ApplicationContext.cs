@@ -1,13 +1,13 @@
 ﻿using BookLoversProject.Domain.Domain;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace BookLoversProject.Infrastructure
 {
-    public class ApplicationContext :  DbContext
+    public class ApplicationContext :  IdentityDbContext<User>
     {
-        public DbSet<Admin> Admins { get; set; }
-
         public DbSet<Author> Authors { get; set; }
 
         public DbSet<Book> Books { get; set; }
@@ -25,6 +25,12 @@ namespace BookLoversProject.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Entity<IdentityUserLogin<string>>().HasKey(x => x.UserId);
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<IdentityUserToken<string>>().HasKey(x => x.UserId);
+
         }
+
     }
 }

@@ -1,0 +1,67 @@
+<div class="grid-container">
+    <div class="grid-item-left">
+        <img src={{book.image}}>
+        <div class="stars">
+            <h3>Rate: <b>{{currentRate}}</b></h3>
+            <ngb-rating [(rate)]="currentRate" (rateChange)="onAddReviewClick()" [max]="5" [readonly]="userId === ''">
+            </ngb-rating>
+        </div>
+        <mat-expansion-panel *ngIf="userId !== ''">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Add to a bookshelf
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="my-custom-theme">
+                <li *ngFor="let shelf of shelves">
+                    <div class="shelf-container">
+                        <button class="shelf-button" mat-flat-button color="accent" (click)="onShelfClick(shelf)">
+                            {{shelf.name}}
+                        </button>
+                        <button mat-icon-button color="accent" *ngIf="verifyShelf(shelf)"
+                            (click)="onAddedShelfClick(shelf)">
+                            <mat-icon>done_outline</mat-icon>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </mat-expansion-panel>
+
+        <button *ngIf="userId!=''" class="review-button" mat-raised-button color="primary" (click)="onAddReviewClick()">
+            Add a review
+        </button>
+        <div class="my-custom-theme admin-buttons">
+            <button mat-raised-button *ngIf="isAdmin" color="accent" class="edit-button"
+                [routerLink]="['/update-book', book.id]">
+                Edit book
+            </button>
+            <button mat-raised-button *ngIf="isAdmin" color="warn" class="edit-button" (click)="onDeleteClick()">
+                Delete book
+            </button>
+        </div>
+    </div>
+    <div class="grid-item-right">
+        <h1>{{book.title}}</h1>
+        <div class="authors-list">
+            <p>By</p>
+            <p [routerLink]="['/author', author.id]" class="author-name" *ngFor="let author of book.authors">&nbsp;
+                {{author.name}}</p>
+        </div>
+        <h2>{{book.description}}</h2>
+
+        <br>
+        <p class="review-title">Reviews:</p>
+        <ul class="my-custom-theme reviews">
+            <li *ngFor="let review of book.reviews">
+                <app-review-card #reviewCard [user]="getUserById(review.userId)" [currentRate]="review.rating"
+                    [comment]="review.comment" [date]="review.date">
+                </app-review-card>
+                <button mat-mini-fab class="delete-review" (click)="onDeleteReviewClick(review)"
+                    *ngIf="getUserById(review.userId).id === userId" color="primary">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+</div>

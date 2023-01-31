@@ -10,8 +10,8 @@
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +22,6 @@
     <Folder Include="Commands\Create\CreateGenreCommand\" />
     <Folder Include="Commands\Create\CreateShelfCommand\" />
     <Folder Include="Commands\Create\CreateReviewCommand\" />
-    <Folder Include="Commands\Delete\" />
   </ItemGroup>
 
 </Project>

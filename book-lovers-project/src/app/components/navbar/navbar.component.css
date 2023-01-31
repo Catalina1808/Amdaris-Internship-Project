@@ -1,0 +1,49 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  margin-bottom: 2rem;
+}
+
+a{
+  margin-left: 1rem;
+}
+
+span, p{
+  font-family: Pacifico;
+  margin-right: 2rem;
+}
+
+
+.icon-display {
+  transform: scale(1.6);
+  margin: 1rem;
+}
+
+.user-profile-button{
+  height: fit-content;
+}
+
+.search-bar{
+  width: 20rem;
+  height: 90%;
+  margin: 1rem;
+}
+
+button{
+  color: transparent;
+  font-family: Pacifico;
+  font-size: 1.3rem;
+  width: fit-content;
+  height: fit-content;
+
+}
+
+img {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 0.5rem;
+  object-fit:cover;
+  border-radius: 50%;
+}

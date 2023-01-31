@@ -1,10 +1,10 @@
-﻿using BookLoversProject.Application.DTO;
+﻿using BookLoversProject.Application.DTO.UserDTOs;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetUserByIdQuery
 {
-    public class GetUserByIdQuery : IRequest<UserDTO>
+    public class GetUserByIdQuery : IRequest<UserGetDTO>
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }

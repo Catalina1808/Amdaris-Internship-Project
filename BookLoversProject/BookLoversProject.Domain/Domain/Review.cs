@@ -5,5 +5,11 @@
         public string Comment { get; set; }
 
         public DateTime Date { get; set; }
+
+        public double Rating { get; set; }
+
+        public int BookId { get; set; }
+
+        public string UserId { get; set; }
     }
 }

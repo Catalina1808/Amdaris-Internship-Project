@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
+using BookLoversProject.Application.Commands.Create.CreateAuthorCommand;
+using BookLoversProject.Application.Commands.Delete.DeleteAuthorCommand;
+using BookLoversProject.Application.Commands.Delete.DeleteFollowerFromAuthorCommand;
+using BookLoversProject.Application.Commands.Update.AddFollowerToAuthorCommand;
 using BookLoversProject.Application.Commands.Update.UpdateAuthorCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.DTO.AuthorDTOs;
 using BookLoversProject.Application.Queries.GetAuthorByIdQuery;
 using BookLoversProject.Application.Queries.GetAuthorsQuery;
-using BookLoversProject.Domain.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
-namespace BookLoversProject.Api.Controllers
+namespace BookLoversProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,6 +25,32 @@ namespace BookLoversProject.Api.Controllers
         {
             _mediator = mediator;
             _mapper = mapper;
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateAuthor([FromBody] AuthorPutPostDTO author)
+        {
+            var command = _mapper.Map<CreateAuthorCommand>(author);
+
+            var result = await _mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetById), new { authorId = result.Id }, result);
+        }
+
+        [HttpPost]
+        [Route("{authorId}/Users/{userId}")]
+        public async Task<IActionResult> AddFollowerToAuthor(string userId, int authorId)
+        {
+            var command = new AddFollowerToAuthorCommand
+            {
+                AuthorId = authorId,
+                UserId = userId
+            };
+
+            var author = await _mediator.Send(command);
+
+            return Ok(author);
         }
 
         [HttpGet]
@@ -38,26 +68,47 @@ namespace BookLoversProject.Api.Controllers
             var query = new GetAuthorByIdQuery { Id = authorId };
             var result = await _mediator.Send(query);
 
-            if (result == null)
-                return NotFound();
-
             return Ok(result);
         }
 
         [HttpPut]
         [Route("{authorId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateAuthor(int authorId, [FromBody] AuthorPutPostDTO updatedAuthor)
         {
-
             var command = _mapper.Map<UpdateAuthorCommand>(updatedAuthor);
             command.Id = authorId;
 
             var result = await _mediator.Send(command);
 
-            if (result == null)
-                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("{authorId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteAuthor(int authorId)
+        {
+            var command = new DeleteAuthorCommand { Id = authorId };
+
+            await _mediator.Send(command);
 
             return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("{authorId}/Users/{userId}")]
+        public async Task<IActionResult> DeleteFollowerFromAuthor(string userId, int authorId)
+        {
+            var command = new DeleteFollowerFromAuthorCommand
+            {
+                AuthorId = authorId,
+                UserId = userId
+            };
+
+            var book = await _mediator.Send(command);
+
+            return Ok(book);
         }
     }
 }

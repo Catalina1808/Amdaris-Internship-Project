@@ -1,0 +1,12 @@
+<header>
+    <h1>Book Lovers</h1>
+</header>
+<p>What are you reading?</p>
+<br>
+<h2>Latest books from {{author.name}}:</h2>
+<ul>
+    <li *ngFor="let book of books">
+        <app-book-card #bookCard [id]="book.id || 0" [title]="book.title | titlecase" [author]="author.name | heart" [image]="book.image"
+        [authorId]="author.id"  [currentRate]="-1"></app-book-card>
+    </li>
+</ul>

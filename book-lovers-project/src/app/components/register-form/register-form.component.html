@@ -1,0 +1,77 @@
+<header>
+    <h1>Register</h1>
+</header>
+
+<div class="form">
+    <form [formGroup]="registerForm" class="form-group" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="fill">
+            <mat-label for="firstName">First Name</mat-label>
+            <input matInput
+                   type="text"
+                   formControlName="firstName"
+                   #firstName>
+            <mat-error *ngIf="registerForm.controls['firstName'].errors?.['required']">First name is required</mat-error>
+        </mat-form-field>
+
+        
+        <mat-form-field appearance="fill">
+            <mat-label for="lastName">Last Name</mat-label>
+            <input matInput
+                   type="text"
+                   formControlName="lastName"
+                   #lastName>
+            <mat-error *ngIf="registerForm.controls['lastName'].errors?.['required']">Last name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="userName">Username</mat-label>
+            <input matInput
+                   type="text"
+                   formControlName="userName"
+                   #userName>
+            <mat-error *ngIf="registerForm.controls['userName'].errors?.['required']">Username is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="email">Email</mat-label>
+            <input matInput
+                   type="email"
+                   formControlName="email"
+                   #email>
+            <mat-error *ngIf="registerForm.controls['email'].errors?.['required']">Email is required</mat-error>
+            <mat-error *ngIf="registerForm.controls['email'].errors?.['pattern']">Email is invalid</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="password">Password</mat-label>
+            <input matInput
+                   type="password"
+                   formControlName="password"
+                   #password>
+            <mat-error *ngIf="registerForm.controls['password'].errors?.['required']">Password is required</mat-error>
+            <mat-error *ngIf="registerForm.controls['password'].errors?.['minlength']">Enter 6 chars or more</mat-error>
+            <mat-error *ngIf="registerForm.controls['password'].errors?.['containsDigitsAndLetters']">Is should contain both letters and digits</mat-error>
+        </mat-form-field>
+
+        <div>
+            <button type="button" mat-flat-button class="image-button" (click)="openInput()">
+                Select profle image
+            </button>
+            <input hidden id="file-upload" type="file" (change)="onFileChange($event)">
+            <img *ngIf="uploadedImage != null" src={{uploadedImage}}>
+            <button type="button" *ngIf="uploadedImage != null" mat-raised-button class="image-button"
+                (click)="onUpload()">
+                Upload image
+            </button>
+        </div>
+
+        <button type="submit" mat-raised-button color="primary">Submit</button>
+    </form>
+
+    <div>
+        <p>Already have an accound?</p>
+        <button mat-raised-button routerLink="/login">Login here</button>
+    </div>
+ 
+</div>

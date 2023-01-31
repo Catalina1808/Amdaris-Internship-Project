@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.Commands.Update.UpdateGenreCommand;
+using BookLoversProject.Application.DTO.GenreDTOs;
 using BookLoversProject.Domain.Domain;
 
 namespace BookLoversProject.Application.Profiles
@@ -9,9 +10,11 @@ namespace BookLoversProject.Application.Profiles
     {
         public GenreProfile()
         {
-            CreateMap<GenrePutPostDTO, CreateGenreCommand>(); // ?
+            CreateMap<GenrePutPostDTO, UpdateGenreCommand>();
+            CreateMap<GenrePutPostDTO, CreateGenreCommand>();
+            CreateMap<Genre, GenreGetDTO>()
+                .ForMember(genreDTO => genreDTO.Books, opt => opt.MapFrom(genre => genre.Books.Select(genreBook => genreBook.Book)));
             CreateMap<Genre, GenreDTO>();
-            CreateMap<GenreDTO, Genre>();
         }
     }
 }

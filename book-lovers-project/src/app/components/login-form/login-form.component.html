@@ -1,0 +1,27 @@
+<header>
+    <h1>Log in</h1>
+</header>
+
+<div>
+    <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm" class="form-group">
+        <mat-form-field appearance="fill">
+            <mat-label for="userName">Username</mat-label>
+            <input matInput type="text" ngModel name="userName" #userName="ngModel" required>
+            <mat-error *ngIf="!userName.valid">Username is invalid</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="password">Password</mat-label>
+            <input matInput type="password" ngModel name="password" #password="ngModel" required password>
+            <mat-error *ngIf="!password.valid">Password is invalid</mat-error>
+        </mat-form-field>
+ 
+        <button type="submit" mat-raised-button color="primary">Log in</button>
+    </form>
+
+    <br>
+    <div>
+        <p>Do not have an accound?</p>
+        <button mat-raised-button routerLink="/register">Register here</button>
+    </div>
+</div>

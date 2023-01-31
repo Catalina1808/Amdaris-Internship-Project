@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
-using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
 using BookLoversProject.Application.Commands.Create.CreateShelfCommand;
+using BookLoversProject.Application.Commands.Delete.DeleteBookFromShelfCommand;
+using BookLoversProject.Application.Commands.Delete.DeleteShelfCommand;
 using BookLoversProject.Application.Commands.Update.AddBookToShelfCommand;
-using BookLoversProject.Application.DTO;
-using BookLoversProject.Application.Queries.GetGenreByIdQuery;
-using BookLoversProject.Application.Queries.GetGenresQuery;
+using BookLoversProject.Application.Commands.Update.UpdateShelfCommand;
+using BookLoversProject.Application.DTO.ShelfDTOs;
 using BookLoversProject.Application.Queries.GetShelfByIdQuery;
+using BookLoversProject.Application.Queries.GetShelvesByUserIdQuery;
+using BookLoversProject.Application.Queries.GetShelvesQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookLoversProject.Api.Controllers
+namespace BookLoversProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -26,20 +28,17 @@ namespace BookLoversProject.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateShelf([FromBody] ShelfPutPostDTO shelf)
+        public async Task<IActionResult> CreateShelf([FromBody] ShelfPostDTO shelf)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var command = _mapper.Map<CreateShelfCommand>(shelf);
 
             var result = await _mediator.Send(command);
 
-           return CreatedAtAction(nameof(GetById), new { shelfId = result.Id }, result);
+            return CreatedAtAction(nameof(GetById), new { shelfId = result.Id }, result);
         }
 
         [HttpPost]
-        [Route("{shelfId}/books/{bookId}")]
+        [Route("{shelfId}/Books/{bookId}")]
         public async Task<IActionResult> AddBookToShelf(int shelfId, int bookId)
         {
             var command = new AddBookToShelfCommand
@@ -50,10 +49,15 @@ namespace BookLoversProject.Api.Controllers
 
             var shelf = await _mediator.Send(command);
 
-            if (shelf == null)
-                return NotFound();
-
             return Ok(shelf);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var query = new GetShelvesQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -63,10 +67,44 @@ namespace BookLoversProject.Api.Controllers
             var query = new GetShelfByIdQuery { Id = shelfId };
             var result = await _mediator.Send(query);
 
-            if (result == null)
-                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("{shelfId}")]
+        public async Task<IActionResult> UpdateShelf(int shelfId, [FromBody] ShelfPutDTO updatedShelf)
+        {
+            var command = _mapper.Map<UpdateShelfCommand>(updatedShelf);
+            command.Id = shelfId;
+
+            var result = await _mediator.Send(command);
 
             return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("{shelfId}")]
+        public async Task<IActionResult> DeleteShelf(int shelfId)
+        {
+            var command = new DeleteShelfCommand { Id = shelfId };
+            await _mediator.Send(command);
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("{shelfId}/Books/{bookId}")]
+        public async Task<IActionResult> DeleteBookFromShelf(int shelfId, int bookId)
+        {
+            var command = new DeleteBookFromShelfCommand
+            {
+                BookId = bookId,
+                ShelfId = shelfId
+            };
+
+            var shelf = await _mediator.Send(command);
+
+            return Ok(shelf);
         }
     }
 }

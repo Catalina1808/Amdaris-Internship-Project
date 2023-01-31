@@ -1,0 +1,89 @@
+<header>
+    <h1>Update book</h1>
+</header>
+
+<div class="form">
+    <form [formGroup]="bookForm" class="form-group" (ngSubmit)="onSubmit(bookForm)">
+
+        <mat-form-field appearance="fill">
+            <mat-label for="title">Title</mat-label>
+            <input matInput type="text" formControlName="title" #title>
+            <mat-error *ngIf="bookForm.controls['title'].errors?.['required']">Title is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="description">Description</mat-label>
+            <input matInput type="text" formControlName="description" #description>
+            <mat-error *ngIf="bookForm.controls['description'].errors?.['required']">Description is required</mat-error>
+        </mat-form-field>
+
+        <div>
+            <button type="button" mat-raised-button class="image-button" (click)="openInput()">
+                Change image
+            </button>
+            <input hidden id="file-upload" type="file" (change)="onFileChange($event)">
+            <img *ngIf="uploadedImage != null" src={{uploadedImage}}>
+            <button type="button" *ngIf="uploadedImage != null" mat-raised-button class="image-button"
+                (click)="onUpload()">
+                Upload image
+            </button>
+            <mat-error class="image-error" *ngIf="bookForm.controls['image'].errors?.['required']">Image is required</mat-error>
+        </div>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="authors">Authors</mat-label>
+            <mat-chip-grid #chipGrid2 aria-label="Authors selection">
+                <mat-chip-row *ngFor="let author of authorsChips" (removed)="removeAuthor(author)">
+                    {{author.name}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + author.name">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+            </mat-chip-grid>
+            <input matInput type="text" placeholder="Pick one or more" formControlName="authors"
+                [matAutocomplete]="auto1" #authors [matChipInputFor]="chipGrid2"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addAuthor($event)">
+            <mat-autocomplete matInput #auto1="matAutocomplete" (optionSelected)="selectedAuthor($event)"
+                [displayWith]="getOptionName.bind(this)">
+                <mat-option *ngFor="let author of allAuthors" [value]="author">
+                    {{author.name}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-hint *ngIf="bookForm.controls['authors'].errors?.['required']">
+                <span class="mat-error" color="warn">
+                    At least one author is required
+                </span>
+            </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="genres">Genres</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Genres selection">
+                <mat-chip-row *ngFor="let genre of genresChips" (removed)="removeGenre(genre)">
+                    {{genre.name}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + genre.name">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+            </mat-chip-grid>
+            <input matInput type="text" formControlName="genres" placeholder="Pick one or more"
+                [matAutocomplete]="auto2" #genres [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addGenre($event)">
+            <mat-autocomplete matInput #auto2="matAutocomplete" (optionSelected)="selectedGenre($event)"
+                [displayWith]="getOptionName.bind(this)">
+                <mat-option *ngFor="let genre of allGenres" [value]="genre">
+                    {{genre.name}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-hint *ngIf="bookForm.controls['genres'].errors?.['required']" i18n>
+                <span class="mat-error" color="warn">
+                    At least one genre is required
+                </span>
+            </mat-hint>
+        </mat-form-field>
+
+        <button type="submit" mat-raised-button color="primary">Update book</button>
+
+    </form>
+
+</div>

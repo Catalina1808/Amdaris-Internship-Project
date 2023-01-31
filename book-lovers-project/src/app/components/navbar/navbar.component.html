@@ -1,0 +1,42 @@
+<mat-toolbar>
+    <span>Book Lovers</span>
+    <a *ngIf="token" mat-button routerLink="/home">Home</a>
+    <a *ngIf="token" mat-button routerLink="/my-books">My Books</a>
+    <a mat-button routerLink="/all-books">All Books</a>
+
+    <span class="spacer"></span>
+    <mat-form-field appearance="outline" class="search-bar"> 
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="text" matInput placeholder="Search books and authors" [matAutocomplete]="auto1" [formControl]="myControl"/>
+        <mat-autocomplete autoActiveFirstOption matInput #auto1="matAutocomplete" (optionSelected)="selectedOption($event)"
+        [displayWith]="getOptionName.bind(this)">
+        <mat-option *ngFor="let author of filteredAuthors | async" [value]="author">
+            {{author.name}}
+        </mat-option>
+        <mat-option *ngFor="let book of filteredBooks | async" [value]="book">
+            {{book.title}}
+        </mat-option>
+    </mat-autocomplete>
+    </mat-form-field>
+
+
+    <mat-icon class="icon-display" *ngIf="!token" routerLink="/login">account_circle</mat-icon>
+
+    <div *ngIf="getInfoFromToken()" (click)="getInfoFromToken()">
+        <button class="user-profile-button" mat-button [matMenuTriggerFor]="menu">
+            <img src={{userImage}}>
+            {{userName}}
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/user', userId]" *ngIf="token">Profile</button>
+            <button mat-menu-item routerLink="add-book" *ngIf="isAdmin">Add book</button>
+            <button mat-menu-item routerLink="add-author" *ngIf="isAdmin">Add author</button>
+            <button mat-menu-item routerLink="add-genre" *ngIf="isAdmin">Manage genres</button>
+            <button mat-menu-item routerLink="all-users" *ngIf="isAdmin">Manage users</button>
+            <button mat-menu-item (click)="logOut()" *ngIf="token">Log out</button>
+        </mat-menu>
+
+    </div>
+
+
+</mat-toolbar>

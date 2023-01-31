@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
 using BookLoversProject.Application.Commands.Create.CreateGenreCommand;
-using BookLoversProject.Application.DTO;
+using BookLoversProject.Application.Commands.Delete.DeleteGenreCommand;
+using BookLoversProject.Application.Commands.Update.UpdateGenreCommand;
+using BookLoversProject.Application.DTO.GenreDTOs;
 using BookLoversProject.Application.Queries.GetGenreByIdQuery;
 using BookLoversProject.Application.Queries.GetGenresQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
-namespace BookLoversProject.Api.Controllers
+namespace BookLoversProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -22,11 +26,9 @@ namespace BookLoversProject.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateGenre([FromBody] GenrePutPostDTO genre)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var command = _mapper.Map<CreateGenreCommand>(genre);
 
             var result = await _mediator.Send(command);
@@ -49,10 +51,32 @@ namespace BookLoversProject.Api.Controllers
             var query = new GetGenreByIdQuery { Id = genreId };
             var result = await _mediator.Send(query);
 
-            if (result == null)
-                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("{genreId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateGenre(int genreId, [FromBody] GenrePutPostDTO updatedGenre)
+        {
+
+            var command = _mapper.Map<UpdateGenreCommand>(updatedGenre);
+            command.Id = genreId;
+
+            var result = await _mediator.Send(command);
 
             return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("{genreId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteGenre(int genreId)
+        {
+            var command = new DeleteGenreCommand { Id = genreId };
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

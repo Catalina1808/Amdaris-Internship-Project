@@ -1,0 +1,10 @@
+<h1 id="title" mat-dialog-title>Add new shelf</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="name" cdkFocusInitial>Add</button>
+</div>

@@ -1,4 +1,5 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using BookLoversProject.Application.Exceptions;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,13 +20,8 @@ namespace BookLoversProject.Infrastructure.Repositories
             return author;
         }
 
-        public async Task DeleteAuthorAsync(int id)
+        public void DeleteAuthor(Author author)
         {
-            var author = await _context.Authors.SingleOrDefaultAsync(x => x.Id == id);
-            if(author == null)
-            {
-                throw new ArgumentNullException("There is no author with the given ID.");
-            }
             _context.Authors.Remove(author);
         }
 
@@ -33,12 +29,19 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             var author = await _context.Authors
                 .Include(a => a.Books)
+                .ThenInclude(ba => ba.Book)
+                .ThenInclude(b => b.Reviews)
+                .Include(a => a.Books)
+                .ThenInclude(ba => ba.Book)
+                .ThenInclude(gb => gb.Genres)
+                .ThenInclude(g => g.Genre)
                 .Include(a => a.Followers)
+                .ThenInclude(ua => ua.User)
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             if (author == null)
             {
-                throw new ArgumentNullException("Exception occured, author not found!");
+                throw new ObjectNotFoundException("Exception occured, author not found!");
             }
 
             return author;
@@ -48,13 +51,22 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             return await _context.Authors
                 .Include(a => a.Books)
+                .ThenInclude(ba => ba.Book)
+                .ThenInclude(gb => gb.Genres)
+                .ThenInclude(g => g.Genre)
                 .Include(a => a.Followers)
+                .ThenInclude(ua => ua.User)
                 .ToListAsync();
         }
 
-        public void UpdateAuthor(Author author)
+        public async Task UpdateAuthorAsync(Author author)
         {
-            _context.Update(author);
+            var oldAuthor = await GetAuthorByIdAsync(author.Id);
+
+            author.Books = oldAuthor.Books;
+            author.Followers = oldAuthor.Followers;
+
+            _context.Entry(oldAuthor).CurrentValues.SetValues(author);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BookLoversProject.Application.Interfaces;
+﻿using BookLoversProject.Application.Exceptions;
+using BookLoversProject.Application.Interfaces;
 using BookLoversProject.Domain.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,13 +20,8 @@ namespace BookLoversProject.Infrastructure.Repositories
             return review;
         }
 
-        public async Task DeleteReviewAsync(int id)
+        public void DeleteReview(Review review)
         {
-            var review = await _context.Reviews.SingleOrDefaultAsync(r => r.Id == id);
-            if (review == null)
-            {
-                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
-            }
             _context.Reviews.Remove(review);
         }
 
@@ -39,9 +35,19 @@ namespace BookLoversProject.Infrastructure.Repositories
             var review = await _context.Reviews.SingleOrDefaultAsync(x => x.Id == id);
             if (review == null)
             {
-                throw new Application.Exceptions.ReviewNotFoundException("Exception occured, review not found!");
+                throw new ObjectNotFoundException("Exception occured, review not found!");
             }
             return review;
+        }
+
+        public async Task UpdateReviewAsync(Review review)
+        {
+            var oldReview = await GetReviewByIdAsync(review.Id);
+
+            review.UserId = oldReview.UserId;
+            review.BookId = oldReview.BookId;
+
+            _context.Entry(oldReview).CurrentValues.SetValues(review);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace BookLoversProject.Application.Interfaces
 
         Task<ICollection<Review>> GetAllReviewsAsync();
 
-        Task DeleteReviewAsync(int id);
+        void DeleteReview(Review review);
+
+        Task UpdateReviewAsync(Review review);
     }
 }

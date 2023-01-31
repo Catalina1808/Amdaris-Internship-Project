@@ -1,9 +1,9 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.DTO.UserDTOs;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Create.CreateUserCommand
 {
-    public class CreateUserCommand : IRequest<User>
+    public class CreateUserCommand : IRequest<UserGetDTO>
     {
         public string FirstName { get; set; }
 
@@ -14,5 +14,7 @@ namespace BookLoversProject.Application.Commands.Create.CreateUserCommand
         public string Email { get; set; }
 
         public string Password { get; set; }
+
+        public string UserName { get; set; }
     }
 }

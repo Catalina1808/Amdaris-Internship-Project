@@ -1,0 +1,112 @@
+img {
+    width: 13rem;
+    height: 19rem;
+    border-radius: 0.5rem;
+}
+
+h1 {
+    font-family: Pacifico;
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    font-family: Georgia;
+}
+
+h3 {
+    font-family: Pacifico;
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
+p {
+    font-size: 1.2rem;
+}
+
+.review-title{
+    font-size: 1.5rem;
+}
+
+.reviews{
+    align-items: flex-start;
+    overflow: scroll;
+    height: 50vh;
+}
+
+mat-icon{
+color: aliceblue;
+}
+
+ul {
+    margin: 0em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    list-style: none;
+    padding: 0;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.shelf-button {
+    margin: 0.3rem;
+}
+
+.shelf-container {
+    display: inline-flex;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 0.5fr;
+    margin: 1rem;
+    padding: 10px;
+    position: relative;
+    width: auto;
+}
+
+.grid-item-right {
+    font-family: Pacifico, serif;
+    margin: 1rem;
+}
+
+.grid-item-left {
+    margin-left: auto;
+    margin-right: 4rem;
+    width: fit-content;
+    text-align: center;
+}
+
+.authors-list {
+    display: inline-flex;
+    margin-bottom: 1rem;
+}
+
+.edit-button{
+    margin-top: 0.5rem;
+}
+
+.review-button{
+    margin-top: 1rem;
+}
+
+.admin-buttons{
+    display: grid;
+    margin: 1rem;
+}
+
+.author-name {
+    text-decoration: underline;
+}
+
+.delete-review{
+    margin-left: -3.5rem;
+    margin-top: -0.5rem;
+}

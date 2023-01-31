@@ -9,6 +9,8 @@ namespace BookLoversProject.Domain.Domain
 
         public string Description { get; set; }
 
+        public string Image { get; set; }
+
         public ICollection<BookAuthor> Books { get; set; }
 
         public ICollection<UserAuthor> Followers { get; set; }

@@ -20,13 +20,8 @@ namespace BookLoversProject.Infrastructure.Repositories
             return book;
         }
 
-        public async Task DeleteBookAsync(int id)
+        public void DeleteBook(Book book)
         {
-            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == id);
-            if(book == null)
-            {
-                throw new BookNotFoundException();
-            }
             _context.Books.Remove(book);
         }
 
@@ -34,8 +29,55 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             return await _context.Books
                 .Include(b => b.Genres)
+                .ThenInclude(gb => gb.Genre)
                 .Include(b => b.Authors)
+                .ThenInclude(ba => ba.Author)
+                .Include(s => s.Shelves)
+                .ThenInclude(sb => sb.Shelf)
                 .Include(b => b.Reviews)
+                .ToListAsync();
+        }
+
+        public int GetBooksCount()
+        {
+            return _context.Books.Count();
+        }
+
+        public int GetBooksCountByGenre(int genreId)
+        {
+            return _context.Books
+                .Where(book => book.Genres.Any(gb => gb.GenreId == genreId))
+                .Count();
+        }
+
+        public async Task<ICollection<Book>> GetPagedBooksAsync(int pageNumber, int pageSize)
+        {
+            return await _context.Books
+                .Include(b => b.Genres)
+                .ThenInclude(gb => gb.Genre)
+                .Include(b => b.Authors)
+                .ThenInclude(ba => ba.Author)
+                .Include(s => s.Shelves)
+                .ThenInclude(sb => sb.Shelf)
+                .Include(b => b.Reviews)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+
+        public async Task<ICollection<Book>> GetPagedBooksByGenreAsync(int pageNumber, int pageSize, int genreId)
+        {
+            return await _context.Books
+                .Where(book => book.Genres.Any(gb => gb.GenreId == genreId))
+                .Include(b => b.Genres)
+                .ThenInclude(gb => gb.Genre)
+                .Include(b => b.Authors)
+                .ThenInclude(ba => ba.Author)
+                .Include(s => s.Shelves)
+                .ThenInclude(sb => sb.Shelf)
+                .Include(b => b.Reviews)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 
@@ -43,27 +85,32 @@ namespace BookLoversProject.Infrastructure.Repositories
         {
             var book = await _context.Books
                 .Include(b => b.Genres)
+                .ThenInclude(gb => gb.Genre)
                 .Include(b => b.Authors)
+                .ThenInclude(ba => ba.Author)
+                .Include(s => s.Shelves)
+                .ThenInclude(sb => sb.Shelf)
                 .Include(b => b.Reviews)
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             if (book == null)
             {
-                throw new BookNotFoundException("Exception occured, book not found!");
+                throw new ObjectNotFoundException("Exception occured, book not found!");
             }
 
             return book;
         }
 
-        public async Task<ICollection<Review>> GetReviewsByBookIdAsync(int bookId)
+        public async Task UpdateBookAsync(Book book)
         {
-            var book = await _context.Books.SingleOrDefaultAsync(x => x.Id == bookId);
-            if (book == null || book.Reviews == null)
-            {
-                throw new ReviewNotFoundException("Exception occured, _genres not found!");
-            }
+            var oldBook = await GetBookByIdAsync(book.Id);
 
-            return book.Reviews;
+            book.Reviews = oldBook.Reviews;
+            book.Authors = oldBook.Authors;
+            book.Shelves = oldBook.Shelves;
+            book.Genres = oldBook.Genres;
+
+            _context.Entry(oldBook).CurrentValues.SetValues(book);
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using BookLoversProject.Domain.Domain;
+﻿using BookLoversProject.Application.DTO.AuthorDTOs;
 using MediatR;
 
 namespace BookLoversProject.Application.Commands.Update.AddFollowerToAuthorCommand
 {
-    public class AddFollowerToAuthorCommand: IRequest<Author>
+    public class AddFollowerToAuthorCommand: IRequest<AuthorGetDTO>
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+
         public int AuthorId { get; set; }
     }
 }

@@ -1,9 +1,9 @@
-﻿using BookLoversProject.Application.DTO;
+﻿using BookLoversProject.Application.DTO.GenreDTOs;
 using MediatR;
 
 namespace BookLoversProject.Application.Queries.GetGenresQuery
 {
-    public class GetGenreQuery: IRequest<IEnumerable<GenreDTO>>
+    public class GetGenreQuery: IRequest<IEnumerable<GenreGetDTO>>
     {
     }
 }

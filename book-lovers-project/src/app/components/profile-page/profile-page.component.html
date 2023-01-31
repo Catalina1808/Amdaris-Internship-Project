@@ -1,0 +1,47 @@
+<div class="grid-container">
+    <div class="grid-item-left">
+        <img src={{user.imagePath}}>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Bookshelves
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="shelves-list">
+                <li *ngFor="let shelf of shelves">
+                    <div class="shelf-container">
+                        <button class="shelf-button" mat-stroked-button (click)="onShelfClick(shelf)">
+                            {{shelf.name}}
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </mat-expansion-panel>
+        <button *ngIf="isCurrentUser" mat-raised-button color="primary" class="edit-button" [routerLink]="['/update-profile', user.id]">
+            Edit profile
+        </button>
+
+    </div>
+    <div class="grid-item-middle">
+        <h1>{{user.firstName}} {{user.lastName}}</h1>
+        <hr>
+        <div class="authors-list">
+            <p>Username: {{user.userName}}</p>
+        </div>
+        <h3>Email: {{user.email}}</h3>
+
+    </div>
+
+
+    <div class="grid-item-right">
+        <h2 *ngIf="displayedBooks.length>0" class="book-list-title">{{displayedShelfName}} shelf:</h2>
+        <hr *ngIf="displayedBooks.length>0">
+        <ul class="book-list">
+            <li class="book-card" *ngFor="let book of displayedBooks">
+                <app-book-card #bookCard [id]="book.id || 0" [title]="book.title | titlecase"
+                    [author]="book.authors[0].name | heart" [image]="book.image" [authorId]="book.authors[0].id"
+                    [currentRate]="getBookRating(book)"></app-book-card>
+            </li>
+        </ul>
+    </div>
+</div>
